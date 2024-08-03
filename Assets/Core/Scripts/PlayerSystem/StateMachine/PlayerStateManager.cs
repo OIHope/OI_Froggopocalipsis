@@ -11,8 +11,11 @@ namespace BehaviourSystem
     public class PlayerStateManager : MonoBehaviour
     {
         [Header("State Machine Settings")]
+        [Space]
         [SerializeField] private PlayerStates _stateKey;
         [SerializeField] private PlayerSubStates _subStateKey;
+        [Space]
+        [Header("Main States")]
         [Space]
         [SerializeField] private StateSO<PlayerStates, PlayerSubStates> emptyState;
         [SerializeField] private StateSO<PlayerStates, PlayerSubStates> idleState;
@@ -20,6 +23,8 @@ namespace BehaviourSystem
         [SerializeField] private StateSO<PlayerStates, PlayerSubStates> dashState;
         [SerializeField] private StateSO<PlayerStates, PlayerSubStates> attackState;
         [SerializeField] private StateSO<PlayerStates, PlayerSubStates> stunState;
+        [Space]
+        [Header("Sub States")]
         [Space]
         [SerializeField] private SubStateSO emptySubState;
         [SerializeField] private SubStateSO aimSubState;

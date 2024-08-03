@@ -12,7 +12,6 @@ namespace BehaviourSystem
             UpdateLookDirection(stateMachine);
             RotateNavigationArrow(stateMachine);
         }
-
         private void UpdateLookDirection(PlayerStateManager stateMachine)
         {
             Vector2 pointerVector = PointerVector(stateMachine);

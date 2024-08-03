@@ -7,13 +7,13 @@ namespace BehaviourSystem
     {
         private float _duration;
         private float _elapsedTime = 0f;
+
         public override void EnterState(PlayerStateManager stateMachine)
         {
             base.EnterState(stateMachine);
             _duration = stateMachine.Context.StunDuration;
             _elapsedTime = 0f;
         }
-
         public override void FixedUpdateState(PlayerStateManager stateMachine)
         {
             HandleGravity(stateMachine);
@@ -34,10 +34,15 @@ namespace BehaviourSystem
                 * stateMachine.Context.AimDirection);
             _elapsedTime += Time.deltaTime;
         }
+
         public override PlayerStates GetNextState(PlayerStateManager stateMachine)
         {
             if (!_isComplete) return PlayerStates.Stun;
             return stateMachine.Context.IsMoving ? PlayerStates.Move : PlayerStates.Idle;
+        }
+        public override PlayerSubStates GetNextSubState(PlayerStateManager stateMachine)
+        {
+            return PlayerSubStates.Empty;
         }
 
         public void HandleGravity(PlayerStateManager stateMachine)
@@ -46,11 +51,6 @@ namespace BehaviourSystem
             float groundedGravity = -0.5f;
             float usedGravityValue = stateMachine.Context.Controller.isGrounded ? groundedGravity : gravity;
             stateMachine.Context.Controller.Move(Vector3.up * usedGravityValue * Time.deltaTime);
-        }
-
-        public override PlayerSubStates GetNextSubState(PlayerStateManager stateMachine)
-        {
-            return PlayerSubStates.Empty;
         }
     }
 }

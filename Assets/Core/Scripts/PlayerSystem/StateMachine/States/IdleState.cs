@@ -10,19 +10,6 @@ namespace BehaviourSystem
             HandleGravity(stateMachine);
         }
 
-        public override void UpdateState(PlayerStateManager stateMachine)
-        {
-            
-        }
-
-        public void HandleGravity(PlayerStateManager stateMachine)
-        {
-            float gravity = -9.5f;
-            float groundedGravity = -0.5f;
-            float usedGravityValue = stateMachine.Context.Controller.isGrounded ? groundedGravity : gravity;
-            stateMachine.Context.Controller.Move(Vector3.up * usedGravityValue * Time.deltaTime);
-        }
-
         public override PlayerStates GetNextState(PlayerStateManager stateMachine)
         {
             PlayerStates nextStateKey = stateMachine.StateKey;
@@ -30,13 +17,16 @@ namespace BehaviourSystem
             {
                 nextStateKey = PlayerStates.Move;
             }
-            if (stateMachine.Context.PressedDashInput)
+            if (stateMachine.Context.PressedDashInput && stateMachine.Context.CanDash)
             {
                 nextStateKey = PlayerStates.Dash;
             }
+            if (stateMachine.Context.PressedAttackInput && stateMachine.Context.CanAttack)
+            {
+                nextStateKey = PlayerStates.Attack;
+            }
             return nextStateKey;
         }
-
         public override PlayerSubStates GetNextSubState(PlayerStateManager stateMachine)
         {
             PlayerSubStates nextSubStateKey = stateMachine.SubStateKey;
@@ -49,6 +39,14 @@ namespace BehaviourSystem
                 nextSubStateKey = PlayerSubStates.NoAim;
             }
             return nextSubStateKey;
+        }
+
+        public void HandleGravity(PlayerStateManager stateMachine)
+        {
+            float gravity = -9.5f;
+            float groundedGravity = -0.5f;
+            float usedGravityValue = stateMachine.Context.Controller.isGrounded ? groundedGravity : gravity;
+            stateMachine.Context.Controller.Move(Vector3.up * usedGravityValue * Time.deltaTime);
         }
     }
 }

@@ -10,7 +10,6 @@ namespace BehaviourSystem
             PerformMove(stateMachine);
             HandleGravity(stateMachine);
         }
-
         private void PerformMove(PlayerStateManager stateMachine)
         {
             float speed = stateMachine.Context.MoveSpeed;
@@ -28,9 +27,13 @@ namespace BehaviourSystem
             {
                 nextStateKey = PlayerStates.Idle;
             }
-            if (stateMachine.Context.PressedDashInput)
+            if (stateMachine.Context.PressedDashInput && stateMachine.Context.CanDash)
             {
                 nextStateKey = PlayerStates.Dash;
+            }
+            if (stateMachine.Context.PressedAttackInput && stateMachine.Context.CanAttack)
+            {
+                nextStateKey = PlayerStates.Attack;
             }
             return nextStateKey;
         }

@@ -149,13 +149,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 36421222}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.95, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.95, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 710212753}
-  m_Father: {fileID: 484145952}
+  m_Father: {fileID: 62690908}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &36421224
 BoxCollider:
@@ -224,6 +224,38 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &62690907
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 62690908}
+  m_Layer: 6
+  m_Name: DamageDealer_Pivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &62690908
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62690907}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 36421223}
+  m_Father: {fileID: 484145952}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &167497580
 GameObject:
@@ -346,6 +378,7 @@ GameObject:
   - component: {fileID: 484145956}
   - component: {fileID: 484145957}
   - component: {fileID: 484145955}
+  - component: {fileID: 484145958}
   m_Layer: 6
   m_Name: PlayerInstance
   m_TagString: Player
@@ -367,7 +400,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1699778062}
-  - {fileID: 36421223}
+  - {fileID: 62690908}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &484145954
@@ -434,9 +467,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputManager: {fileID: 484145957}
   _stateManager: {fileID: 484145955}
+  _cooldownManager: {fileID: 484145958}
+  _damageDealerManager: {fileID: 36421225}
   _controller: {fileID: 484145954}
   _playerStats: {fileID: 11400000, guid: 3cbb0ce5073dc3b4cbafaa5b920d6e9f, type: 2}
-  _damageDealer: {fileID: 36421222}
+  _damageDealerPivot: {fileID: 62690907}
   _navigationArrow: {fileID: 1358984586}
 --- !u!114 &484145957
 MonoBehaviour:
@@ -451,6 +486,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _usingGamepad: 0
+--- !u!114 &484145958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484145950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9927c085351e7747aa524bdaffb4cb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &670147510
 GameObject:
   m_ObjectHideFlags: 0

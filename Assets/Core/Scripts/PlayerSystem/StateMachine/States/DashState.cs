@@ -15,9 +15,14 @@ namespace BehaviourSystem
 
             _duration = stateMachine.Context.DashAnimCurveDuration;
             _elapsedTime = 0f;
-            _dashDirection = stateMachine.Context.AimDirection;
+            _dashDirection = new(stateMachine.Context.AimDirection.x, 
+                0f, stateMachine.Context.AimDirection.z);
         }
-
+        public override void ExitState(PlayerStateManager stateMachine)
+        {
+            base.ExitState(stateMachine);
+            stateMachine.Context.StartDashCooldown();
+        }
         public override void FixedUpdateState(PlayerStateManager stateMachine)
         {
             if (_elapsedTime > _duration)
@@ -29,6 +34,14 @@ namespace BehaviourSystem
                 PerformDash(stateMachine);
             }
         }
+        private void PerformDash(PlayerStateManager stateMachine)
+        {
+            stateMachine.Context.Controller.Move(
+                stateMachine.Context.DashAnimationCurve.Evaluate(_elapsedTime)
+                * stateMachine.Context.DashSpeed * Time.deltaTime 
+                * _dashDirection);
+            _elapsedTime += Time.deltaTime;
+        }
 
         public override PlayerStates GetNextState(PlayerStateManager stateMachine)
         {
@@ -39,15 +52,6 @@ namespace BehaviourSystem
         public override PlayerSubStates GetNextSubState(PlayerStateManager stateMachine)
         {
             return stateMachine.SubStateKey;
-        }
-
-        private void PerformDash(PlayerStateManager stateMachine)
-        {
-            stateMachine.Context.Controller.Move(
-                stateMachine.Context.DashAnimationCurve.Evaluate(_elapsedTime)
-                * stateMachine.Context.DashSpeed * Time.deltaTime 
-                * _dashDirection);
-            _elapsedTime += Time.deltaTime;
         }
     }
 }
