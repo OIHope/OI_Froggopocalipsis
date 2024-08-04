@@ -12,7 +12,6 @@ public class BasicCameraFollowPlayerScript : MonoBehaviour
     [SerializeField] private Vector3 _cameraPos;
 
     [SerializeField] private float _followSmooth = 0.35f;
-    [SerializeField] private float _releaseSmooth = 0.1f;
     [SerializeField] private float _forwardDistance = 0.5f;
 
     private void FixedUpdate()
@@ -27,18 +26,9 @@ public class BasicCameraFollowPlayerScript : MonoBehaviour
         bool isMoving = inputDirection != Vector3.zero;
 
         Vector3 moveDirection = isMoving ? inputDirection.normalized * _forwardDistance : Vector3.zero;
-        Vector3 targetPos = _target.position + _cameraPos;
+        Vector3 targetPos = target.position + _cameraPos;
 
-        if (isMoving)
-        {
-            transform.position = Vector3.Lerp(transform.position, targetPos + moveDirection, _followSmooth);
-        }
-        else
-        {
-            transform.position = Vector3.Lerp(transform.position, targetPos, _releaseSmooth);
-        }
-
-        
+        transform.position = Vector3.Lerp(transform.position, targetPos + moveDirection, _followSmooth);
     }
 
     private void OnEnable()

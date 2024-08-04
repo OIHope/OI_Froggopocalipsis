@@ -9,9 +9,9 @@ namespace BehaviourSystem
         protected bool _isSwitchingState = false;
         public bool SubStateIsComplete => _isComplete;
         public bool IsSwitchingSubState => _isSwitchingState;
-        public virtual void EnterSubState(PlayerStateManager stateMachine) { }
-        public virtual void UpdateSubState(PlayerStateManager stateMachine) { }
-        public virtual void FixedUpdateSubState(PlayerStateManager stateMachine) { }
-        public virtual void ExitSubState(PlayerStateManager stateMachine) { }
+        public virtual void EnterSubState(PlayerStateMachine stateMachine) { }
+        public virtual void UpdateSubState(PlayerStateMachine stateMachine) { }
+        public virtual void FixedUpdateSubState(PlayerStateMachine stateMachine) { }
+        public virtual void ExitSubState(PlayerStateMachine stateMachine) { }
     }
 }

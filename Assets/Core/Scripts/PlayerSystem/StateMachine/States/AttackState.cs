@@ -1,17 +1,20 @@
+using PlayerSystem;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BehaviourSystem
 {
     [CreateAssetMenu(fileName = "Attack State", menuName = ("State Machine/State/Attack State"))]
-    public class AttackState : StateSO<PlayerStates, PlayerSubStates>, IGravityAffected<PlayerStateManager>
+    public class AttackState : StateSO<PlayerStates, PlayerSubStates>, IGravityAffected<PlayerStateMachine>
     {
         private float _duration;
         private float _elapsedTime = 0f;
         private Vector3 _attackDirection;
 
-        public override void EnterState(PlayerStateManager stateMachine)
+        [SerializeField] private List<AttackDataSO> attackDataList;
+
+        public override void EnterState(PlayerStateMachine stateMachine)
         {
-            Debug.Log("Entered attack state");
             base.EnterState(stateMachine);
 
             _duration = stateMachine.Context.AtttackAnimCurveDuration;
@@ -19,26 +22,19 @@ namespace BehaviourSystem
             _attackDirection = new(stateMachine.Context.AimDirection.x,
                 0f, stateMachine.Context.AimDirection.z);
 
-            stateMachine.Context.DamageDealerPivot.SetActive(true);
-            RotateDamageDealerArrow(stateMachine);
+            AttackDataSO attackDataSO = attackDataList[Random.Range(0, attackDataList.Count)];
+            stateMachine.Context.PerformAttack(attackDataSO, stateMachine.Context.AimDirection);
         }
 
-        private void RotateDamageDealerArrow(PlayerStateManager stateMachine)
-        {
-            Quaternion navigationArrowRotation = Quaternion.LookRotation(stateMachine.Context.AimDirection);
-            stateMachine.Context.DamageDealerPivot.transform.rotation = Quaternion.Euler(0f, navigationArrowRotation.eulerAngles.y, 0f);
-        }
-
-        public override void ExitState(PlayerStateManager stateMachine)
+        public override void ExitState(PlayerStateMachine stateMachine)
         {
             base.ExitState(stateMachine);
-            stateMachine.Context.DamageDealerPivot.SetActive(false);
+            stateMachine.Context.FinishAttack();
             stateMachine.Context.StartAttackCooldown();
         }
 
-        public override void FixedUpdateState(PlayerStateManager stateMachine)
+        public override void FixedUpdateState(PlayerStateMachine stateMachine)
         {
-            Debug.Log("Performing attack state");
             HandleGravity(stateMachine);
             if (_elapsedTime > _duration)
             {
@@ -50,23 +46,23 @@ namespace BehaviourSystem
             }
             
         }
-        private void PerformAttack(PlayerStateManager stateMachine)
+        private void PerformAttack(PlayerStateMachine stateMachine)
         {
-            stateMachine.Context.Controller.Move(
-                stateMachine.Context.AttackAnimationCurve.Evaluate(_elapsedTime)
+            Vector3 moveVector = stateMachine.Context.AttackAnimationCurve.Evaluate(_elapsedTime)
                 * stateMachine.Context.AttackSlideDistance * Time.deltaTime
-                * _attackDirection);
+                * _attackDirection;
+            stateMachine.Context.Move(moveVector);
             _elapsedTime += Time.deltaTime;
         }
 
 
 
-        public override PlayerStates GetNextState(PlayerStateManager stateMachine)
+        public override PlayerStates GetNextState(PlayerStateMachine stateMachine)
         {
             if (!_isComplete) return PlayerStates.Attack;
             return stateMachine.Context.IsMoving ? PlayerStates.Move : PlayerStates.Idle;
         }
-        public override PlayerSubStates GetNextSubState(PlayerStateManager stateMachine)
+        public override PlayerSubStates GetNextSubState(PlayerStateMachine stateMachine)
         {
             PlayerSubStates nextSubStateKey = stateMachine.SubStateKey;
             if (stateMachine.Context.IsAiming)
@@ -80,10 +76,9 @@ namespace BehaviourSystem
             return nextSubStateKey;
         }
 
-        public void HandleGravity(PlayerStateManager stateMachine)
+        public void HandleGravity(PlayerStateMachine stateMachine)
         {
-            float gravity = -0.5f;
-            stateMachine.Context.Controller.Move(gravity * Time.deltaTime * Vector3.up);
+            stateMachine.Context.HandleGravity(true);
         }
     }
 }

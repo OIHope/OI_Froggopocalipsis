@@ -7,12 +7,12 @@ namespace BehaviourSystem
     {
         [SerializeField] private LayerMask _groundLayer;
 
-        public override void UpdateSubState(PlayerStateManager stateMachine)
+        public override void UpdateSubState(PlayerStateMachine stateMachine)
         {
             UpdateLookDirection(stateMachine);
             RotateNavigationArrow(stateMachine);
         }
-        private void UpdateLookDirection(PlayerStateManager stateMachine)
+        private void UpdateLookDirection(PlayerStateMachine stateMachine)
         {
             Vector2 pointerVector = PointerVector(stateMachine);
             Vector3 aimDirection;
@@ -29,7 +29,7 @@ namespace BehaviourSystem
             stateMachine.Context.AimDirection = aimDirection.normalized;
         }
 
-        private void RotateNavigationArrow(PlayerStateManager stateMachine)
+        private void RotateNavigationArrow(PlayerStateMachine stateMachine)
         {
             Quaternion navigationArrowRotation = Quaternion.LookRotation(stateMachine.Context.AimDirection);
             stateMachine.Context.NavigationArrow.transform.rotation = Quaternion.Euler(90f, navigationArrowRotation.eulerAngles.y, 0f);
@@ -47,7 +47,7 @@ namespace BehaviourSystem
             }
             return mousePositionWorld;
         }
-        private Vector2 PointerVector(PlayerStateManager stateMachine)
+        private Vector2 PointerVector(PlayerStateMachine stateMachine)
         {
             Vector2 inputVector = stateMachine.Context.AimInput;
             return inputVector;

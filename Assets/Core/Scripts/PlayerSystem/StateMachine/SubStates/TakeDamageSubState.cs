@@ -5,22 +5,22 @@ namespace BehaviourSystem
     [CreateAssetMenu(fileName = "TakeDamage SubState", menuName = ("State Machine/SubState/TakeDamage SubState"))]
     public class TakeDamageSubState : SubStateSO
     {
-        public override void EnterSubState(PlayerStateManager stateMachine)
+        public override void EnterSubState(PlayerStateMachine stateMachine)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void ExitSubState(PlayerStateManager stateMachine)
+        public override void ExitSubState(PlayerStateMachine stateMachine)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void FixedUpdateSubState(PlayerStateManager stateMachine)
+        public override void FixedUpdateSubState(PlayerStateMachine stateMachine)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void UpdateSubState(PlayerStateManager stateMachine)
+        public override void UpdateSubState(PlayerStateMachine stateMachine)
         {
             throw new System.NotImplementedException();
         }

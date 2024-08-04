@@ -1,14 +1,23 @@
+using Components;
 using System.Collections;
 using UnityEngine;
 using Utilities;
 
 public class BasicEnemyBehaviour : MonoBehaviour, IDamagable
 {
-    [SerializeField] private int _hp = 20;
+    [SerializeField] private int _hp;
+    [SerializeField] private int _maxHP;
+
+    [SerializeField] private ProgressBar _hpBar;
+
     [SerializeField] private SpriteRenderer _spriteRenderer;
 
     [SerializeField] private AnimationCurve _colorChangeCurve;
 
+    private void Awake()
+    {
+        _hpBar.UpdateProgressBar(_hp, _maxHP);
+    }
     private IEnumerator ShowTakingDamage(Color startColor, Color endColor)
     {
         float elapsedTime = 0f;
@@ -26,7 +35,9 @@ public class BasicEnemyBehaviour : MonoBehaviour, IDamagable
 
     public void TakeDamage(int damageValue)
     {
-        _hp -= 10;
+        Debug.Log("Received: " +  damageValue + " dmg");
+        _hp -= damageValue;
+        _hpBar.UpdateProgressBar(_hp, _maxHP);
         StopAllCoroutines();
 
         if (_hp <= 0)

@@ -3,24 +3,25 @@ using UnityEngine;
 namespace BehaviourSystem
 {
     [CreateAssetMenu(fileName = "Move State", menuName = ("State Machine/State/Move State"))]
-    public class MoveState : StateSO<PlayerStates, PlayerSubStates>, IGravityAffected<PlayerStateManager>
+    public class MoveState : StateSO<PlayerStates, PlayerSubStates>, IGravityAffected<PlayerStateMachine>
     {
-        public override void FixedUpdateState(PlayerStateManager stateMachine)
+        public override void FixedUpdateState(PlayerStateMachine stateMachine)
         {
             PerformMove(stateMachine);
             HandleGravity(stateMachine);
         }
-        private void PerformMove(PlayerStateManager stateMachine)
+        private void PerformMove(PlayerStateMachine stateMachine)
         {
             float speed = stateMachine.Context.MoveSpeed;
 
             Vector2 inputDirection = stateMachine.Context.MoveInput;
             Vector3 moveDirection = new(inputDirection.x, 0f, inputDirection.y);
+            Vector3 moveVector = speed * Time.deltaTime * moveDirection;
 
-            stateMachine.Context.Controller.Move(speed * Time.deltaTime * moveDirection);
+            stateMachine.Context.Move(moveVector);
         }
 
-        public override PlayerStates GetNextState(PlayerStateManager stateMachine)
+        public override PlayerStates GetNextState(PlayerStateMachine stateMachine)
         {
             PlayerStates nextStateKey = stateMachine.StateKey;
             if (!stateMachine.Context.IsMoving)
@@ -37,7 +38,7 @@ namespace BehaviourSystem
             }
             return nextStateKey;
         }
-        public override PlayerSubStates GetNextSubState(PlayerStateManager stateMachine)
+        public override PlayerSubStates GetNextSubState(PlayerStateMachine stateMachine)
         {
             PlayerSubStates nextSubStateKey = stateMachine.SubStateKey;
             if (stateMachine.Context.IsAiming)
@@ -51,12 +52,9 @@ namespace BehaviourSystem
             return nextSubStateKey;
         }
 
-        public void HandleGravity(PlayerStateManager stateMachine)
+        public void HandleGravity(PlayerStateMachine stateMachine)
         {
-            float gravity = -9.5f;
-            float groundedGravity = -0.5f;
-            float usedGravityValue = stateMachine.Context.Controller.isGrounded ? groundedGravity : gravity;
-            stateMachine.Context.Controller.Move(Vector3.up * usedGravityValue * Time.deltaTime);
+            stateMachine.Context.HandleGravity(false);
         }
     }
 }

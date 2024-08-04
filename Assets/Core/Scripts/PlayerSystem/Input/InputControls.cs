@@ -144,6 +144,17 @@ namespace PlayerSystem
                 },
                 {
                     ""name"": """",
+                    ""id"": ""054bb883-579d-4a71-aea9-91f0a092de1f"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""a6c51513-6038-42ae-a14a-af98e5f15e4e"",
                     ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
@@ -169,7 +180,7 @@ namespace PlayerSystem
                     ""id"": ""c04a2f2c-9d69-42ee-a042-54d6adcfe858"",
                     ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
-                    ""processors"": ""StickDeadzone(min=0.5),NormalizeVector2"",
+                    ""processors"": ""StickDeadzone"",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Move"",
                     ""isComposite"": false,

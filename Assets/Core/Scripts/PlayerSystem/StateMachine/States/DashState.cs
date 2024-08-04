@@ -9,7 +9,7 @@ namespace BehaviourSystem
         private float _elapsedTime = 0f;
         private Vector3 _dashDirection;
 
-        public override void EnterState(PlayerStateManager stateMachine)
+        public override void EnterState(PlayerStateMachine stateMachine)
         {
             base.EnterState(stateMachine);
 
@@ -17,13 +17,16 @@ namespace BehaviourSystem
             _elapsedTime = 0f;
             _dashDirection = new(stateMachine.Context.AimDirection.x, 
                 0f, stateMachine.Context.AimDirection.z);
+
+            stateMachine.Context.DontCollideWithEnemy();
         }
-        public override void ExitState(PlayerStateManager stateMachine)
+        public override void ExitState(PlayerStateMachine stateMachine)
         {
             base.ExitState(stateMachine);
             stateMachine.Context.StartDashCooldown();
+            stateMachine.Context.CollideWithEnemy();
         }
-        public override void FixedUpdateState(PlayerStateManager stateMachine)
+        public override void FixedUpdateState(PlayerStateMachine stateMachine)
         {
             if (_elapsedTime > _duration)
             {
@@ -34,23 +37,23 @@ namespace BehaviourSystem
                 PerformDash(stateMachine);
             }
         }
-        private void PerformDash(PlayerStateManager stateMachine)
+        private void PerformDash(PlayerStateMachine stateMachine)
         {
-            stateMachine.Context.Controller.Move(
-                stateMachine.Context.DashAnimationCurve.Evaluate(_elapsedTime)
-                * stateMachine.Context.DashSpeed * Time.deltaTime 
-                * _dashDirection);
+            Vector3 moveVector = stateMachine.Context.DashAnimationCurve.Evaluate(_elapsedTime)
+                * stateMachine.Context.DashSpeed * Time.deltaTime * _dashDirection;
+            stateMachine.Context.Move(moveVector);
             _elapsedTime += Time.deltaTime;
         }
 
-        public override PlayerStates GetNextState(PlayerStateManager stateMachine)
+        public override PlayerStates GetNextState(PlayerStateMachine stateMachine)
         {
             if (!_isComplete) return PlayerStates.Dash;
             return stateMachine.Context.IsMoving ? PlayerStates.Move : PlayerStates.Idle;
         }
 
-        public override PlayerSubStates GetNextSubState(PlayerStateManager stateMachine)
+        public override PlayerSubStates GetNextSubState(PlayerStateMachine stateMachine)
         {
+            if (stateMachine.Context.PressedAttackInput) return PlayerSubStates.DashAttack;
             return stateMachine.SubStateKey;
         }
     }

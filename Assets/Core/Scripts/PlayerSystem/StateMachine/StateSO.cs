@@ -9,19 +9,19 @@ namespace BehaviourSystem
         protected bool _isSwitchingState = false;
         public bool StateIsComplete => _isComplete;
         public bool IsSwitchingState => _isSwitchingState;
-        public virtual void EnterState(PlayerStateManager stateMachine) 
+        public virtual void EnterState(PlayerStateMachine stateMachine) 
         {
             _isComplete = false;
             _isSwitchingState = false;
         }
-        public virtual void UpdateState(PlayerStateManager stateMachine) { }
-        public virtual void FixedUpdateState(PlayerStateManager stateMachine) { }
-        public virtual void ExitState(PlayerStateManager stateMachine) 
+        public virtual void UpdateState(PlayerStateMachine stateMachine) { }
+        public virtual void FixedUpdateState(PlayerStateMachine stateMachine) { }
+        public virtual void ExitState(PlayerStateMachine stateMachine) 
         { 
             _isComplete = true;
             _isSwitchingState = true;
         }
-        public abstract EState1 GetNextState(PlayerStateManager stateMachine);
-        public abstract EState2 GetNextSubState(PlayerStateManager stateMachine);
+        public abstract EState1 GetNextState(PlayerStateMachine stateMachine);
+        public abstract EState2 GetNextSubState(PlayerStateMachine stateMachine);
     }
 }
