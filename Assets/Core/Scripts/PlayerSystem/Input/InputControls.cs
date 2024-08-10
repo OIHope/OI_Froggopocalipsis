@@ -134,7 +134,7 @@ namespace PlayerSystem
                 {
                     ""name"": """",
                     ""id"": ""d6194467-1fec-4471-8376-97b75e3390fc"",
-                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",

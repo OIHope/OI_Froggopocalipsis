@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 000708b341476064ebd4c937c8ef0c4f, type: 3}
+  m_Name: SimpleZombieDataSO
+  m_EditorClassIdentifier: 
+  _healthData: {fileID: 11400000, guid: 23a4c87b79ae35c438807d982983ade9, type: 2}
+  _attackData: {fileID: 11400000, guid: 8796e4b9be7949941b62b0d5ca753920, type: 2}
+  _movementData: {fileID: 11400000, guid: ce2834ad371a23d4aa5e0405dde24a79, type: 2}
+  _enemyVisionData: {fileID: 11400000, guid: 846585ec5435501479b2371882b532b5, type: 2}

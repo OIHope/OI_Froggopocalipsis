@@ -1,6 +1,7 @@
 using Components;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 using Utilities;
 
 public class BasicEnemyBehaviour : MonoBehaviour, IDamagable
@@ -8,15 +9,19 @@ public class BasicEnemyBehaviour : MonoBehaviour, IDamagable
     [SerializeField] private int _hp;
     [SerializeField] private int _maxHP;
 
-    [SerializeField] private ProgressBar _hpBar;
+    [SerializeField] private ProgressBarComponent _hpBar;
 
     [SerializeField] private SpriteRenderer _spriteRenderer;
 
     [SerializeField] private AnimationCurve _colorChangeCurve;
+    [Space]
+    [SerializeField] private NavMeshAgent _agent;
+    [SerializeField] private Transform _target;
 
     private void Awake()
     {
         _hpBar.UpdateProgressBar(_hp, _maxHP);
+        SetPath();
     }
     private IEnumerator ShowTakingDamage(Color startColor, Color endColor)
     {
@@ -32,10 +37,8 @@ public class BasicEnemyBehaviour : MonoBehaviour, IDamagable
         }
         _spriteRenderer.color = endColor;
     }
-
     public void TakeDamage(int damageValue)
     {
-        Debug.Log("Received: " +  damageValue + " dmg");
         _hp -= damageValue;
         _hpBar.UpdateProgressBar(_hp, _maxHP);
         StopAllCoroutines();
@@ -47,5 +50,16 @@ public class BasicEnemyBehaviour : MonoBehaviour, IDamagable
         }
 
         StartCoroutine(ShowTakingDamage(Color.red, Color.white));
+    }
+    private void FixedUpdate()
+    {
+        if (_agent.pathStatus == NavMeshPathStatus.PathComplete) Debug.Log("Agent get to the point");
+    }
+
+    private void SetPath()
+    {
+        NavMeshPath path = new();
+        _agent.CalculatePath(_target.position, path);
+        _agent.SetPath(path);
     }
 }

@@ -1,6 +1,5 @@
 using UnityEngine;
-using System.Collections;
-using BehaviourSystem;
+using Data;
 
 namespace PlayerSystem
 {

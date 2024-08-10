@@ -6,8 +6,8 @@ namespace PlayerSystem
 {
     public class PlayerCooldownManager : MonoBehaviour
     {
-        [SerializeField] private ProgressBar attackChargeBar;
-        [SerializeField] private ProgressBar dashChargeBar;
+        [SerializeField] private ProgressBarComponent attackChargeBar;
+        [SerializeField] private ProgressBarComponent dashChargeBar;
 
         private bool _attackIsReady = true;
         private bool _dashIsReady = true;
