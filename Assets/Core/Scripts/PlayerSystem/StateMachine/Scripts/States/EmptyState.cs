@@ -1,12 +1,8 @@
 using PlayerSystem;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-namespace BehaviourSystem
+namespace BehaviourSystem.PlayerSystem
 {
-    [CreateAssetMenu(fileName = "Empty State", menuName = ("State Machine/Player/State/Empty State"))]
-    public class EmptyState : StateSO<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>
+    public class EmptyState : State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>
     {
         public override PlayerStates GetNextState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {

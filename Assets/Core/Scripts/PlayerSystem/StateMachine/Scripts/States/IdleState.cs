@@ -1,16 +1,9 @@
 using PlayerSystem;
-using UnityEngine;
 
-namespace BehaviourSystem
+namespace BehaviourSystem.PlayerSystem
 {
-    [CreateAssetMenu(fileName ="Idle State", menuName =("State Machine/Player/State/Idle State"))]
-    public class IdleState : StateSO<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>, IGravityAffected<StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>>
+    public class IdleState : State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>
     {
-        public override void FixedUpdateState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
-        {
-            HandleGravity(stateMachine);
-        }
-
         public override PlayerStates GetNextState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
             PlayerStates nextStateKey = stateMachine.GetStateKey;
@@ -40,11 +33,6 @@ namespace BehaviourSystem
                 nextSubStateKey = PlayerSubStates.NoAim;
             }
             return nextSubStateKey;
-        }
-
-        public void HandleGravity(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
-        {
-            stateMachine.Context.HandleGravity(false);
         }
     }
 }

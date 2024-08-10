@@ -1,39 +1,46 @@
-using Components;
 using PlayerSystem;
 using System.Collections.Generic;
-using UnityEngine;
 
-namespace BehaviourSystem
+namespace BehaviourSystem.PlayerSystem
 {
     public enum PlayerStates
-    { Empty, Idle, Move, Dash, Attack, Stun}
+    { Empty, Idle, Move, Dash, Attack, Stun }
     public enum PlayerSubStates
     { Empty, Aim, NoAim, TakeDamage, DashAttack }
 
     public class PlayerStateMachine : StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>
     {
-        [Header("Main States")]
-        [Space]
-        [SerializeField] private StateSO<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> emptyState;
-        [SerializeField] private StateSO<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> idleState;
-        [SerializeField] private StateSO<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> moveState;
-        [SerializeField] private StateSO<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> dashState;
-        [SerializeField] private StateSO<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> attackState;
-        [SerializeField] private StateSO<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stunState;
-        [Space]
-        [Header("Sub States")]
-        [Space]
-        [SerializeField] private SubStateSO<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> emptySubState;
-        [SerializeField] private SubStateSO<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> aimSubState;
-        [SerializeField] private SubStateSO<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> noAimSubState;
-        [SerializeField] private SubStateSO<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> takeDamageSubState;
-        [SerializeField] private SubStateSO<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> dashAttackSubState;
+        private State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> emptyState;
+        private State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> idleState;
+        private State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> moveState;
+        private State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> dashState;
+        private State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> attackState;
+        private State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stunState;
+        
+        private SubState<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> emptySubState;
+        private SubState<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> aimSubState;
+        private SubState<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> noAimSubState;
+        private SubState<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> takeDamageSubState;
+        private SubState<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> dashAttackSubState;
 
-        public override void SetupStateMachine(PlayerControllerDataAccessor dataAccessor)
+        public PlayerStateMachine(PlayerControllerDataAccessor dataAccessor)
         {
             _dataAccessor = dataAccessor;
 
-            _states = new Dictionary<PlayerStates, StateSO<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>>
+            emptyState = new EmptyState();
+            idleState = new IdleState();
+            moveState = new MoveState();
+            dashState = new DashState();
+            attackState = new AttackState();
+            stunState = new StunState();
+
+            emptySubState = new EmptySubState();
+            aimSubState = new AimSubState();
+            noAimSubState = new NoAimSubState();
+            takeDamageSubState = new TakeDamageSubState();
+            dashAttackSubState = new DashAttackSubState();
+
+            _states = new Dictionary<PlayerStates, State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>>
             {
                 { PlayerStates.Empty, emptyState },
                 { PlayerStates.Idle, idleState },
@@ -42,7 +49,7 @@ namespace BehaviourSystem
                 { PlayerStates.Attack, attackState },
                 { PlayerStates.Stun, stunState }
             };
-            _subStates = new Dictionary<PlayerSubStates, SubStateSO<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>>
+            _subStates = new Dictionary<PlayerSubStates, SubState<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>>
             {
                 { PlayerSubStates.Empty, emptySubState },
                 { PlayerSubStates.Aim, aimSubState },

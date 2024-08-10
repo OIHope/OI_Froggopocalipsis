@@ -1,10 +1,9 @@
 using PlayerSystem;
 using UnityEngine;
 
-namespace BehaviourSystem
+namespace BehaviourSystem.PlayerSystem
 {
-    [CreateAssetMenu(fileName = "NoAim SubState", menuName = ("State Machine/Player/SubState/NoAim SubState"))]
-    public class NoAimSubState : SubStateSO<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>
+    public class NoAimSubState : SubState<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>
     {
         public override void UpdateSubState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {

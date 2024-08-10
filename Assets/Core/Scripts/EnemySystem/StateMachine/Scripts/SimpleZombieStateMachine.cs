@@ -1,34 +1,40 @@
-using UnityEngine;
 using System.Collections.Generic;
 using EnemySystem;
 
 namespace BehaviourSystem.EnemySystem
 {
-    public enum EnemyState { Empty, Idle, Roaming, MoveToTarget, Attack, Stun, RunAway }
-    public enum EnemySubState { Empty, TakeDamage }
+    public enum EnemyState { Empty, Idle, Roaming, MoveToTarget, Attack, Stun, RunAway, TakeDamage }
+    public enum EnemySubState { Empty }
 
     public class SimpleZombieStateMachine : StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor>
     {
-        [Header("Main States")]
-        [Space]
-        [SerializeField] private StateSO<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> emptyState;
-        [SerializeField] private StateSO<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> idleState;
-        [SerializeField] private StateSO<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> roamState;
-        [SerializeField] private StateSO<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> moveToTargetState;
-        [SerializeField] private StateSO<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> attackState;
-        [SerializeField] private StateSO<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stunState;
-        [SerializeField] private StateSO<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> runAwayState;
-        [Space]
-        [Header("Sub States")]
-        [Space]
-        [SerializeField] private SubStateSO<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> emptySubState;
-        [SerializeField] private SubStateSO<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> takeDamageSubState;
+        private State<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> emptyState;
+        private State<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> idleState;
+        private State<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> roamState;
+        private State<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> moveToTargetState;
+        private State<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> attackState;
+        private State<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stunState;
+        private State<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> runAwayState;
+        private State<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> takeDamageState;
 
-        public override void SetupStateMachine(SimpleZombieControllerDataAccessor dataAccessor)
+        private SubState<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> emptySubState;
+
+        public SimpleZombieStateMachine(SimpleZombieControllerDataAccessor dataAccessor)
         {
             _dataAccessor = dataAccessor;
 
-            _states = new Dictionary<EnemyState, StateSO<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor>>
+            emptyState = new EmptyState();
+            idleState = new IdleState();
+            roamState = new RoamState();
+            moveToTargetState = new MoveToTargetState();
+            attackState = new AttackState();
+            stunState = new StunState();
+            runAwayState = new RunAwayState();
+            takeDamageState = new TakeDamageState();
+
+            emptySubState = new EmptySubState();
+
+            _states = new Dictionary<EnemyState, State<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor>>
             {
                 { EnemyState.Empty, emptyState },
                 { EnemyState.Idle, idleState },
@@ -37,11 +43,11 @@ namespace BehaviourSystem.EnemySystem
                 { EnemyState.Attack, attackState },
                 { EnemyState.Stun, stunState },
                 { EnemyState.RunAway, runAwayState },
+                { EnemyState.TakeDamage, takeDamageState }
             };
-            _subStates = new Dictionary<EnemySubState, SubStateSO<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor>>
+            _subStates = new Dictionary<EnemySubState, SubState<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor>>
             {
-                { EnemySubState.Empty, emptySubState },
-                { EnemySubState.TakeDamage, takeDamageSubState }
+                { EnemySubState.Empty, emptySubState }
             };
 
             _stateKey = EnemyState.Idle;

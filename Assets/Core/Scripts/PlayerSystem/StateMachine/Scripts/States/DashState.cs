@@ -1,10 +1,9 @@
 using PlayerSystem;
 using UnityEngine;
 
-namespace BehaviourSystem
+namespace BehaviourSystem.PlayerSystem
 {
-    [CreateAssetMenu(fileName = "Dash State", menuName = ("State Machine/Player/State/Dash State"))]
-    public class DashState : StateSO<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>
+    public class DashState : State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>
     {
         private float _duration;
         private float _elapsedTime = 0f;

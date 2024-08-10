@@ -1,10 +1,8 @@
 using PlayerSystem;
-using UnityEngine;
 
-namespace BehaviourSystem
+namespace BehaviourSystem.PlayerSystem
 {
-    [CreateAssetMenu(fileName = "Empty SubState", menuName = ("State Machine/Player/SubState/Empty SubState"))]
-    public class EmptySubState : SubStateSO<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>
+    public class EmptySubState : SubState<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>
     {
         
     }

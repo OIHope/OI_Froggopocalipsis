@@ -4,17 +4,17 @@ using UnityEngine;
 
 namespace BehaviourSystem
 {
-    public abstract class StateMachine<EState, ESubState, ContextData> : MonoBehaviour
+    public abstract class StateMachine<EState, ESubState, ContextData>
         where EState : Enum where ESubState : Enum where ContextData : class
     {
         protected EState _stateKey;
         protected ESubState _subStateKey;
 
-        protected Dictionary<EState, StateSO<EState, ESubState, ContextData>> _states;
-        protected Dictionary<ESubState, SubStateSO<EState, ESubState, ContextData>> _subStates;
+        protected Dictionary<EState, State<EState, ESubState, ContextData>> _states;
+        protected Dictionary<ESubState, SubState<EState, ESubState, ContextData>> _subStates;
 
-        protected StateSO<EState, ESubState, ContextData> CurrentState;
-        protected SubStateSO<EState, ESubState, ContextData> CurrentSubState;
+        protected State<EState, ESubState, ContextData> CurrentState;
+        protected SubState<EState, ESubState, ContextData> CurrentSubState;
 
         protected ContextData _dataAccessor;
 
@@ -22,7 +22,6 @@ namespace BehaviourSystem
         public ESubState GetSubStateKey => _subStateKey;
         public ContextData Context => _dataAccessor;
 
-        public abstract void SetupStateMachine(ContextData dataAccessor);
         public virtual void UpdateStateMachine()
         {
             if (CurrentState.IsSwitchingState) return;

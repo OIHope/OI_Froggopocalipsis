@@ -29,5 +29,14 @@ namespace Data
         public float AttackSlideDistance => _attackSlideDistance;
         public AnimationCurve AttackAnimationCurve => _attackAnimationCurve;
         public EffectDataSO EffectData => _effectData;
+
+        public int GetDamage
+        {
+            get
+            {
+                int chance = Random.Range(0, 101);
+                return chance >= CritChance ? Damage : CritDamage;
+            }
+        }
     }
 }

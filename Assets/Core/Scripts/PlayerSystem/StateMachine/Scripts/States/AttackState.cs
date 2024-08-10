@@ -1,18 +1,16 @@
+using Components;
 using Data;
 using PlayerSystem;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BehaviourSystem
+namespace BehaviourSystem.PlayerSystem
 {
-    [CreateAssetMenu(fileName = "Attack State", menuName = ("State Machine/Player/State/Attack State"))]
-    public class AttackState : StateSO<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>, IGravityAffected<StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>>
+    public class AttackState : State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>
     {
         private float _duration;
         private float _elapsedTime = 0f;
         private Vector3 _attackDirection;
-
-        [SerializeField] private List<AttackDataSO> attackDataList;
 
         public override void EnterState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
@@ -23,8 +21,7 @@ namespace BehaviourSystem
             _attackDirection = new(stateMachine.Context.AimDirection.x,
                 0f, stateMachine.Context.AimDirection.z);
 
-            AttackDataSO attackDataSO = attackDataList[Random.Range(0, attackDataList.Count)];
-            stateMachine.Context.PerformAttack(attackDataSO, stateMachine.Context.AimDirection);
+            stateMachine.Context.PerformAttack(AttackType.SimpleAttack);
             stateMachine.Context.StartAttackCooldown();
         }
 
@@ -36,7 +33,6 @@ namespace BehaviourSystem
 
         public override void FixedUpdateState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
-            HandleGravity(stateMachine);
             if (_elapsedTime > _duration)
             {
                 _isComplete = true;
@@ -56,8 +52,6 @@ namespace BehaviourSystem
             _elapsedTime += Time.deltaTime;
         }
 
-
-
         public override PlayerStates GetNextState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
             if (!_isComplete) return PlayerStates.Attack;
@@ -75,11 +69,6 @@ namespace BehaviourSystem
                 nextSubStateKey = PlayerSubStates.NoAim;
             }
             return nextSubStateKey;
-        }
-
-        public void HandleGravity(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
-        {
-            stateMachine.Context.HandleGravity(true);
         }
     }
 }

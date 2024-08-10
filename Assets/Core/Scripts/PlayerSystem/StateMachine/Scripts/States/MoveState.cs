@@ -1,15 +1,13 @@
 using PlayerSystem;
 using UnityEngine;
 
-namespace BehaviourSystem
+namespace BehaviourSystem.PlayerSystem
 {
-    [CreateAssetMenu(fileName = "Move State", menuName = ("State Machine/Player/State/Move State"))]
-    public class MoveState : StateSO<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>, IGravityAffected<StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>>
+    public class MoveState : State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>
     {
         public override void FixedUpdateState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
             PerformMove(stateMachine);
-            HandleGravity(stateMachine);
         }
         private void PerformMove(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
@@ -51,11 +49,6 @@ namespace BehaviourSystem
                 nextSubStateKey = PlayerSubStates.NoAim;
             }
             return nextSubStateKey;
-        }
-
-        public void HandleGravity(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
-        {
-            stateMachine.Context.HandleGravity(false);
         }
     }
 }

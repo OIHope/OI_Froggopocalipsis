@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+using Data;
 using UnityEngine;
 
 public interface IDamagable
 {
-    public void TakeDamage(int damageValue);
+    public void TakeDamage(AttackDataSO attackData, Vector3 attackVector);
 }

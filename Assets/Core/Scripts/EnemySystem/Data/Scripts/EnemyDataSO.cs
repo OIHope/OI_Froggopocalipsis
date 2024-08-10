@@ -10,7 +10,9 @@ namespace EnemySystem
         [Header("Additional Data")]
         [Space]
         [SerializeField] private EnemyVisionDataSO _enemyVisionData;
+        [SerializeField] private RoamingDataSO _roamingData;
 
         public EnemyVisionDataSO EnemyVisionData => _enemyVisionData;
+        public RoamingDataSO RoamingData => _roamingData;
     }
 }

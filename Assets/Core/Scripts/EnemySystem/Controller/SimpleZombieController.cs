@@ -1,41 +1,56 @@
 using BehaviourSystem.EnemySystem;
 using Components;
-using PlayerSystem;
+using Data;
+using EnemySystem;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace EnemySystem
+namespace Entity.EnemySystem
 {
-    public class SimpleZombieController : MonoBehaviour
+    public class SimpleZombieController : Creature, IAttacker
     {
-        [Header("Managers")]
+        [Header("Data")]
         [Space]
-        [SerializeField] private SimpleZombieStateMachine _stateMachine;
+        [SerializeField] private EnemyDataSO _enemyData;
+        [SerializeField] private DamageDealer _damageDealer;
         [Space]
         [Header("Components")]
         [Space]
-        [SerializeField] private EnemyDataSO _enemyData;
+        [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private ProgressBarComponent _healthBar;
         [SerializeField] private NavMeshAgent _agent;
 
         private SimpleZombieControllerDataAccessor _dataAccessor;
+        private SimpleZombieStateMachine _stateMachine;
 
-        private List<ComponentBase> _components;
-        private HealthComponent _healthComponent;
         private CooldownComponent _attackCooldownComponent;
 
         public EnemyDataSO EnemyData => _enemyData;
         public NavMeshAgent Agent { get => _agent; set => _agent = value; }
+        public DamageDealer DamageDealerComponent => _damageDealer;
+        public CooldownComponent AttackCooldown => _attackCooldownComponent;
 
-        private void Awake()
+        protected override void Awake()
+        {
+            base.Awake();
+        }
+
+        private void Update()
+        {
+            _stateMachine.UpdateStateMachine();
+            foreach (var component in _components) component.UpdateComponent();
+        }
+        private void FixedUpdate()
+        {
+            _stateMachine.FixedUpdateStateMachine();
+        }
+        protected override void InitStateMachine()
         {
             _dataAccessor = new(this);
-            InitComponents();
-
-            _stateMachine.SetupStateMachine(_dataAccessor);
+            _stateMachine = new(_dataAccessor);
         }
-        private void InitComponents()
+        protected override void InitComponents()
         {
             _healthComponent = new(_enemyData.HealthData, _healthBar);
             _attackCooldownComponent = new();
@@ -47,14 +62,14 @@ namespace EnemySystem
             };
         }
 
-        private void Update()
+        public override void ApplyImpulseOnCreature(Vector3 impulseDirection, float inpulsePower)
         {
-            _stateMachine.UpdateStateMachine();
-            foreach (var component in _components) component.UpdateComponent();
+            _rigidbody.AddForce(impulseDirection * inpulsePower, ForceMode.Impulse);
         }
-        private void FixedUpdate()
+        public override void TakeDamage(AttackDataSO attackData, Vector3 attackVector)
         {
-            _stateMachine.FixedUpdateStateMachine();
+            base.TakeDamage(attackData, attackVector);
+            _stateMachine.SwitchState(EnemyState.TakeDamage);
         }
     }
 }

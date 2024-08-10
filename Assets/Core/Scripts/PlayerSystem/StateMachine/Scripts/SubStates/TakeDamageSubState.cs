@@ -1,10 +1,8 @@
 using PlayerSystem;
-using UnityEngine;
 
-namespace BehaviourSystem
+namespace BehaviourSystem.PlayerSystem
 {
-    [CreateAssetMenu(fileName = "TakeDamage SubState", menuName = ("State Machine/Player/SubState/TakeDamage SubState"))]
-    public class TakeDamageSubState : SubStateSO<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>
+    public class TakeDamageSubState : SubState<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>
     {
         public override void EnterSubState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {

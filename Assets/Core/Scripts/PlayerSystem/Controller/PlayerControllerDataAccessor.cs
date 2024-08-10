@@ -1,23 +1,20 @@
 using UnityEngine;
 using Components;
 using Data;
+using Entity.PlayerSystem;
 
 namespace PlayerSystem
 {
     [System.Serializable]
     public class PlayerControllerDataAccessor
     {
-        private PlayerController _basePlayerController;
-        private PlayerDataSO _playerControllerData;
+        private PlayerController _controllerData;
 
-        public GameObject NavigationArrow { get => _basePlayerController.NavigationArrow; set => _basePlayerController.NavigationArrow = value; }
+        public GameObject NavigationArrow { get => _controllerData.NavigationArrow; set => _controllerData.NavigationArrow = value; }
 
-        public InputControls Input => _basePlayerController.InputManager.Input;
+        public InputControls Input => _controllerData.InputManager.Input;
 
-        public CharacterController Controller => _basePlayerController.Controller;
-
-
-        public bool UsingGamepad => _basePlayerController.InputManager.IsUsingGamepad;
+        public bool UsingGamepad => _controllerData.InputManager.IsUsingGamepad;
         public bool IsMoving => Input.GameplayInputMap.Move.ReadValue<Vector2>() != Vector2.zero;
         public bool IsAiming
         {
@@ -32,46 +29,40 @@ namespace PlayerSystem
         }
         public bool PressedDashInput => Input.GameplayInputMap.Dash.IsPressed();
         public bool PressedAttackInput => Input.GameplayInputMap.Attack.IsPressed();
-        public bool CanAttack => _basePlayerController.AttackCooldown.CanUseAbility;
-        public bool CanDash => _basePlayerController.DashCooldown.CanUseAbility;
+        public bool CanAttack => _controllerData.AttackCooldown.CanUseAbility;
+        public bool CanDash => _controllerData.DashCooldown.CanUseAbility;
 
         public Vector2 MoveInput => Input.GameplayInputMap.Move.ReadValue<Vector2>();
         public Vector2 AimInput => Input.GameplayInputMap.LookAround.ReadValue<Vector2>();
 
         public Vector3 AimDirection { get; set; }
-        public Vector3 PointerDirection { get; set; }
 
-        public Transform InstanceTransform => _basePlayerController.InstanceTransform;
+        public Transform InstanceTransform => _controllerData.InstanceTransform;
 
-        public int Damage => _playerControllerData.AttackData.Damage;
-        public int CritChance => _playerControllerData.AttackData.CritChance;
-        public float AttackSlideDistance => _playerControllerData.AttackData.AttackSlideDistance;
+        public float AttackSlideDistance => _controllerData.PlayerData.AttackData.AttackSlideDistance;
 
-        public float MoveSpeed => _playerControllerData.MovementData.RunSpeed;
-        public float DashSpeed => _playerControllerData.DashData.DashSpeed;
-        public float AttackCooldown => _playerControllerData.AttackData.CooldownTime;
-        public float DashCooldown => _playerControllerData.DashData.CooldownTime;
+        public float MoveSpeed => _controllerData.PlayerData.MovementData.RunSpeed;
+        public float DashSpeed => _controllerData.PlayerData.DashData.DashSpeed;
 
         public float AtttackAnimCurveDuration => Utilities.AnimationCurveDuration.Duration(AttackAnimationCurve);
         public float DashAnimCurveDuration => Utilities.AnimationCurveDuration.Duration(DashAnimationCurve);
 
-        public AnimationCurve AttackAnimationCurve => _playerControllerData.AttackData.AttackAnimationCurve;
-        public AnimationCurve DashAnimationCurve => _playerControllerData.DashData.DashAnimationCurve;
+        public AnimationCurve AttackAnimationCurve => _controllerData.PlayerData.AttackData.AttackAnimationCurve;
+        public AnimationCurve DashAnimationCurve => _controllerData.PlayerData.DashData.DashAnimationCurve;
 
-        public void PerformAttack(AttackDataSO attackDataSO, Vector3 attackDirection) => _basePlayerController.DamageDealerManager.PerformAttack(attackDataSO, attackDirection);
-        public void FinishAttack() => _basePlayerController.DamageDealerManager.FinishAttack();
-        public void StartAttackCooldown() => _basePlayerController.AttackCooldown.Cooldown(AttackCooldown);
-        public void StartDashCooldown() => _basePlayerController.DashCooldown.Cooldown(DashCooldown);
-        public void DontCollideWithEnemy() => _basePlayerController.DamageColliderManager.DontCollideWithEnemy();
-        public void CollideWithEnemy() => _basePlayerController.DamageColliderManager.CollideWithEnemy();
-        public void Move(Vector3 moveVector) => _basePlayerController.MovementManager.Move(moveVector);
-        public void HandleGravity(bool specialGravity) => _basePlayerController.MovementManager.HandleGravity(specialGravity);
+        public LayerMask GroundLayer => _controllerData.LayersData.GroundLayer;
+
+        public void PerformAttack(AttackType attackType) => _controllerData.DamageDealerComponent.PerformAttack(AimDirection, attackType);
+        public void FinishAttack() => _controllerData.DamageDealerComponent.FinishAttack();
+        public void StartAttackCooldown() => _controllerData.AttackCooldown.Cooldown(_controllerData.DamageDealerComponent.LastAttackData.CooldownTime);
+        public void StartDashCooldown() => _controllerData.DashCooldown.Cooldown(_controllerData.PlayerData.DashData.CooldownTime);
+        public void DontCollideWithEnemy() => _controllerData.ColliderSwitch.DontCollideWithEnemy();
+        public void CollideWithEnemy() => _controllerData.ColliderSwitch.CollideWithEnemy();
+        public void Move(Vector3 moveVector) => _controllerData.MovementComponent.Move(moveVector);
 
         public PlayerControllerDataAccessor(PlayerController basePlayerController)
         {
-            _basePlayerController = basePlayerController;
-            _playerControllerData = basePlayerController.PlayerData;
+            _controllerData = basePlayerController;
         }
-        public PlayerControllerDataAccessor() { }
     }
 }
