@@ -12,8 +12,9 @@ namespace BehaviourSystem.PlayerSystem
         public override void EnterState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
             base.EnterState(stateMachine);
+            stateMachine.Context.PlayAnimation(PlayerRequestedAnimation.Dash);
 
-            _duration = stateMachine.Context.DashAnimCurveDuration;
+            _duration = stateMachine.Context.DashAnimationCurveDuration;
             _elapsedTime = 0f;
             _dashDirection = new(stateMachine.Context.AimDirection.x, 
                 0f, stateMachine.Context.AimDirection.z);

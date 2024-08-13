@@ -1,4 +1,5 @@
 using UnityEngine;
+using Utilities;
 
 namespace Data
 {
@@ -14,6 +15,7 @@ namespace Data
 
         public float DashSpeed => _dashSpeed;
         public float CooldownTime => _dashCooldown;
+        public float Duration => AnimationCurveDuration.Duration(_dashAnimationCurve);
         public AnimationCurve DashAnimationCurve => _dashAnimationCurve;
     }
 }

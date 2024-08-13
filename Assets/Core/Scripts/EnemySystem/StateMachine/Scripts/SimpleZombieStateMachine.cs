@@ -27,7 +27,7 @@ namespace BehaviourSystem.EnemySystem
             idleState = new IdleState();
             roamState = new RoamState();
             moveToTargetState = new MoveToTargetState();
-            attackState = new AttackState();
+            attackState = new SimpleAttackState();
             stunState = new StunState();
             runAwayState = new RunAwayState();
             takeDamageState = new TakeDamageState();

@@ -1,12 +1,13 @@
 using Components;
 using Data;
+using EnemySystem;
 using PlayerSystem;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace BehaviourSystem.PlayerSystem
 {
-    public class AttackState : State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>
+    public class SimpleAttackState : State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>
     {
         private float _duration;
         private float _elapsedTime = 0f;
@@ -16,19 +17,19 @@ namespace BehaviourSystem.PlayerSystem
         {
             base.EnterState(stateMachine);
 
-            _duration = stateMachine.Context.AtttackAnimCurveDuration;
+            _duration = stateMachine.Context.SimpleAttackDuration;
             _elapsedTime = 0f;
             _attackDirection = new(stateMachine.Context.AimDirection.x,
                 0f, stateMachine.Context.AimDirection.z);
 
             stateMachine.Context.PerformAttack(AttackType.SimpleAttack);
-            stateMachine.Context.StartAttackCooldown();
+            stateMachine.Context.StartAttackCooldown(AttackType.SimpleAttack);
         }
 
         public override void ExitState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
             base.ExitState(stateMachine);
-            stateMachine.Context.FinishAttack();
+            stateMachine.Context.FinishAttack(AttackType.SimpleAttack);
         }
 
         public override void FixedUpdateState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
@@ -41,12 +42,12 @@ namespace BehaviourSystem.PlayerSystem
             {
                 PerformAttack(stateMachine);
             }
-            
         }
         private void PerformAttack(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
-            Vector3 moveVector = stateMachine.Context.AttackAnimationCurve.Evaluate(_elapsedTime)
-                * stateMachine.Context.AttackSlideDistance * Time.deltaTime
+            stateMachine.Context.PlayAnimation(PlayerRequestedAnimation.SimpleAttack);
+            Vector3 moveVector = stateMachine.Context.SimpleAttackAnimationCurve.Evaluate(_elapsedTime)
+                * stateMachine.Context.SimpleAttackSlideDistance * Time.deltaTime
                 * _attackDirection;
             stateMachine.Context.Move(moveVector);
             _elapsedTime += Time.deltaTime;

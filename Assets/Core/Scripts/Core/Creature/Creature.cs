@@ -2,6 +2,7 @@ using Data;
 using Components;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.IO.LowLevel.Unsafe;
 
 namespace Entity
 {
@@ -13,8 +14,9 @@ namespace Entity
 
         protected virtual void Awake()
         {
-            InitStateMachine();
             InitComponents();
+            InitStateMachine();
+            _healthComponent.OnDeath += CreatureDeath;
         }
         protected abstract void InitStateMachine();
         protected abstract void InitComponents();
@@ -26,6 +28,12 @@ namespace Entity
             Vector3 damageDirection = (transform.position - attackVector).normalized;
             _healthComponent.TakeDamage(damage);
             ApplyImpulseOnCreature(damageDirection, damage);
+        }
+        protected virtual void CreatureDeath(HealthComponent healthComponent)
+        {
+            _healthComponent.OnDeath -= CreatureDeath;
+            Destroy(transform.gameObject);
+            Debug.Log(transform.name + " is dead");
         }
     }
 }

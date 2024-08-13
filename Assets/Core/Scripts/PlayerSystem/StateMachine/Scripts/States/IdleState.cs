@@ -4,6 +4,11 @@ namespace BehaviourSystem.PlayerSystem
 {
     public class IdleState : State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>
     {
+        public override void EnterState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
+        {
+            base.EnterState(stateMachine);
+            stateMachine.Context.PlayAnimation(PlayerRequestedAnimation.Idle);
+        }
         public override PlayerStates GetNextState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
             PlayerStates nextStateKey = stateMachine.GetStateKey;

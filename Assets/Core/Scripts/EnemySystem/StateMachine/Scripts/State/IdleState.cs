@@ -10,7 +10,10 @@ namespace BehaviourSystem.EnemySystem
         public override void EnterState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
         {
             base.EnterState(stateMachine);
+            stateMachine.Context.PlayAnimation(EnemyRequestedAnimation.Idle);
+
             _elapsedTime = 0f;
+            stateMachine.Context.Agent.isStopped = true;
         }
         public override void FixedUpdateState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
         {

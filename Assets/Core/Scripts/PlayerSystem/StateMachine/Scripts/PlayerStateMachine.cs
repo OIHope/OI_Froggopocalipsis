@@ -31,7 +31,7 @@ namespace BehaviourSystem.PlayerSystem
             idleState = new IdleState();
             moveState = new MoveState();
             dashState = new DashState();
-            attackState = new AttackState();
+            attackState = new SimpleAttackState();
             stunState = new StunState();
 
             emptySubState = new EmptySubState();

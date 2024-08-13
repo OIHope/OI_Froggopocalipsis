@@ -7,6 +7,7 @@ namespace BehaviourSystem.PlayerSystem
     {
         public override void FixedUpdateState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
+            stateMachine.Context.PlayAnimation(PlayerRequestedAnimation.Walk);
             PerformMove(stateMachine);
         }
         private void PerformMove(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)

@@ -14,9 +14,6 @@ namespace Data
         [SerializeField] private float _chargeTime;
         [SerializeField] private float _cooldownTime;
         [Space]
-        [SerializeField] private float _attackSlideDistance;
-        [SerializeField] private AnimationCurve _attackAnimationCurve;
-        [Space]
         [Header("Effect")]
         [Space]
         [SerializeField] private EffectDataSO _effectData;
@@ -26,8 +23,6 @@ namespace Data
         public int CritChance => _critDamageChance;
         public float ChargeTime => _chargeTime;
         public float CooldownTime => _cooldownTime;
-        public float AttackSlideDistance => _attackSlideDistance;
-        public AnimationCurve AttackAnimationCurve => _attackAnimationCurve;
         public EffectDataSO EffectData => _effectData;
 
         public int GetDamage

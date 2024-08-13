@@ -10,12 +10,15 @@ namespace BehaviourSystem.EnemySystem
         public override void EnterState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
         {
             base.EnterState(stateMachine);
+            stateMachine.Context.PlayAnimation(EnemyRequestedAnimation.Walk);
 
             Vector3 targetPos = GetRandomPoint(stateMachine);
             stateMachine.Context.Agent.SetDestination(targetPos);
 
             stateMachine.Context.Agent.speed = stateMachine.Context.WalkSpeed;
             stateMachine.Context.Agent.stoppingDistance = stateMachine.Context.StopDistance;
+
+            stateMachine.Context.Agent.isStopped = false;
         }
         private Vector3 GetRandomDirection()
         {
@@ -36,6 +39,10 @@ namespace BehaviourSystem.EnemySystem
             {
                 return stateMachine.Context.StartPosition;
             }
+        }
+        public override void ExitState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        {
+            base.ExitState(stateMachine);
         }
         public override void UpdateState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
         {

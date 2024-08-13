@@ -16,7 +16,10 @@ public class BasicCameraFollowPlayerScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        FollowTarget(_target);
+        if (_target != null)
+        {
+            FollowTarget(_target);
+        }
     }
     private void FollowTarget(Transform target)
     {

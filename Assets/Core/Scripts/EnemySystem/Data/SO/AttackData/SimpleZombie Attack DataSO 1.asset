@@ -12,43 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92bd1174356a84843bac8f8e4e377861, type: 3}
   m_Name: SimpleZombie Attack DataSO 1
   m_EditorClassIdentifier: 
-  _damage: 3
-  _critDamage: 5
+  _damage: 10
+  _critDamage: 15
   _critDamageChance: 15
-  _chargeTime: 0
+  _chargeTime: 2
   _cooldownTime: 1
-  _attackSlideDistance: 0.1
-  _attackAnimationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.1345518
-      inSlope: 68.042946
-      outSlope: 68.042946
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.07745913
-    - serializedVersion: 3
-      time: 0.029387131
-      value: 0.991662
-      inSlope: 0.0848318
-      outSlope: 0.0848318
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 1
-    - serializedVersion: 3
-      time: 0.2
-      value: 0.2
-      inSlope: -14.740587
-      outSlope: -14.740587
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.07465731
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   _effectData: {fileID: 0}

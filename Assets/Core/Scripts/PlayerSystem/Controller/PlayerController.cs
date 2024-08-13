@@ -6,18 +6,20 @@ using PlayerSystem;
 
 namespace Entity.PlayerSystem
 {
-    public class PlayerController : Creature, IAttacker, IDasher
+    public class PlayerController : Creature, ISimpleAttacker, IDasher, IAttackableTarget, IHaveMovementComponent
     {
         [Header("Managers")]
         [Space]
         [SerializeField] private InputManager _inputManager;
-        [SerializeField] private DamageDealer _damageDealer;
+        [SerializeField] private DamageDealer _simpleDamageDealer;
+        [SerializeField] private DamageDealer _dashDamageDealer;
         [Space]
         [Header("Components")]
         [Space]
         [SerializeField] private Transform _instanceTransform;
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Collider _collider;
+        [SerializeField] private Animator _animator;
         [Space]
         [SerializeField] private ProgressBarComponent _healthBar;
         [SerializeField] private ProgressBarComponent _attackCooldownBar;
@@ -37,6 +39,7 @@ namespace Entity.PlayerSystem
         private ColliderSwitchComponent _colliderSwitchComponent;
         private CooldownComponent _attackCooldownComponent;
         private CooldownComponent _dashCooldownComponent;
+        private AnimationComponent _animationComponent;
 
         public InputManager InputManager => _inputManager;
         public MovementComponent MovementComponent => _movementComponent;
@@ -44,10 +47,12 @@ namespace Entity.PlayerSystem
         public LayersDataSO LayersData => _layersDataSO;
         public GameObject NavigationArrow { get => _navigationArrow; set => _navigationArrow = value; }
         public Transform InstanceTransform { get => _instanceTransform; set => _instanceTransform = value; }
-        public DamageDealer DamageDealerComponent => _damageDealer;
-        public CooldownComponent AttackCooldown => _attackCooldownComponent;
+        public DamageDealer SimpleDamageDealerComponent => _simpleDamageDealer;
+        public DamageDealer DashDamageDealerComponent => _dashDamageDealer;
+        public CooldownComponent SimpleAttackCooldown => _attackCooldownComponent;
         public CooldownComponent DashCooldown => _dashCooldownComponent;
         public ColliderSwitchComponent ColliderSwitch => _colliderSwitchComponent;
+        public AnimationComponent Animation => _animationComponent;
 
 
         protected override void Awake()
@@ -73,6 +78,7 @@ namespace Entity.PlayerSystem
             _colliderSwitchComponent = new(_collider, _layersDataSO.EnemyLayer);
             _attackCooldownComponent = new(_attackCooldownBar);
             _dashCooldownComponent = new(_dashCooldownBar);
+            _animationComponent = new(_animator);
 
             _components = new()
             {
@@ -80,7 +86,8 @@ namespace Entity.PlayerSystem
                 _movementComponent,
                 _colliderSwitchComponent,
                 _attackCooldownComponent,
-                _dashCooldownComponent
+                _dashCooldownComponent,
+                _animationComponent,
             };
         }
         protected override void InitStateMachine()

@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6072303820744554158}
   - component: {fileID: 3940300959562239254}
-  - component: {fileID: 7435313773447417014}
-  m_Layer: 7
+  - component: {fileID: 5760428183421103032}
+  m_Layer: 8
   m_Name: DamageDealer_Small
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 768
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -55,7 +55,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.2, y: 0.5, z: 1}
   m_Center: {x: 0, y: 1, z: 0.8}
---- !u!114 &7435313773447417014
+--- !u!114 &5760428183421103032
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -70,9 +70,8 @@ MonoBehaviour:
   _damageDealerPivot: {fileID: 6072303820744554158}
   _damageDealerCollider: {fileID: 3940300959562239254}
   _render: {fileID: 7142605727084789080}
-  _simpleAttackDataList: {fileID: 0}
-  _powerAttackDataList: {fileID: 0}
-  _dashAttackDataList: {fileID: 0}
+  _attackDataList: {fileID: 11400000, guid: dd7cce59b3fb80f45b102b4985949b7d, type: 2}
+  _attackAnimationData: {fileID: 11400000, guid: 5d22f935711247b42b135c8c1e20c8ee, type: 2}
 --- !u!1 &7142605727084789080
 GameObject:
   m_ObjectHideFlags: 0
@@ -83,7 +82,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6262267102916324887}
   - component: {fileID: 6043842364646201410}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: HitTextureHolder
   m_TagString: PlayerDamageDealer
   m_Icon: {fileID: 0}

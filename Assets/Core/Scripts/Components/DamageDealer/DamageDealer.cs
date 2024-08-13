@@ -9,25 +9,31 @@ namespace Components
         [SerializeField] private Transform _damageDealerPivot;
         [SerializeField] private Collider _damageDealerCollider;
         [SerializeField] private GameObject _render;
+        [Space]
+        [SerializeField] private AttackDataListSO _attackDataList;
+        [SerializeField] private AnimationCurveDataSO _attackAnimationData;
 
-        [SerializeField] private AttackDataListSO _simpleAttackDataList;
-        [SerializeField] private AttackDataListSO _powerAttackDataList;
-        [SerializeField] private AttackDataListSO _dashAttackDataList;
 
-        private AttackType _requestedAttackType;
-        private AttackDataSO _lastAttackData;
+        private AttackDataSO _requestedAttackData;
 
-        public AttackDataSO LastAttackData => _lastAttackData;
+        public AnimationCurveDataSO AttackAnimationData => _attackAnimationData;
+
+        public AttackDataSO LastAttackData => _requestedAttackData;
+        public AttackDataSO AttackData() => _attackDataList.GetRandomAttackData();
 
         private void Awake()
         {
             ToggleDamageDealer(false);
-            _requestedAttackType = AttackType.SimpleAttack;
+            _requestedAttackData = _attackDataList.GetRandomAttackData();
         }
-        public void PerformAttack(Vector3 rotateDirection, AttackType attackType)
+        public AttackDataSO PerformAttack(Vector3 rotateDirection)
         {
-            _requestedAttackType = attackType;
+            _requestedAttackData = AttackData();
             RotateDamageDealer(rotateDirection);
+            return _requestedAttackData;
+        }
+        public void StartAttack()
+        {
             ToggleDamageDealer(true);
         }
         public void FinishAttack()
@@ -48,19 +54,8 @@ namespace Components
         private void OnTriggerEnter(Collider other)
         {
             IDamagable damagable = other.GetComponent<IDamagable>();
-            damagable?.TakeDamage(AttackData(), transform.position);
+            damagable?.TakeDamage(_requestedAttackData, transform.position);
         }
 
-        public AttackDataSO AttackData()
-        {
-            _lastAttackData = _requestedAttackType switch
-            {
-                AttackType.SimpleAttack => _simpleAttackDataList.GetRandomAttackData(),
-                AttackType.PowerAttack => _powerAttackDataList.GetRandomAttackData(),
-                AttackType.DashAttack => _dashAttackDataList.GetRandomAttackData(),
-                _ => _simpleAttackDataList.GetRandomAttackData(),
-            };
-            return _lastAttackData;
-        }
     }
 }
