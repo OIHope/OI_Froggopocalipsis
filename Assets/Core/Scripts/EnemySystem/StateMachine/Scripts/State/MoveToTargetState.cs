@@ -28,9 +28,9 @@ namespace BehaviourSystem.EnemySystem
         }
         public override void FixedUpdateState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
         {
-            stateMachine.Context.Agent.SetDestination(_targetTransform.position);
+            Vector3 moveToPos = _targetTransform.position - (stateMachine.Context.AimDirection * stateMachine.Context.StopDistance * 0.75f);
+            stateMachine.Context.Agent.SetDestination(moveToPos);
             stateMachine.Context.Agent.speed = stateMachine.Context.RunSpeed;
-            stateMachine.Context.Agent.stoppingDistance = stateMachine.Context.StopDistance;
 
             Vector3 direction = (_targetTransform.position - stateMachine.Context.Agent.transform.position).normalized;
             stateMachine.Context.AimDirection = direction;

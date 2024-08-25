@@ -5,9 +5,13 @@ namespace BehaviourSystem.PlayerSystem
 {
     public class MoveState : State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>
     {
+        public override void EnterState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
+        {
+            base.EnterState(stateMachine);
+            stateMachine.Context.PlayAnimation(PlayerRequestedAnimation.Run);
+        }
         public override void FixedUpdateState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
-            stateMachine.Context.PlayAnimation(PlayerRequestedAnimation.Walk);
             PerformMove(stateMachine);
         }
         private void PerformMove(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)

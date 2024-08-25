@@ -40,7 +40,7 @@ namespace BehaviourSystem.EnemySystem
         public override void ExitState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
         {
             base.ExitState(stateMachine);
-            stateMachine.Context.FinishAttack(AttackType.SimpleAttack);
+            if ( _isCharged ) stateMachine.Context.FinishAttack(AttackType.SimpleAttack);
         }
         public override void FixedUpdateState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
         {

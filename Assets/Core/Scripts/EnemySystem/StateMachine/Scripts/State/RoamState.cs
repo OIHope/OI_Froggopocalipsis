@@ -16,14 +16,12 @@ namespace BehaviourSystem.EnemySystem
             stateMachine.Context.Agent.SetDestination(targetPos);
 
             stateMachine.Context.Agent.speed = stateMachine.Context.WalkSpeed;
-            stateMachine.Context.Agent.stoppingDistance = stateMachine.Context.StopDistance;
-
             stateMachine.Context.Agent.isStopped = false;
         }
         private Vector3 GetRandomDirection()
         {
-            float randomX = Random.value;
-            float randomZ = Random.value;
+            float randomX = Random.Range(-1f,1f);
+            float randomZ = Random.Range(-1f, 1f);
             return new Vector3(randomX, 0f, randomZ);
         }
         private Vector3 GetRandomPoint(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)

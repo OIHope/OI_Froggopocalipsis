@@ -69,7 +69,7 @@ namespace EnemySystem
                     Animation.PlayAnimation("anim_enemy_simpleAttack");
                     break;
                 case EnemyRequestedAnimation.TakeDamage:
-                    Animation.PlayAnimation("anim_enemy_simpleAttack");
+                    Animation.PlayAnimation("anim_enemy_run");
                     break;
             }
         }

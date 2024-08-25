@@ -75,7 +75,7 @@ namespace Entity.EnemySystem
 
         public override void ApplyImpulseOnCreature(Vector3 impulseDirection, float inpulsePower)
         {
-            _rigidbody.AddForce(impulseDirection * inpulsePower, ForceMode.Impulse);
+            _rigidbody.AddForce(impulseDirection * (inpulsePower * 3), ForceMode.Impulse);
         }
         public override void TakeDamage(AttackDataSO attackData, Vector3 attackVector)
         {
