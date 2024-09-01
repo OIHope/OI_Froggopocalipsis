@@ -29,7 +29,7 @@ namespace BehaviourSystem.PlayerSystem
         }
         public override void FixedUpdateState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
-            if (_elapsedTime > _duration)
+            if (_elapsedTime > _duration && stateMachine.Context.AnimationComplete)
             {
                 _isComplete = true;
             }
@@ -54,8 +54,7 @@ namespace BehaviourSystem.PlayerSystem
 
         public override PlayerSubStates GetNextSubState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
-            if (stateMachine.Context.PressedAttackInput) return PlayerSubStates.DashAttack;
-            return stateMachine.GetSubStateKey;
+            return PlayerSubStates.NoAim;
         }
     }
 }

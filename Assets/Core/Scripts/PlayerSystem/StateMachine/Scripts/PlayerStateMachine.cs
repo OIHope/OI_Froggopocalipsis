@@ -6,7 +6,7 @@ namespace BehaviourSystem.PlayerSystem
     public enum PlayerStates
     { Empty, Idle, Move, Dash, Attack, Stun }
     public enum PlayerSubStates
-    { Empty, Aim, NoAim, TakeDamage, DashAttack }
+    { Empty, Aim, NoAim, TakeDamage}
 
     public class PlayerStateMachine : StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>
     {
@@ -21,7 +21,6 @@ namespace BehaviourSystem.PlayerSystem
         private SubState<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> aimSubState;
         private SubState<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> noAimSubState;
         private SubState<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> takeDamageSubState;
-        private SubState<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> dashAttackSubState;
 
         public PlayerStateMachine(PlayerControllerDataAccessor dataAccessor)
         {
@@ -38,7 +37,6 @@ namespace BehaviourSystem.PlayerSystem
             aimSubState = new AimSubState();
             noAimSubState = new NoAimSubState();
             takeDamageSubState = new TakeDamageSubState();
-            dashAttackSubState = new DashAttackSubState();
 
             _states = new Dictionary<PlayerStates, State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>>
             {
@@ -55,7 +53,6 @@ namespace BehaviourSystem.PlayerSystem
                 { PlayerSubStates.Aim, aimSubState },
                 { PlayerSubStates.NoAim, noAimSubState },
                 { PlayerSubStates.TakeDamage, takeDamageSubState },
-                { PlayerSubStates.DashAttack, dashAttackSubState }
             };
 
             _stateKey = PlayerStates.Idle;

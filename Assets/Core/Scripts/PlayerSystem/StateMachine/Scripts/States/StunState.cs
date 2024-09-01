@@ -11,7 +11,6 @@ namespace BehaviourSystem.PlayerSystem
         public override void EnterState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
             base.EnterState(stateMachine);
-            //_duration = stateMachine.Context.StunDuration;
             _elapsedTime = 0f;
         }
         public override void FixedUpdateState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)

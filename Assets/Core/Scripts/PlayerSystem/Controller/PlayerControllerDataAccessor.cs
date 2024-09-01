@@ -6,7 +6,7 @@ using Entity.PlayerSystem;
 namespace PlayerSystem
 {
     public enum PlayerRequestedAnimation
-    { Idle, Walk, Run, SimpleAttack, Dash, DashAttack }
+    { Idle, Walk, Run, Attack01, Attack02, Dash, Die}
     public class PlayerControllerDataAccessor
     {
         private PlayerController _controllerData;
@@ -33,6 +33,7 @@ namespace PlayerSystem
         public bool PressedAttackInput => Input.GameplayInputMap.Attack.IsPressed();
         public bool CanAttack => _controllerData.SimpleAttackCooldown.CanUseAbility;
         public bool CanDash => _controllerData.DashCooldown.CanUseAbility;
+        public bool AnimationComplete => Animation.IsAnimationComplete();
 
         public Vector2 MoveInput => Input.GameplayInputMap.Move.ReadValue<Vector2>();
         public Vector2 AimInput => Input.GameplayInputMap.LookAround.ReadValue<Vector2>();
@@ -47,7 +48,6 @@ namespace PlayerSystem
         public float DashSpeed => _controllerData.PlayerData.DashData.DashSpeed;
 
         public float SimpleAttackDuration => _controllerData.SimpleDamageDealerComponent.AttackAnimationData.Duration;
-        public float DashAttackDuration => _controllerData.DashDamageDealerComponent.AttackAnimationData.Duration;
         public float DashAnimationCurveDuration => _controllerData.PlayerData.DashData.Duration;
 
         public AnimationCurve SimpleAttackAnimationCurve => _controllerData.SimpleDamageDealerComponent.AttackAnimationData.DataAnimationCurve;
@@ -57,23 +57,67 @@ namespace PlayerSystem
 
         public void PlayAnimation(PlayerRequestedAnimation request)
         {
-            switch (request)
+            if (AimDirection.x < 0)
             {
-                case PlayerRequestedAnimation.Idle:
-                    Animation.PlayAnimation("anim_player_idle");
-                    break;
-                case PlayerRequestedAnimation.Run:
-                    Animation.PlayAnimation("anim_player_move");
-                    break;
-                case PlayerRequestedAnimation.SimpleAttack:
-                    Animation.PlayAnimation("anim_player_simpleAttack");
-                    break;
-                case PlayerRequestedAnimation.DashAttack:
-                    Animation.PlayAnimation("anim_player_dashAttack");
-                    break;
-                case PlayerRequestedAnimation.Dash:
-                    Animation.PlayAnimation("anim_player_dash");
-                    break;
+                _controllerData.Renderer.flipX = true;
+            }
+            else
+            {
+                _controllerData.Renderer.flipX = false;
+            }
+            if (AimDirection.z > 0)
+            {
+                switch (request)
+                {
+                    case PlayerRequestedAnimation.Idle:
+                        Animation.PlayAnimation("anim_player_idle_back");
+                        break;
+                    case PlayerRequestedAnimation.Walk:
+                        Animation.PlayAnimation("anim_player_walk_back");
+                        break;
+                    case PlayerRequestedAnimation.Run:
+                        Animation.PlayAnimation("anim_player_run_back");
+                        break;
+                    case PlayerRequestedAnimation.Attack01:
+                        Animation.PlayAnimation("anim_player_attack_01_back");
+                        break;
+                    case PlayerRequestedAnimation.Attack02:
+                        Animation.PlayAnimation("anim_player_attack_02_back");
+                        break;
+                    case PlayerRequestedAnimation.Dash:
+                        Animation.PlayAnimation("anim_player_dodge_back");
+                        break;
+                    case PlayerRequestedAnimation.Die:
+                        Animation.PlayAnimation("anim_player_die");
+                        break;
+                }
+            }
+            else
+            {
+                switch (request)
+                {
+                    case PlayerRequestedAnimation.Idle:
+                        Animation.PlayAnimation("anim_player_idle");
+                        break;
+                    case PlayerRequestedAnimation.Walk:
+                        Animation.PlayAnimation("anim_player_walk");
+                        break;
+                    case PlayerRequestedAnimation.Run:
+                        Animation.PlayAnimation("anim_player_run");
+                        break;
+                    case PlayerRequestedAnimation.Attack01:
+                        Animation.PlayAnimation("anim_player_attack_01");
+                        break;
+                    case PlayerRequestedAnimation.Attack02:
+                        Animation.PlayAnimation("anim_player_attack_02");
+                        break;
+                    case PlayerRequestedAnimation.Dash:
+                        Animation.PlayAnimation("anim_player_dodge");
+                        break;
+                    case PlayerRequestedAnimation.Die:
+                        Animation.PlayAnimation("anim_player_die");
+                        break;
+                }
             }
         }
         public void PerformAttack(AttackType attackType)
@@ -83,9 +127,6 @@ namespace PlayerSystem
                 case AttackType.SimpleAttack:
                     _controllerData.SimpleDamageDealerComponent.PerformAttack(AimDirection);
                     break;
-                case AttackType.DashAttack:
-                    _controllerData.DashDamageDealerComponent.PerformAttack(AimDirection);
-                    break;
             }
         }
         public void FinishAttack(AttackType attackType)
@@ -94,9 +135,6 @@ namespace PlayerSystem
             {
                 case AttackType.SimpleAttack:
                     _controllerData.SimpleDamageDealerComponent.FinishAttack();
-                    break;
-                case AttackType.DashAttack:
-                    _controllerData.DashDamageDealerComponent.FinishAttack();
                     break;
             }
             
@@ -118,7 +156,7 @@ namespace PlayerSystem
         public void DontCollideWithEnemy() => _controllerData.ColliderSwitch.DontCollideWithEnemy();
         public void CollideWithEnemy() => _controllerData.ColliderSwitch.CollideWithEnemy();
         public void Move(Vector3 moveVector) => _controllerData.MovementComponent.Move(moveVector);
-
+        
 
         public PlayerControllerDataAccessor(PlayerController basePlayerController)
         {

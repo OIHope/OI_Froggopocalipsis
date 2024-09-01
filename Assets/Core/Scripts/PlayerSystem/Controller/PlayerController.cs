@@ -12,7 +12,6 @@ namespace Entity.PlayerSystem
         [Space]
         [SerializeField] private InputManager _inputManager;
         [SerializeField] private DamageDealer _simpleDamageDealer;
-        [SerializeField] private DamageDealer _dashDamageDealer;
         [Space]
         [Header("Components")]
         [Space]
@@ -20,6 +19,7 @@ namespace Entity.PlayerSystem
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Collider _collider;
         [SerializeField] private Animator _animator;
+        [SerializeField] private SpriteRenderer _spriteRenderer;
         [Space]
         [SerializeField] private ProgressBarComponent _healthBar;
         [SerializeField] private ProgressBarComponent _attackCooldownBar;
@@ -42,13 +42,13 @@ namespace Entity.PlayerSystem
         private AnimationComponent _animationComponent;
 
         public InputManager InputManager => _inputManager;
-        public MovementComponent MovementComponent => _movementComponent;
         public PlayerDataSO PlayerData => _playerDataSO;
         public LayersDataSO LayersData => _layersDataSO;
         public GameObject NavigationArrow { get => _navigationArrow; set => _navigationArrow = value; }
         public Transform InstanceTransform { get => _instanceTransform; set => _instanceTransform = value; }
+        public SpriteRenderer Renderer { get => _spriteRenderer; set => _spriteRenderer = value; }
         public DamageDealer SimpleDamageDealerComponent => _simpleDamageDealer;
-        public DamageDealer DashDamageDealerComponent => _dashDamageDealer;
+        public MovementComponent MovementComponent => _movementComponent;
         public CooldownComponent SimpleAttackCooldown => _attackCooldownComponent;
         public CooldownComponent DashCooldown => _dashCooldownComponent;
         public ColliderSwitchComponent ColliderSwitch => _colliderSwitchComponent;
@@ -59,7 +59,6 @@ namespace Entity.PlayerSystem
         {
             base.Awake();
             _inputManager.InitializeInputControls();
-
         }
 
         private void Update()
@@ -103,6 +102,15 @@ namespace Entity.PlayerSystem
         {
             base.TakeDamage(attackData, attackVector);
             
+        }
+        protected override void CreatureDeath(HealthComponent healthComponent)
+        {
+            _healthComponent.OnDeath -= CreatureDeath;
+
+            _stateMachine.SwitchState(PlayerStates.Empty);
+            _stateMachine.SwitchSubState(PlayerSubStates.Empty);
+
+            _dataAccessor.PlayAnimation(PlayerRequestedAnimation.Die);
         }
     }
 }

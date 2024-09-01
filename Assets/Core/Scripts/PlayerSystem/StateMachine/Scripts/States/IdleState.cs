@@ -9,6 +9,10 @@ namespace BehaviourSystem.PlayerSystem
             base.EnterState(stateMachine);
             stateMachine.Context.PlayAnimation(PlayerRequestedAnimation.Idle);
         }
+        public override void FixedUpdateState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
+        {
+            stateMachine.Context.PlayAnimation(PlayerRequestedAnimation.Idle);
+        }
         public override PlayerStates GetNextState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
             PlayerStates nextStateKey = stateMachine.GetStateKey;
@@ -28,16 +32,14 @@ namespace BehaviourSystem.PlayerSystem
         }
         public override PlayerSubStates GetNextSubState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
-            PlayerSubStates nextSubStateKey = stateMachine.GetSubStateKey;
             if (stateMachine.Context.IsAiming)
             {
-                nextSubStateKey = PlayerSubStates.Aim;
+                return PlayerSubStates.Aim;
             }
             else
             {
-                nextSubStateKey = PlayerSubStates.NoAim;
+                return PlayerSubStates.NoAim;
             }
-            return nextSubStateKey;
         }
     }
 }

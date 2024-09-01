@@ -2,7 +2,6 @@ using Data;
 using Components;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.IO.LowLevel.Unsafe;
 
 namespace Entity
 {

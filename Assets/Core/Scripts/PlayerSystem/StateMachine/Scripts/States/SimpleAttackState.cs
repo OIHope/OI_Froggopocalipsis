@@ -24,6 +24,8 @@ namespace BehaviourSystem.PlayerSystem
 
             stateMachine.Context.PerformAttack(AttackType.SimpleAttack);
             stateMachine.Context.StartAttackCooldown(AttackType.SimpleAttack);
+
+            PlayAnimation(stateMachine);
         }
 
         public override void ExitState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
@@ -34,7 +36,7 @@ namespace BehaviourSystem.PlayerSystem
 
         public override void FixedUpdateState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
-            if (_elapsedTime > _duration)
+            if (_elapsedTime > _duration && stateMachine.Context.AnimationComplete)
             {
                 _isComplete = true;
             }
@@ -45,12 +47,24 @@ namespace BehaviourSystem.PlayerSystem
         }
         private void PerformAttack(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
-            stateMachine.Context.PlayAnimation(PlayerRequestedAnimation.SimpleAttack);
             Vector3 moveVector = stateMachine.Context.SimpleAttackAnimationCurve.Evaluate(_elapsedTime)
                 * stateMachine.Context.SimpleAttackSlideDistance * Time.deltaTime
                 * _attackDirection;
             stateMachine.Context.Move(moveVector);
             _elapsedTime += Time.deltaTime;
+        }
+
+        private void PlayAnimation(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
+        {
+            float randomAttackAnimationValue = Random.Range(-1f, 1f);
+            if (randomAttackAnimationValue >= 0)
+            {
+                stateMachine.Context.PlayAnimation(PlayerRequestedAnimation.Attack01);
+            }
+            else
+            {
+                stateMachine.Context.PlayAnimation(PlayerRequestedAnimation.Attack02);
+            }
         }
 
         public override PlayerStates GetNextState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
@@ -60,16 +74,7 @@ namespace BehaviourSystem.PlayerSystem
         }
         public override PlayerSubStates GetNextSubState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
-            PlayerSubStates nextSubStateKey = stateMachine.GetSubStateKey;
-            if (stateMachine.Context.IsAiming)
-            {
-                nextSubStateKey = PlayerSubStates.Aim;
-            }
-            else
-            {
-                nextSubStateKey = PlayerSubStates.NoAim;
-            }
-            return nextSubStateKey;
+            return PlayerSubStates.NoAim;
         }
     }
 }
