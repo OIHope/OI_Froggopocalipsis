@@ -10,7 +10,6 @@ namespace BehaviourSystem.EnemySystem
         public override void EnterState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
         {
             base.EnterState(stateMachine);
-            stateMachine.Context.PlayAnimation(EnemyRequestedAnimation.Run);
 
             _targetTransform = stateMachine.Context.TargetTransform;
             stateMachine.Context.Agent.isStopped = false;
@@ -34,6 +33,8 @@ namespace BehaviourSystem.EnemySystem
 
             Vector3 direction = (_targetTransform.position - stateMachine.Context.Agent.transform.position).normalized;
             stateMachine.Context.AimDirection = direction;
+
+            stateMachine.Context.PlayAnimation(EnemyRequestedAnimation.Run);
         }
         public override EnemyState GetNextState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
         {
@@ -45,7 +46,7 @@ namespace BehaviourSystem.EnemySystem
             }
 
             float distance = Vector3.Distance(_targetTransform.position, stateMachine.Context.Agent.transform.position);
-            bool inAttackRange = distance <= stateMachine.Context.StopDistance;
+            bool inAttackRange = distance <= 2f;
             bool canAttack = stateMachine.Context.CanAttack;
             if (inAttackRange && canAttack) return EnemyState.Attack;
 

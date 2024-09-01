@@ -19,7 +19,6 @@ namespace Entity.PlayerSystem
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Collider _collider;
         [SerializeField] private Animator _animator;
-        [SerializeField] private SpriteRenderer _spriteRenderer;
         [Space]
         [SerializeField] private ProgressBarComponent _healthBar;
         [SerializeField] private ProgressBarComponent _attackCooldownBar;
@@ -46,7 +45,6 @@ namespace Entity.PlayerSystem
         public LayersDataSO LayersData => _layersDataSO;
         public GameObject NavigationArrow { get => _navigationArrow; set => _navigationArrow = value; }
         public Transform InstanceTransform { get => _instanceTransform; set => _instanceTransform = value; }
-        public SpriteRenderer Renderer { get => _spriteRenderer; set => _spriteRenderer = value; }
         public DamageDealer SimpleDamageDealerComponent => _simpleDamageDealer;
         public MovementComponent MovementComponent => _movementComponent;
         public CooldownComponent SimpleAttackCooldown => _attackCooldownComponent;
@@ -105,6 +103,8 @@ namespace Entity.PlayerSystem
         }
         protected override void CreatureDeath(HealthComponent healthComponent)
         {
+            _isAlive = false;
+
             _healthComponent.OnDeath -= CreatureDeath;
 
             _stateMachine.SwitchState(PlayerStates.Empty);

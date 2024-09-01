@@ -33,7 +33,10 @@ namespace PlayerSystem
         public bool PressedAttackInput => Input.GameplayInputMap.Attack.IsPressed();
         public bool CanAttack => _controllerData.SimpleAttackCooldown.CanUseAbility;
         public bool CanDash => _controllerData.DashCooldown.CanUseAbility;
-        public bool AnimationComplete => Animation.IsAnimationComplete();
+        public bool AnimationComplete(string animationName)
+        {
+            return Animation.IsAnimationComplete(animationName);
+        }
 
         public Vector2 MoveInput => Input.GameplayInputMap.Move.ReadValue<Vector2>();
         public Vector2 AimInput => Input.GameplayInputMap.LookAround.ReadValue<Vector2>();

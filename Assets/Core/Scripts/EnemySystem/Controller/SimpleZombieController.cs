@@ -1,7 +1,10 @@
 using BehaviourSystem.EnemySystem;
+using BehaviourSystem.PlayerSystem;
 using Components;
 using Data;
 using EnemySystem;
+using PlayerSystem;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -22,6 +25,8 @@ namespace Entity.EnemySystem
         [SerializeField] private DetectTargetComponent _targetDetector;
         [SerializeField] private NavMeshAgent _agent;
 
+        private bool _isSpawned = false;
+
         private SimpleZombieControllerDataAccessor _dataAccessor;
         private SimpleZombieStateMachine _stateMachine;
 
@@ -40,16 +45,36 @@ namespace Entity.EnemySystem
         protected override void Awake()
         {
             base.Awake();
+            StartCoroutine(SpawnEntity());
+        }
+
+        private IEnumerator SpawnEntity()
+        {
+            _stateMachine.SwitchState(EnemyState.Empty);
+            _stateMachine.SwitchSubState(EnemySubState.Empty);
+
+            _dataAccessor.PlayAnimation(EnemyRequestedAnimation.Spawn);
+
+            yield return new WaitUntil(() => _dataAccessor.AnimationComplete);
+
+            _isSpawned = true;
+
+            _stateMachine.SwitchState(EnemyState.Idle);
+            _stateMachine.SwitchSubState(EnemySubState.Empty);
+
             StartSearching();
         }
 
         private void Update()
         {
+            if (!_isSpawned || !_isAlive) return;
+
             _stateMachine.UpdateStateMachine();
             foreach (var component in _components) component.UpdateComponent();
         }
         private void FixedUpdate()
         {
+            if (!_isSpawned || !_isAlive) return;
             _stateMachine.FixedUpdateStateMachine();
         }
         protected override void InitStateMachine()
@@ -104,6 +129,17 @@ namespace Entity.EnemySystem
             TargetDetector.OnTargetDetected -= StopSearching;
 
             _stateMachine.SwitchState(EnemyState.MoveToTarget);
+        }
+        protected override void CreatureDeath(HealthComponent healthComponent)
+        {
+            _isAlive = false;
+
+            _healthComponent.OnDeath -= CreatureDeath;
+
+            _stateMachine.SwitchState(EnemyState.Empty);
+            _stateMachine.SwitchSubState(EnemySubState.Empty);
+
+            _dataAccessor.PlayAnimation(EnemyRequestedAnimation.Die);
         }
     }
 }

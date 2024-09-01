@@ -8,70 +8,57 @@ namespace BehaviourSystem.EnemySystem
 {
     public class SimpleAttackState : State<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor>
     {
-        private float _chargeDuration;
-        private float _elapsedChargeTime = 0f;
         private bool _isCharged = false;
-
-        private float _attackDuration;
-        private float _elapsedAttackTime = 0f;
-
-        private Vector3 _attackDirection;
-
-        private AttackDataSO _currentAttackData;
+        private bool _isAttacked = false;
 
         public override void EnterState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
         {
             base.EnterState(stateMachine);
-            stateMachine.Context.PlayAnimation(EnemyRequestedAnimation.ChargeSimpleAttack);
+
+            _isCharged = false;
+            _isAttacked = false;
 
             stateMachine.Context.Agent.isStopped = true;
-
-            _attackDuration = stateMachine.Context.SimpleAttackDuration;
-            _elapsedAttackTime = 0f;
-            _attackDirection = stateMachine.Context.AimDirection;
-
-            _currentAttackData = stateMachine.Context.PerformAttack(AttackType.SimpleAttack);
-            stateMachine.Context.StartAttackCooldown();
-
-            _chargeDuration = _currentAttackData.ChargeTime;
-            _elapsedChargeTime = 0f;
-            _isCharged = false;
         }
         public override void ExitState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
         {
             base.ExitState(stateMachine);
-            if ( _isCharged ) stateMachine.Context.FinishAttack(AttackType.SimpleAttack);
+            if (_isCharged)
+            {
+                stateMachine.Context.FinishAttack(AttackType.SimpleAttack);
+                stateMachine.Context.StartAttackCooldown();
+            }
         }
         public override void FixedUpdateState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
         {
-            if (_elapsedAttackTime > _attackDuration)
-            {
-                _isComplete = true;
-                return;
-            }
-            if (!_isCharged)
+
+            if (!_isCharged && !_isAttacked)
             {
                 PerformCharge(stateMachine);
-                _isCharged = _elapsedChargeTime > _chargeDuration;
+                return;
             }
-            else
+            if (_isCharged && !_isAttacked)
             {
                 PerformAttack(stateMachine);
+                return;
+            }
+            if (_isCharged && _isAttacked)
+            {
+                _isComplete = true;
+                Debug.Log("Done...");
             }
         }
         private void PerformCharge(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
         {
-            _elapsedChargeTime += Time.deltaTime;
+            Debug.Log("Charging...");
+            stateMachine.Context.PlayAnimation(EnemyRequestedAnimation.Charge);
+            _isCharged = stateMachine.Context.AnimationComplete;
         }
         private void PerformAttack(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
         {
-            stateMachine.Context.PlayAnimation(EnemyRequestedAnimation.PerformSimpleAttack);
-
-            Vector3 moveVector = stateMachine.Context.SimpleAttackAnimationCurve.Evaluate(_elapsedAttackTime)
-                * stateMachine.Context.SimpleAttackSlideDistance * Time.deltaTime
-                * _attackDirection;
-            stateMachine.Context.Move(moveVector);
-            _elapsedAttackTime += Time.deltaTime;
+            Debug.Log("Attacking...");
+            stateMachine.Context.PlayAnimation(EnemyRequestedAnimation.Attack);
+            _isAttacked = stateMachine.Context.AnimationComplete;
         }
 
         public override EnemyState GetNextState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)

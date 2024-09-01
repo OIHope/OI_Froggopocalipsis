@@ -1,14 +1,13 @@
 using Components;
 using Data;
 using Entity.EnemySystem;
-using PlayerSystem;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace EnemySystem
 {
     public enum EnemyRequestedAnimation 
-        { Idle, Walk, Run, ChargeSimpleAttack, PerformSimpleAttack, TakeDamage }
+        { Idle, Walk, Run, Charge, Attack, TakeDamage, Spawn, Die }
     public class SimpleZombieControllerDataAccessor
     {
         private SimpleZombieController _controllerData;
@@ -18,6 +17,10 @@ namespace EnemySystem
 
         public bool IsStatic => _controllerData.EnemyData.RoamingData.IsStatic;
         public bool CanAttack => _controllerData.SimpleAttackCooldown.CanUseAbility;
+        public bool AnimationComplete(string animationName)
+        {
+            return Animation.IsAnimationComplete(animationName);
+        }
 
         public int HP => _controllerData.EnemyData.HealthData.StartHP;
         public int MaxHP => _controllerData.EnemyData.HealthData.MaxHP;
@@ -51,26 +54,120 @@ namespace EnemySystem
 
         public void PlayAnimation(EnemyRequestedAnimation request)
         {
-            switch (request)
+            if (AimDirection.x < 0)
             {
-                case EnemyRequestedAnimation.Idle:
-                    Animation.PlayAnimation("anim_enemy_idle");
-                    break;
-                case EnemyRequestedAnimation.Walk:
-                    Animation.PlayAnimation("anim_enemy_walk");
-                    break;
-                case EnemyRequestedAnimation.Run:
-                    Animation.PlayAnimation("anim_enemy_run");
-                    break;
-                case EnemyRequestedAnimation.ChargeSimpleAttack:
-                    Animation.PlayAnimation("anim_enemy_chargeSimpleAttack");
-                    break;
-                case EnemyRequestedAnimation.PerformSimpleAttack:
-                    Animation.PlayAnimation("anim_enemy_simpleAttack");
-                    break;
-                case EnemyRequestedAnimation.TakeDamage:
-                    Animation.PlayAnimation("anim_enemy_run");
-                    break;
+                _controllerData.Renderer.flipX = true;
+            }
+            else
+            {
+                _controllerData.Renderer.flipX = false;
+            }
+            if (AimDirection.z > 0)
+            {
+                switch (request)
+                {
+                    case EnemyRequestedAnimation.Idle:
+                        Animation.PlayAnimation("anim_simpleZom_idle_back");
+                        break;
+                    case EnemyRequestedAnimation.Walk:
+                        Animation.PlayAnimation("anim_simpleZom_move_back");
+                        break;
+                    case EnemyRequestedAnimation.Run:
+                        Animation.PlayAnimation("anim_simpleZom_move_back");
+                        break;
+                    case EnemyRequestedAnimation.Charge:
+                        Animation.PlayAnimation("anim_simpleZom_chargeAttack_back");
+                        break;
+                    case EnemyRequestedAnimation.Attack:
+                        Animation.PlayAnimation("anim_simpleZom_attack_back");
+                        break;
+                    case EnemyRequestedAnimation.TakeDamage:
+                        Animation.PlayAnimation("anim_simpleZom_takeDamage_back");
+                        break;
+                    case EnemyRequestedAnimation.Spawn:
+                        Animation.PlayAnimation("anim_simpleZom_spawn_back");
+                        break;
+                    case EnemyRequestedAnimation.Die:
+                        Animation.PlayAnimation("anim_simpleZom_die_back");
+                        break;
+                }
+            }
+            else
+            {
+                switch (request)
+                {
+                    case EnemyRequestedAnimation.Idle:
+                        Animation.PlayAnimation("anim_simpleZom_idle");
+                        break;
+                    case EnemyRequestedAnimation.Walk:
+                        Animation.PlayAnimation("anim_simpleZom_move");
+                        break;
+                    case EnemyRequestedAnimation.Run:
+                        Animation.PlayAnimation("anim_simpleZom_move");
+                        break;
+                    case EnemyRequestedAnimation.Charge:
+                        Animation.PlayAnimation("anim_simpleZom_chargeAttack");
+                        break;
+                    case EnemyRequestedAnimation.Attack:
+                        Animation.PlayAnimation("anim_simpleZom_attack");
+                        break;
+                    case EnemyRequestedAnimation.TakeDamage:
+                        Animation.PlayAnimation("anim_simpleZom_takeDamage");
+                        break;
+                    case EnemyRequestedAnimation.Spawn:
+                        Animation.PlayAnimation("anim_simpleZom_spawn");
+                        break;
+                    case EnemyRequestedAnimation.Die:
+                        Animation.PlayAnimation("anim_simpleZom_die");
+                        break;
+                }
+            }
+        }
+        public string AnimationName(EnemyRequestedAnimation request)
+        {
+            if (AimDirection.z > 0)
+            {
+                switch (request)
+                {
+                    case EnemyRequestedAnimation.Idle:
+                        return ("anim_simpleZom_idle_back");
+                    case EnemyRequestedAnimation.Walk:
+                        return ("anim_simpleZom_move_back");
+                    case EnemyRequestedAnimation.Run:
+                        return ("anim_simpleZom_move_back");
+                    case EnemyRequestedAnimation.Charge:
+                        return ("anim_simpleZom_chargeAttack_back");
+                    case EnemyRequestedAnimation.Attack:
+                        return ("anim_simpleZom_attack_back");
+                    case EnemyRequestedAnimation.TakeDamage:
+                        return ("anim_simpleZom_takeDamage_back");
+                    case EnemyRequestedAnimation.Spawn:
+                        return ("anim_simpleZom_spawn_back");
+                    case EnemyRequestedAnimation.Die:
+                        return ("anim_simpleZom_die_back");
+                }
+            }
+            else
+            {
+                switch (request)
+                {
+                    case EnemyRequestedAnimation.Idle:
+                        return ("anim_simpleZom_idle");
+                    case EnemyRequestedAnimation.Walk:
+                        return ("anim_simpleZom_move");
+                    case EnemyRequestedAnimation.Run:
+                        return ("anim_simpleZom_move");
+                    case EnemyRequestedAnimation.Charge:
+                        return ("anim_simpleZom_chargeAttack");
+                    case EnemyRequestedAnimation.Attack:
+                        return ("anim_simpleZom_attack");
+                    case EnemyRequestedAnimation.TakeDamage:
+                        return ("anim_simpleZom_takeDamage");
+                    case EnemyRequestedAnimation.Spawn:
+                        return ("anim_simpleZom_spawn");
+                    case EnemyRequestedAnimation.Die:
+                        return ("anim_simpleZom_die");
+                }
             }
         }
         public AttackDataSO PerformAttack(AttackType attackType) => _controllerData.SimpleDamageDealerComponent.PerformAttack(AimDirection);

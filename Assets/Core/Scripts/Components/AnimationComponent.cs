@@ -6,11 +6,16 @@ namespace Components
     {
         private Animator _animator;
 
-        public bool IsAnimationComplete()
+        public bool IsAnimationComplete(string ANIMATION_NAME)
         {
-            if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
+
+            if (stateInfo.IsName(ANIMATION_NAME))
             {
-                return true;
+                if (stateInfo.normalizedTime >= 1.0f)
+                {
+                    return true;
+                }
             }
             return false;
         }

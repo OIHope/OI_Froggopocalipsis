@@ -7,6 +7,11 @@ namespace Entity
 {
     public abstract class Creature : MonoBehaviour, IDamagable, IPushBack
     {
+        [SerializeField] protected SpriteRenderer _spriteRenderer;
+
+        public SpriteRenderer Renderer { get => _spriteRenderer; set => _spriteRenderer = value; }
+
+        protected bool _isAlive;
 
         protected List<ComponentBase> _components;
         protected HealthComponent _healthComponent;
@@ -16,6 +21,7 @@ namespace Entity
             InitComponents();
             InitStateMachine();
             _healthComponent.OnDeath += CreatureDeath;
+            _isAlive = true;
         }
         protected abstract void InitStateMachine();
         protected abstract void InitComponents();
@@ -32,6 +38,7 @@ namespace Entity
         {
             _healthComponent.OnDeath -= CreatureDeath;
             Destroy(transform.gameObject);
+            _isAlive = false;
             Debug.Log(transform.name + " is dead");
         }
     }
