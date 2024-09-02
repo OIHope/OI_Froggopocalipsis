@@ -136,9 +136,11 @@ namespace Entity.EnemySystem
 
             _healthComponent.OnDeath -= CreatureDeath;
 
+            Debug.Log("Requestet to enter EMPTY STATE");
             _stateMachine.SwitchState(EnemyState.Empty);
             _stateMachine.SwitchSubState(EnemySubState.Empty);
 
+            Debug.Log("Requested to play Die Animation");
             _dataAccessor.PlayAnimation(EnemyRequestedAnimation.Die);
         }
     }

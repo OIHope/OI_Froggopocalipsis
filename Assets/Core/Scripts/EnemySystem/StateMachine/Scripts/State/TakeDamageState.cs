@@ -8,7 +8,13 @@ namespace BehaviourSystem.EnemySystem
         public override void EnterState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
         {
             base.EnterState(stateMachine);
+            Debug.Log("Enter takeDamage state");
             stateMachine.Context.PlayAnimation(EnemyRequestedAnimation.TakeDamage);
+        }
+        public override void ExitState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        {
+            base.ExitState(stateMachine);
+            Debug.Log("Exit TakeDamage state");
         }
         public override void FixedUpdateState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
         {

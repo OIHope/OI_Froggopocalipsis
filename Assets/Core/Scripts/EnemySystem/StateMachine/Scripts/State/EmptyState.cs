@@ -1,4 +1,5 @@
 using EnemySystem;
+using UnityEngine;
 
 namespace BehaviourSystem.EnemySystem
 {
@@ -8,6 +9,12 @@ namespace BehaviourSystem.EnemySystem
         {
             base.EnterState(stateMachine);
             stateMachine.Context.Agent.isStopped = true;
+            Debug.Log("EmptyState is entered");
+        }
+        public override void ExitState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        {
+            base.ExitState(stateMachine);
+            Debug.Log("Exit EmptyState");
         }
         public override EnemyState GetNextState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
         {
