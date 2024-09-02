@@ -45,7 +45,6 @@ namespace BehaviourSystem.EnemySystem
             if (_isCharged && _isAttacked)
             {
                 _isComplete = true;
-                Debug.Log("Done...");
             }
         }
         private void PerformCharge(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
