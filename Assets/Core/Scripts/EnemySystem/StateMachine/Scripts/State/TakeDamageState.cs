@@ -12,7 +12,7 @@ namespace BehaviourSystem.EnemySystem
         }
         public override void FixedUpdateState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
         {
-            _isComplete = stateMachine.Context.AnimationComplete;
+            _isComplete = stateMachine.Context.AnimationComplete(stateMachine.Context.AnimationName(EnemyRequestedAnimation.TakeDamage));
         }
         public override EnemyState GetNextState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
         {

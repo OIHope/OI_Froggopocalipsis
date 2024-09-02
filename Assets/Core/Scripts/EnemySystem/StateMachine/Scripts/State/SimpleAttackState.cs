@@ -52,13 +52,13 @@ namespace BehaviourSystem.EnemySystem
         {
             Debug.Log("Charging...");
             stateMachine.Context.PlayAnimation(EnemyRequestedAnimation.Charge);
-            _isCharged = stateMachine.Context.AnimationComplete;
+            _isCharged = stateMachine.Context.AnimationComplete(stateMachine.Context.AnimationName(EnemyRequestedAnimation.Charge));
         }
         private void PerformAttack(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
         {
             Debug.Log("Attacking...");
             stateMachine.Context.PlayAnimation(EnemyRequestedAnimation.Attack);
-            _isAttacked = stateMachine.Context.AnimationComplete;
+            _isAttacked = stateMachine.Context.AnimationComplete(stateMachine.Context.AnimationName(EnemyRequestedAnimation.Attack));
         }
 
         public override EnemyState GetNextState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)

@@ -55,7 +55,7 @@ namespace Entity.EnemySystem
 
             _dataAccessor.PlayAnimation(EnemyRequestedAnimation.Spawn);
 
-            yield return new WaitUntil(() => _dataAccessor.AnimationComplete);
+            yield return new WaitUntil(() => _dataAccessor.AnimationComplete(_dataAccessor.AnimationName(EnemyRequestedAnimation.Spawn)));
 
             _isSpawned = true;
 

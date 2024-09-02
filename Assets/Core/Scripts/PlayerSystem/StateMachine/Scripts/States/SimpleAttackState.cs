@@ -13,6 +13,8 @@ namespace BehaviourSystem.PlayerSystem
         private float _elapsedTime = 0f;
         private Vector3 _attackDirection;
 
+        private string _currentAnimation;
+
         public override void EnterState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
             base.EnterState(stateMachine);
@@ -36,7 +38,7 @@ namespace BehaviourSystem.PlayerSystem
 
         public override void FixedUpdateState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
-            if (_elapsedTime > _duration && stateMachine.Context.AnimationComplete)
+            if (_elapsedTime > _duration && stateMachine.Context.AnimationComplete(_currentAnimation))
             {
                 _isComplete = true;
             }
@@ -60,10 +62,12 @@ namespace BehaviourSystem.PlayerSystem
             if (randomAttackAnimationValue >= 0)
             {
                 stateMachine.Context.PlayAnimation(PlayerRequestedAnimation.Attack01);
+                _currentAnimation = stateMachine.Context.AnimationName(PlayerRequestedAnimation.Attack01);
             }
             else
             {
                 stateMachine.Context.PlayAnimation(PlayerRequestedAnimation.Attack02);
+                _currentAnimation = stateMachine.Context.AnimationName(PlayerRequestedAnimation.Attack02);
             }
         }
 

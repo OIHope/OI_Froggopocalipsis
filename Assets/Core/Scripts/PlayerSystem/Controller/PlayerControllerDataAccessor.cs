@@ -68,31 +68,28 @@ namespace PlayerSystem
             {
                 _controllerData.Renderer.flipX = false;
             }
+            Animation.PlayAnimation(AnimationName(request));
+        }
+        public string AnimationName(PlayerRequestedAnimation request)
+        {
             if (AimDirection.z > 0)
             {
                 switch (request)
                 {
                     case PlayerRequestedAnimation.Idle:
-                        Animation.PlayAnimation("anim_player_idle_back");
-                        break;
+                        return "anim_player_idle_back";
                     case PlayerRequestedAnimation.Walk:
-                        Animation.PlayAnimation("anim_player_walk_back");
-                        break;
+                        return "anim_player_walk_back";
                     case PlayerRequestedAnimation.Run:
-                        Animation.PlayAnimation("anim_player_run_back");
-                        break;
+                        return "anim_player_run_back";
                     case PlayerRequestedAnimation.Attack01:
-                        Animation.PlayAnimation("anim_player_attack_01_back");
-                        break;
+                        return "anim_player_attack_01_back";
                     case PlayerRequestedAnimation.Attack02:
-                        Animation.PlayAnimation("anim_player_attack_02_back");
-                        break;
+                        return "anim_player_attack_02_back";
                     case PlayerRequestedAnimation.Dash:
-                        Animation.PlayAnimation("anim_player_dodge_back");
-                        break;
+                        return "anim_player_dodge_back";
                     case PlayerRequestedAnimation.Die:
-                        Animation.PlayAnimation("anim_player_die");
-                        break;
+                        return "anim_player_die";
                 }
             }
             else
@@ -100,29 +97,25 @@ namespace PlayerSystem
                 switch (request)
                 {
                     case PlayerRequestedAnimation.Idle:
-                        Animation.PlayAnimation("anim_player_idle");
-                        break;
+                        return "anim_player_idle";
                     case PlayerRequestedAnimation.Walk:
-                        Animation.PlayAnimation("anim_player_walk");
-                        break;
+                        return "anim_player_walk";
                     case PlayerRequestedAnimation.Run:
-                        Animation.PlayAnimation("anim_player_run");
-                        break;
+                        return "anim_player_run";
                     case PlayerRequestedAnimation.Attack01:
-                        Animation.PlayAnimation("anim_player_attack_01");
-                        break;
+                        return "anim_player_attack_01";
                     case PlayerRequestedAnimation.Attack02:
-                        Animation.PlayAnimation("anim_player_attack_02");
-                        break;
+                        return "anim_player_attack_02";
                     case PlayerRequestedAnimation.Dash:
-                        Animation.PlayAnimation("anim_player_dodge");
-                        break;
+                        return "anim_player_dodge";
                     case PlayerRequestedAnimation.Die:
-                        Animation.PlayAnimation("anim_player_die");
-                        break;
+                        return "anim_player_die";
                 }
             }
+
+            return "anim_player_idle";
         }
+
         public void PerformAttack(AttackType attackType)
         {
             switch (attackType)

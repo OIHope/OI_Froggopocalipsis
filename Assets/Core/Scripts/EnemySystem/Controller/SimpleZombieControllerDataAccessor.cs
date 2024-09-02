@@ -62,66 +62,7 @@ namespace EnemySystem
             {
                 _controllerData.Renderer.flipX = false;
             }
-            if (AimDirection.z > 0)
-            {
-                switch (request)
-                {
-                    case EnemyRequestedAnimation.Idle:
-                        Animation.PlayAnimation("anim_simpleZom_idle_back");
-                        break;
-                    case EnemyRequestedAnimation.Walk:
-                        Animation.PlayAnimation("anim_simpleZom_move_back");
-                        break;
-                    case EnemyRequestedAnimation.Run:
-                        Animation.PlayAnimation("anim_simpleZom_move_back");
-                        break;
-                    case EnemyRequestedAnimation.Charge:
-                        Animation.PlayAnimation("anim_simpleZom_chargeAttack_back");
-                        break;
-                    case EnemyRequestedAnimation.Attack:
-                        Animation.PlayAnimation("anim_simpleZom_attack_back");
-                        break;
-                    case EnemyRequestedAnimation.TakeDamage:
-                        Animation.PlayAnimation("anim_simpleZom_takeDamage_back");
-                        break;
-                    case EnemyRequestedAnimation.Spawn:
-                        Animation.PlayAnimation("anim_simpleZom_spawn_back");
-                        break;
-                    case EnemyRequestedAnimation.Die:
-                        Animation.PlayAnimation("anim_simpleZom_die_back");
-                        break;
-                }
-            }
-            else
-            {
-                switch (request)
-                {
-                    case EnemyRequestedAnimation.Idle:
-                        Animation.PlayAnimation("anim_simpleZom_idle");
-                        break;
-                    case EnemyRequestedAnimation.Walk:
-                        Animation.PlayAnimation("anim_simpleZom_move");
-                        break;
-                    case EnemyRequestedAnimation.Run:
-                        Animation.PlayAnimation("anim_simpleZom_move");
-                        break;
-                    case EnemyRequestedAnimation.Charge:
-                        Animation.PlayAnimation("anim_simpleZom_chargeAttack");
-                        break;
-                    case EnemyRequestedAnimation.Attack:
-                        Animation.PlayAnimation("anim_simpleZom_attack");
-                        break;
-                    case EnemyRequestedAnimation.TakeDamage:
-                        Animation.PlayAnimation("anim_simpleZom_takeDamage");
-                        break;
-                    case EnemyRequestedAnimation.Spawn:
-                        Animation.PlayAnimation("anim_simpleZom_spawn");
-                        break;
-                    case EnemyRequestedAnimation.Die:
-                        Animation.PlayAnimation("anim_simpleZom_die");
-                        break;
-                }
-            }
+            Animation.PlayAnimation(AnimationName(request));
         }
         public string AnimationName(EnemyRequestedAnimation request)
         {
@@ -130,21 +71,21 @@ namespace EnemySystem
                 switch (request)
                 {
                     case EnemyRequestedAnimation.Idle:
-                        return ("anim_simpleZom_idle_back");
+                        return "anim_simpleZom_idle_back";
                     case EnemyRequestedAnimation.Walk:
-                        return ("anim_simpleZom_move_back");
+                        return "anim_simpleZom_move_back";
                     case EnemyRequestedAnimation.Run:
-                        return ("anim_simpleZom_move_back");
+                        return "anim_simpleZom_move_back";
                     case EnemyRequestedAnimation.Charge:
-                        return ("anim_simpleZom_chargeAttack_back");
+                        return "anim_simpleZom_chargeAttack_back";
                     case EnemyRequestedAnimation.Attack:
-                        return ("anim_simpleZom_attack_back");
+                        return "anim_simpleZom_attack_back";
                     case EnemyRequestedAnimation.TakeDamage:
-                        return ("anim_simpleZom_takeDamage_back");
+                        return "anim_simpleZom_takeDamage_back";
                     case EnemyRequestedAnimation.Spawn:
-                        return ("anim_simpleZom_spawn_back");
+                        return "anim_simpleZom_spawn_back";
                     case EnemyRequestedAnimation.Die:
-                        return ("anim_simpleZom_die_back");
+                        return "anim_simpleZom_die_back";
                 }
             }
             else
@@ -152,23 +93,24 @@ namespace EnemySystem
                 switch (request)
                 {
                     case EnemyRequestedAnimation.Idle:
-                        return ("anim_simpleZom_idle");
+                        return "anim_simpleZom_idle";
                     case EnemyRequestedAnimation.Walk:
-                        return ("anim_simpleZom_move");
+                        return "anim_simpleZom_move";
                     case EnemyRequestedAnimation.Run:
-                        return ("anim_simpleZom_move");
+                        return "anim_simpleZom_move";
                     case EnemyRequestedAnimation.Charge:
-                        return ("anim_simpleZom_chargeAttack");
+                        return "anim_simpleZom_chargeAttack";
                     case EnemyRequestedAnimation.Attack:
-                        return ("anim_simpleZom_attack");
+                        return "anim_simpleZom_attack";
                     case EnemyRequestedAnimation.TakeDamage:
-                        return ("anim_simpleZom_takeDamage");
+                        return "anim_simpleZom_takeDamage";
                     case EnemyRequestedAnimation.Spawn:
-                        return ("anim_simpleZom_spawn");
+                        return "anim_simpleZom_spawn";
                     case EnemyRequestedAnimation.Die:
-                        return ("anim_simpleZom_die");
+                        return "anim_simpleZom_die";
                 }
             }
+            return "anim_simpleZom_idle";
         }
         public AttackDataSO PerformAttack(AttackType attackType) => _controllerData.SimpleDamageDealerComponent.PerformAttack(AimDirection);
         public void FinishAttack(AttackType attackType) => _controllerData.SimpleDamageDealerComponent.FinishAttack();

@@ -29,7 +29,7 @@ namespace BehaviourSystem.PlayerSystem
         }
         public override void FixedUpdateState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
-            if (_elapsedTime > _duration && stateMachine.Context.AnimationComplete)
+            if (_elapsedTime > _duration && stateMachine.Context.AnimationComplete(stateMachine.Context.AnimationName(PlayerRequestedAnimation.Dash)))
             {
                 _isComplete = true;
             }
