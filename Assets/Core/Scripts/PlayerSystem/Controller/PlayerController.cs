@@ -6,7 +6,7 @@ using PlayerSystem;
 
 namespace Entity.PlayerSystem
 {
-    public class PlayerController : Creature, ISimpleAttacker, IDasher, IAttackableTarget, IHaveMovementComponent
+    public class PlayerController : Creature, ISimpleAttacker, IDasher, IAttackableTarget, IHaveMovementComponent, IMoveInteractor
     {
         [Header("Managers")]
         [Space]
@@ -52,6 +52,7 @@ namespace Entity.PlayerSystem
         public ColliderSwitchComponent ColliderSwitch => _colliderSwitchComponent;
         public AnimationComponent Animation => _animationComponent;
 
+        public bool InstanceInMove => _dataAccessor.IsMoving;
 
         protected override void Awake()
         {

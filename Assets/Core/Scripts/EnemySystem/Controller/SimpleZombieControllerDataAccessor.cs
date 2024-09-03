@@ -83,9 +83,9 @@ namespace EnemySystem
                     case EnemyRequestedAnimation.TakeDamage:
                         return "anim_simpleZom_takeDamage_back";
                     case EnemyRequestedAnimation.Spawn:
-                        return "anim_simpleZom_spawn_back";
+                        return "anim_simpleZom_spawn";
                     case EnemyRequestedAnimation.Die:
-                        return "anim_simpleZom_die_back";
+                        return "anim_simpleZom_die";
                 }
             }
             else

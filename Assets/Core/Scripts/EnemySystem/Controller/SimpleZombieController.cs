@@ -8,7 +8,7 @@ using UnityEngine.AI;
 
 namespace Entity.EnemySystem
 {
-    public class SimpleZombieController : Creature, ISimpleAttacker, ISearchForTarget, IHaveMovementComponent, IInvincibility
+    public class SimpleZombieController : Creature, ISimpleAttacker, ISearchForTarget, IHaveMovementComponent, IInvincibility, IMoveInteractor
     {
         [Header("Data")]
         [Space]
@@ -35,6 +35,7 @@ namespace Entity.EnemySystem
 
         public bool Invincible { get => _isInvincible; set => _isInvincible = value; }
 
+        public SimpleZombieStateMachine StateMachine => _stateMachine;
         public EnemyDataSO EnemyData => _enemyData;
         public NavMeshAgent Agent { get => _agent; set => _agent = value; }
         public DamageDealer SimpleDamageDealerComponent => _damageDealer;
@@ -42,6 +43,8 @@ namespace Entity.EnemySystem
         public MovementComponent MovementComponent => _movementComponent;
         public DetectTargetComponent TargetDetector => _targetDetector;
         public AnimationComponent Animation => _animationComponent;
+
+        public bool InstanceInMove => _agent.hasPath && _isAlive;
 
         protected override void Awake()
         {
