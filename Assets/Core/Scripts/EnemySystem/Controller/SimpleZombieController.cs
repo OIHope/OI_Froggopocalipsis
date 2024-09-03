@@ -51,15 +51,15 @@ namespace Entity.EnemySystem
 
         private void Update()
         {
-            if (!_isAlive) return;
-
             _stateMachine.UpdateStateMachine();
+
+            if (!_isAlive) return;
             foreach (var component in _components) component.UpdateComponent();
         }
         private void FixedUpdate()
         {
-            if (!_isAlive) return;
             _stateMachine.FixedUpdateStateMachine();
+            if (!_isAlive) return;
         }
 
         private IEnumerator SpawnEntity()

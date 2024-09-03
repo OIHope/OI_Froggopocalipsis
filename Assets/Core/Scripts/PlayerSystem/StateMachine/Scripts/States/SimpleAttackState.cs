@@ -1,8 +1,5 @@
 using Components;
-using Data;
-using EnemySystem;
 using PlayerSystem;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BehaviourSystem.PlayerSystem
@@ -74,11 +71,11 @@ namespace BehaviourSystem.PlayerSystem
         public override PlayerStates GetNextState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
             if (!_isComplete) return PlayerStates.Attack;
-            return stateMachine.Context.IsMoving ? PlayerStates.Move : PlayerStates.Idle;
+            return PlayerStates.Idle;
         }
         public override PlayerSubStates GetNextSubState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
-            return PlayerSubStates.NoAim;
+            return PlayerSubStates.FixedAim;
         }
     }
 }

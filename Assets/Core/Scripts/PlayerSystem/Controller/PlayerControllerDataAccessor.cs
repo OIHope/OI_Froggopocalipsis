@@ -31,7 +31,15 @@ namespace PlayerSystem
         }
         public bool PressedDashInput => Input.GameplayInputMap.Dash.IsPressed();
         public bool PressedAttackInput => Input.GameplayInputMap.Attack.IsPressed();
-        public bool CanAttack => _controllerData.SimpleAttackCooldown.CanUseAbility;
+        public bool CanAttack
+        {
+            get
+            {
+                bool isReloaded = _controllerData.SimpleAttackCooldown.CanUseAbility;
+                bool keyIsUp = Input.GameplayInputMap.Attack.WasPressedThisFrame();
+                return isReloaded && keyIsUp;
+            }
+        }
         public bool CanDash => _controllerData.DashCooldown.CanUseAbility;
         public bool AnimationComplete(string animationName)
         {

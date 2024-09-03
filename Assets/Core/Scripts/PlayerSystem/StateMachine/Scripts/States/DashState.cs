@@ -12,7 +12,6 @@ namespace BehaviourSystem.PlayerSystem
         public override void EnterState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
             base.EnterState(stateMachine);
-            stateMachine.Context.PlayAnimation(PlayerRequestedAnimation.Dash);
 
             _duration = stateMachine.Context.DashAnimationCurveDuration;
             _elapsedTime = 0f;
@@ -27,19 +26,15 @@ namespace BehaviourSystem.PlayerSystem
             base.ExitState(stateMachine);
             stateMachine.Context.CollideWithEnemy();
         }
-        public override void FixedUpdateState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
+        public override void UpdateState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
-            if (_elapsedTime > _duration && stateMachine.Context.AnimationComplete(stateMachine.Context.AnimationName(PlayerRequestedAnimation.Dash)))
-            {
-                _isComplete = true;
-            }
-            else
-            {
-                PerformDash(stateMachine);
-            }
+            _isComplete = stateMachine.Context.AnimationComplete(stateMachine.Context.AnimationName(PlayerRequestedAnimation.Dash));
+            PerformDash(stateMachine);
         }
         private void PerformDash(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
+            stateMachine.Context.PlayAnimation(PlayerRequestedAnimation.Dash);
+
             Vector3 moveVector = stateMachine.Context.DashAnimationCurve.Evaluate(_elapsedTime)
                 * stateMachine.Context.DashSpeed * Time.deltaTime * _dashDirection;
             stateMachine.Context.Move(moveVector);
@@ -49,12 +44,12 @@ namespace BehaviourSystem.PlayerSystem
         public override PlayerStates GetNextState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
             if (!_isComplete) return PlayerStates.Dash;
-            return stateMachine.Context.IsMoving ? PlayerStates.Move : PlayerStates.Idle;
+            return PlayerStates.Idle;
         }
 
         public override PlayerSubStates GetNextSubState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
-            return PlayerSubStates.NoAim;
+            return PlayerSubStates.FixedAim;
         }
     }
 }
