@@ -1,16 +1,14 @@
 using BehaviourSystem.EnemySystem;
-using BehaviourSystem.PlayerSystem;
 using Components;
 using Data;
 using EnemySystem;
-using PlayerSystem;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Entity.EnemySystem
 {
-    public class SimpleZombieController : Creature, ISimpleAttacker, ISearchForTarget, IHaveMovementComponent
+    public class SimpleZombieController : Creature, ISimpleAttacker, ISearchForTarget, IHaveMovementComponent, IInvincibility
     {
         [Header("Data")]
         [Space]
@@ -21,11 +19,12 @@ namespace Entity.EnemySystem
         [Header("Components")]
         [Space]
         [SerializeField] private Rigidbody _rigidbody;
+        [SerializeField] private Collider _collider;
         [SerializeField] private ProgressBarComponent _healthBar;
         [SerializeField] private DetectTargetComponent _targetDetector;
         [SerializeField] private NavMeshAgent _agent;
 
-        private bool _isSpawned = false;
+        private bool _isInvincible = false;
 
         private SimpleZombieControllerDataAccessor _dataAccessor;
         private SimpleZombieStateMachine _stateMachine;
@@ -33,6 +32,8 @@ namespace Entity.EnemySystem
         private CooldownComponent _attackCooldownComponent;
         private MovementComponent _movementComponent;
         private AnimationComponent _animationComponent;
+
+        public bool Invincible { get => _isInvincible; set => _isInvincible = value; }
 
         public EnemyDataSO EnemyData => _enemyData;
         public NavMeshAgent Agent { get => _agent; set => _agent = value; }
@@ -48,35 +49,26 @@ namespace Entity.EnemySystem
             StartCoroutine(SpawnEntity());
         }
 
-        private IEnumerator SpawnEntity()
-        {
-            _stateMachine.SwitchState(EnemyState.Empty);
-            _stateMachine.SwitchSubState(EnemySubState.Empty);
-
-            _dataAccessor.PlayAnimation(EnemyRequestedAnimation.Spawn);
-
-            yield return new WaitUntil(() => _dataAccessor.AnimationComplete(_dataAccessor.AnimationName(EnemyRequestedAnimation.Spawn)));
-
-            _isSpawned = true;
-
-            _stateMachine.SwitchState(EnemyState.Idle);
-            _stateMachine.SwitchSubState(EnemySubState.Empty);
-
-            StartSearching();
-        }
-
         private void Update()
         {
-            if (!_isSpawned || !_isAlive) return;
+            if (!_isAlive) return;
 
             _stateMachine.UpdateStateMachine();
             foreach (var component in _components) component.UpdateComponent();
         }
         private void FixedUpdate()
         {
-            if (!_isSpawned || !_isAlive) return;
+            if (!_isAlive) return;
             _stateMachine.FixedUpdateStateMachine();
         }
+
+        private IEnumerator SpawnEntity()
+        {
+            TargetDetector.DisableTargetDetection();
+            yield return new WaitUntil(() => _dataAccessor.AnimationComplete(_dataAccessor.AnimationName(EnemyRequestedAnimation.Spawn)));
+            StartSearching();
+        }
+
         protected override void InitStateMachine()
         {
             _dataAccessor = new(this);
@@ -104,8 +96,12 @@ namespace Entity.EnemySystem
         }
         public override void TakeDamage(AttackDataSO attackData, Vector3 attackVector)
         {
+            if (Invincible) return;
             base.TakeDamage(attackData, attackVector);
-            _stateMachine.SwitchState(EnemyState.TakeDamage);
+            if (_isAlive)
+            {
+                _stateMachine.SwitchState(EnemyState.TakeDamage);
+            }
         }
 
         public bool CheckTargetIsClose(Transform targetTransform, float triggerDistance)
@@ -130,18 +126,26 @@ namespace Entity.EnemySystem
 
             _stateMachine.SwitchState(EnemyState.MoveToTarget);
         }
+
+        public void MakeInvincible(bool value)
+        {
+            Invincible = value;
+        }
+        public void ToggleColliders(bool value)
+        {
+            //_collider.enabled = value;
+            //_rigidbody.useGravity = value;
+        }
+
         protected override void CreatureDeath(HealthComponent healthComponent)
         {
             _isAlive = false;
 
+            ToggleColliders(false);
+
             _healthComponent.OnDeath -= CreatureDeath;
 
-            Debug.Log("Requestet to enter EMPTY STATE");
-            _stateMachine.SwitchState(EnemyState.Empty);
-            _stateMachine.SwitchSubState(EnemySubState.Empty);
-
-            Debug.Log("Requested to play Die Animation");
-            _dataAccessor.PlayAnimation(EnemyRequestedAnimation.Die);
+            _stateMachine.SwitchState(EnemyState.Death);
         }
     }
 }

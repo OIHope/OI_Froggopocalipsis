@@ -1,8 +1,5 @@
 using Components;
-using Data;
 using EnemySystem;
-using System;
-using UnityEngine;
 
 namespace BehaviourSystem.EnemySystem
 {
@@ -19,6 +16,7 @@ namespace BehaviourSystem.EnemySystem
             _isAttacked = false;
 
             stateMachine.Context.Agent.isStopped = true;
+            stateMachine.Context.PerformAttack(AttackType.SimpleAttack);
         }
         public override void ExitState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
         {
@@ -29,7 +27,7 @@ namespace BehaviourSystem.EnemySystem
                 stateMachine.Context.StartAttackCooldown();
             }
         }
-        public override void FixedUpdateState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        public override void UpdateState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
         {
 
             if (!_isCharged && !_isAttacked)

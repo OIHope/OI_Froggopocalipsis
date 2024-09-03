@@ -3,8 +3,8 @@ using EnemySystem;
 
 namespace BehaviourSystem.EnemySystem
 {
-    public enum EnemyState { Empty, Idle, Roaming, MoveToTarget, Attack, Stun, RunAway, TakeDamage }
-    public enum EnemySubState { Empty }
+    public enum EnemyState { Empty, Idle, Roaming, MoveToTarget, Attack, Stun, RunAway, TakeDamage, Spawn, Death }
+    public enum EnemySubState { Empty, Invincible }
 
     public class SimpleZombieStateMachine : StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor>
     {
@@ -16,8 +16,11 @@ namespace BehaviourSystem.EnemySystem
         private State<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stunState;
         private State<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> runAwayState;
         private State<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> takeDamageState;
+        private State<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> spawnState;
+        private State<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> deathState;
 
         private SubState<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> emptySubState;
+        private SubState<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> invincibleSubState;
 
         public SimpleZombieStateMachine(SimpleZombieControllerDataAccessor dataAccessor)
         {
@@ -31,8 +34,11 @@ namespace BehaviourSystem.EnemySystem
             stunState = new StunState();
             runAwayState = new RunAwayState();
             takeDamageState = new TakeDamageState();
+            spawnState = new SpawnState();
+            deathState = new DeathState();
 
             emptySubState = new EmptySubState();
+            invincibleSubState = new InvincibleSubState();
 
             _states = new Dictionary<EnemyState, State<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor>>
             {
@@ -43,18 +49,21 @@ namespace BehaviourSystem.EnemySystem
                 { EnemyState.Attack, attackState },
                 { EnemyState.Stun, stunState },
                 { EnemyState.RunAway, runAwayState },
-                { EnemyState.TakeDamage, takeDamageState }
+                { EnemyState.TakeDamage, takeDamageState },
+                { EnemyState.Spawn, spawnState },
+                { EnemyState.Death, deathState }
             };
             _subStates = new Dictionary<EnemySubState, SubState<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor>>
             {
-                { EnemySubState.Empty, emptySubState }
+                { EnemySubState.Empty, emptySubState },
+                { EnemySubState.Invincible, invincibleSubState }
             };
 
-            _stateKey = EnemyState.Idle;
+            _stateKey = EnemyState.Spawn;
             CurrentState = _states[_stateKey];
             CurrentState.EnterState(this);
 
-            _subStateKey = EnemySubState.Empty;
+            _subStateKey = EnemySubState.Invincible;
             CurrentSubState = _subStates[_subStateKey];
             CurrentSubState.EnterSubState(this);
         }

@@ -117,6 +117,7 @@ namespace EnemySystem
         public void StartAttackCooldown() => _controllerData.SimpleAttackCooldown.Cooldown(_controllerData.SimpleDamageDealerComponent.LastAttackData.CooldownTime);
         public void Move(Vector3 moveVector) => _controllerData.MovementComponent.Move(moveVector);
         public void EnableTargetDetector() => _controllerData.TargetDetector.EnableTargetDetection();
+        public void MakeInvincible(bool value) => _controllerData.MakeInvincible(value);
 
         public SimpleZombieControllerDataAccessor(SimpleZombieController controllerData)
         {

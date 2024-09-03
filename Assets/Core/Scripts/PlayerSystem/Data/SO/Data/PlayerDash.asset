@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb39a77850f139f42ba0056d9b8e85e0, type: 3}
   m_Name: PlayerDash
   m_EditorClassIdentifier: 
-  _dashSpeed: 20
-  _dashCooldown: 3
+  _dashSpeed: 15
+  _dashCooldown: 1.5
   _dashAnimationCurve:
     serializedVersion: 2
     m_Curve:
@@ -45,13 +45,22 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.24351807
-      value: 0.19865723
-      inSlope: -14.740587
-      outSlope: -14.740587
+      time: 0.69037104
+      value: 0.5098647
+      inSlope: -1.8628949
+      outSlope: -1.8628949
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.07465731
+      inWeight: 0.0589899
+      outWeight: 0.094439775
+    - serializedVersion: 3
+      time: 0.8
+      value: 0
+      inSlope: -0.32278535
+      outSlope: -0.32278535
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.5067051
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
