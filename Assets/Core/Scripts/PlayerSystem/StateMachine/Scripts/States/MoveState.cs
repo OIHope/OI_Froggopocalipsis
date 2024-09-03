@@ -13,7 +13,6 @@ namespace BehaviourSystem.PlayerSystem
         public override void FixedUpdateState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
             PerformMove(stateMachine);
-            stateMachine.Context.PlayAnimation(PlayerRequestedAnimation.Run);
         }
         private void PerformMove(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
@@ -22,6 +21,16 @@ namespace BehaviourSystem.PlayerSystem
             Vector2 inputDirection = stateMachine.Context.MoveInput;
             Vector3 moveDirection = new(inputDirection.x, 0f, inputDirection.y);
             Vector3 moveVector = speed * Time.deltaTime * moveDirection;
+
+            float inputMagnitude = new Vector2(inputDirection.x, inputDirection.y).magnitude;
+            if (inputMagnitude > 0.5f)
+            {
+                stateMachine.Context.PlayAnimation(PlayerRequestedAnimation.Run);
+            }
+            else
+            {
+                stateMachine.Context.PlayAnimation(PlayerRequestedAnimation.Walk);
+            }
 
             stateMachine.Context.Move(moveVector);
         }

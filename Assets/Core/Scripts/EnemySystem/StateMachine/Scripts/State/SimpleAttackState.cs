@@ -1,14 +1,15 @@
 using Components;
+using Data;
 using EnemySystem;
 
 namespace BehaviourSystem.EnemySystem
 {
-    public class SimpleAttackState : State<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor>
+    public class SimpleAttackState : State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor>
     {
         private bool _isCharged = false;
         private bool _isAttacked = false;
 
-        public override void EnterState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        public override void EnterState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             base.EnterState(stateMachine);
 
@@ -18,7 +19,7 @@ namespace BehaviourSystem.EnemySystem
             stateMachine.Context.Agent.isStopped = true;
             stateMachine.Context.PerformAttack(AttackType.SimpleAttack);
         }
-        public override void ExitState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        public override void ExitState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             base.ExitState(stateMachine);
             if (_isCharged)
@@ -27,7 +28,7 @@ namespace BehaviourSystem.EnemySystem
                 stateMachine.Context.StartAttackCooldown();
             }
         }
-        public override void UpdateState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        public override void UpdateState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
 
             if (!_isCharged && !_isAttacked)
@@ -45,18 +46,18 @@ namespace BehaviourSystem.EnemySystem
                 _isComplete = true;
             }
         }
-        private void PerformCharge(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        private void PerformCharge(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             stateMachine.Context.PlayAnimation(EnemyRequestedAnimation.Charge);
             _isCharged = stateMachine.Context.AnimationComplete(stateMachine.Context.AnimationName(EnemyRequestedAnimation.Charge));
         }
-        private void PerformAttack(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        private void PerformAttack(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             stateMachine.Context.PlayAnimation(EnemyRequestedAnimation.Attack);
             _isAttacked = stateMachine.Context.AnimationComplete(stateMachine.Context.AnimationName(EnemyRequestedAnimation.Attack));
         }
 
-        public override EnemyState GetNextState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        public override EnemyState GetNextState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             if (!_isComplete) return EnemyState.Attack;
 
@@ -69,7 +70,7 @@ namespace BehaviourSystem.EnemySystem
             return EnemyState.MoveToTarget;
         }
 
-        public override EnemySubState GetNextSubState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        public override EnemySubState GetNextSubState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             return EnemySubState.Empty;
         }

@@ -1,20 +1,21 @@
+using Data;
 using EnemySystem;
 using UnityEngine;
 
 namespace BehaviourSystem.EnemySystem
 {
-    public class IdleState : State<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor>
+    public class IdleState : State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor>
     {
         private float _elapsedTime = 0f;
 
-        public override void EnterState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        public override void EnterState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             base.EnterState(stateMachine);
 
             _elapsedTime = 0f;
             stateMachine.Context.Agent.isStopped = true;
         }
-        public override void FixedUpdateState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        public override void FixedUpdateState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             stateMachine.Context.PlayAnimation(EnemyRequestedAnimation.Idle);
 
@@ -23,7 +24,7 @@ namespace BehaviourSystem.EnemySystem
             _isComplete = _elapsedTime >= stateMachine.Context.WaitTillRoam;
         }
 
-        public override EnemyState GetNextState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        public override EnemyState GetNextState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             if (_isComplete)
             {
@@ -32,7 +33,7 @@ namespace BehaviourSystem.EnemySystem
             return EnemyState.Idle;
         }
 
-        public override EnemySubState GetNextSubState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        public override EnemySubState GetNextSubState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             return EnemySubState.Empty;
         }

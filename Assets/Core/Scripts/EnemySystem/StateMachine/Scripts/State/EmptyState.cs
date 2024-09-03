@@ -3,20 +3,20 @@ using UnityEngine;
 
 namespace BehaviourSystem.EnemySystem
 {
-    public class EmptyState : State<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor>
+    public class EmptyState : State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor>
     {
-        public override void EnterState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        public override void EnterState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             base.EnterState(stateMachine);
             stateMachine.Context.Agent.isStopped = true;
         }
 
-        public override EnemyState GetNextState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        public override EnemyState GetNextState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             return EnemyState.Empty;
         }
 
-        public override EnemySubState GetNextSubState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        public override EnemySubState GetNextSubState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             return EnemySubState.Empty;
         }

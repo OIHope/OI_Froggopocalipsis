@@ -95,7 +95,6 @@ GameObject:
   - component: {fileID: 4555960876828651552}
   - component: {fileID: 5334634939256292595}
   - component: {fileID: 3901592129384543868}
-  - component: {fileID: 8830455235687181435}
   m_Layer: 8
   m_Name: DamageDealer_Simple
   m_TagString: PlayerDamageDealer
@@ -141,23 +140,6 @@ BoxCollider:
   m_Size: {x: 2, y: 0.5, z: 2}
   m_Center: {x: 0, y: 1, z: 1}
 --- !u!114 &3901592129384543868
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6165105604488174375}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f17593bbba602d144b2f735c0c9b27c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _damageDealerPivot: {fileID: 4555960876828651552}
-  _damageDealerCollider: {fileID: 5334634939256292595}
-  _render: {fileID: 637359931292349263}
-  _attackDataList: {fileID: 11400000, guid: f97ed698edc4f764eaae2efc7aaa3b46, type: 2}
-  _attackAnimationData: {fileID: 11400000, guid: 519d787fa767e424a9c9b0fcaeb0d8bb, type: 2}
---- !u!114 &8830455235687181435
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

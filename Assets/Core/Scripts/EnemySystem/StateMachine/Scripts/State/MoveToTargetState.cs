@@ -1,20 +1,21 @@
+using Data;
 using EnemySystem;
 using UnityEngine;
 
 namespace BehaviourSystem.EnemySystem
 {
-    public class MoveToTargetState : State<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor>
+    public class MoveToTargetState : State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor>
     {
         private Transform _targetTransform;
 
-        public override void EnterState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        public override void EnterState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             base.EnterState(stateMachine);
 
             _targetTransform = stateMachine.Context.TargetTransform;
             stateMachine.Context.Agent.isStopped = false;
         }
-        public override void ExitState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        public override void ExitState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             base.ExitState(stateMachine);
 
@@ -25,7 +26,7 @@ namespace BehaviourSystem.EnemySystem
                 stateMachine.Context.AimDirection = direction;
             }
         }
-        public override void FixedUpdateState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        public override void FixedUpdateState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             Vector3 moveToPos = _targetTransform.position - (stateMachine.Context.AimDirection * stateMachine.Context.StopDistance * 0.75f);
             stateMachine.Context.Agent.SetDestination(moveToPos);
@@ -36,7 +37,7 @@ namespace BehaviourSystem.EnemySystem
 
             stateMachine.Context.PlayAnimation(EnemyRequestedAnimation.Run);
         }
-        public override EnemyState GetNextState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        public override EnemyState GetNextState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             bool targetIsAlive = stateMachine.Context.TargetTransform != null;
             if (!targetIsAlive)
@@ -53,7 +54,7 @@ namespace BehaviourSystem.EnemySystem
             return EnemyState.MoveToTarget;
         }
 
-        public override EnemySubState GetNextSubState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        public override EnemySubState GetNextSubState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             return EnemySubState.Empty;
         }

@@ -1,12 +1,13 @@
+using Data;
 using EnemySystem;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace BehaviourSystem.EnemySystem
 {
-    public class RoamState : State<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor>
+    public class RoamState : State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor>
     {
-        public override void EnterState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        public override void EnterState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             base.EnterState(stateMachine);
 
@@ -22,7 +23,7 @@ namespace BehaviourSystem.EnemySystem
             float randomZ = Random.Range(-1f, 1f);
             return new Vector3(randomX, 0f, randomZ);
         }
-        private Vector3 GetRandomPoint(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        private Vector3 GetRandomPoint(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             Vector3 targetPoint = (GetRandomDirection() * stateMachine.Context.RoamingDistance) + stateMachine.Context.StartPosition;
 
@@ -36,11 +37,11 @@ namespace BehaviourSystem.EnemySystem
                 return stateMachine.Context.StartPosition;
             }
         }
-        public override void ExitState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        public override void ExitState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             base.ExitState(stateMachine);
         }
-        public override void UpdateState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        public override void UpdateState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             stateMachine.Context.PlayAnimation(EnemyRequestedAnimation.Walk);
 
@@ -51,12 +52,12 @@ namespace BehaviourSystem.EnemySystem
                 _isComplete = true;
             }
         }
-        public override EnemyState GetNextState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        public override EnemyState GetNextState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             return _isComplete ? EnemyState.Idle : EnemyState.Roaming;
         }
 
-        public override EnemySubState GetNextSubState(StateMachine<EnemyState, EnemySubState, SimpleZombieControllerDataAccessor> stateMachine)
+        public override EnemySubState GetNextSubState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             return EnemySubState.Empty;
         }

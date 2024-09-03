@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa42965f6ff269a4f835ebb6b9a6f9f3, type: 3}
+  m_Name: SamuraiZombie Animation Name Data SO
+  m_EditorClassIdentifier: 
+  idleAnimationName: anim_samuraiZom_idle
+  walkAnimationName: anim_samuraiZom_move
+  runAnimationName: anim_samuraiZom_move
+  chargeAnimationName: anim_samuraiZom_chargeAttack
+  attackAnimationName: anim_samuraiZom_attack
+  takeDamageAnimationName: anim_samuraiZom_takeDamage
+  spawnAnimationName: anim_samuraiZom_spawn
+  dieAnimationName: anim_samuraiZom_die
+  idleBackAnimationName: anim_samuraiZom_idle_back
+  walkBackAnimationName: anim_samuraiZom_move_back
+  runBackAnimationName: anim_samuraiZom_move_back
+  chargeBackAnimationName: anim_samuraiZom_chargeAttack_back
+  attackBackAnimationName: anim_samuraiZom_attack_back
+  takeDamageBackAnimationName: anim_samuraiZom_takeDamage_back
+  spawnBackAnimationName: anim_samuraiZom_spawn
+  dieBackAnimationName: anim_samuraiZom_die
