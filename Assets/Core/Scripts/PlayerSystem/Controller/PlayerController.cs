@@ -53,6 +53,7 @@ namespace Entity.PlayerSystem
         public AnimationComponent Animation => _animationComponent;
 
         public bool InstanceInMove => _dataAccessor.IsMoving;
+        public bool TargetIsAlive => _isAlive;
 
         protected override void Awake()
         {

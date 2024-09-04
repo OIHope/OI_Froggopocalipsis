@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98297dfd65cc8294aa3327bfd3f7aac6, type: 3}
-  m_Name: Player PowerAttackData List
+  m_Script: {fileID: 11500000, guid: 44f0150ae064829449beeab1780561c4, type: 3}
+  m_Name: SamuraiZombie SpawnData count 2
   m_EditorClassIdentifier: 
-  _attackDataList:
-  - {fileID: 11400000, guid: 1b84152f82ae0df4b8e1c213587e48b9, type: 2}
+  _entity: {fileID: 5101551184005486031, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
+  _spawnCount: 1
+  _hasSpawnRate: 1
+  _maxSpawnCount: 5

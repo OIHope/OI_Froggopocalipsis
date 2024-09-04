@@ -17,6 +17,10 @@ namespace Entity.EnemySystem
         [SerializeField] private DamageDealer _damageDealer;
         [SerializeField] private Animator _animator;
         [Space]
+        [SerializeField] private LayerMask _groundLayer;
+        [SerializeField] private LayerMask _enemyLayer;
+        [SerializeField] private LayerMask _playerLayer;
+        [Space]
         [Header("Components")]
         [Space]
         [SerializeField] private Rigidbody _rigidbody;
@@ -118,6 +122,7 @@ namespace Entity.EnemySystem
         {
             TargetDetector.EnableTargetDetection();
             TargetDetector.OnTargetDetected += StopSearching;
+            TargetDetector.OnTargetLost -= StartSearching;
 
             _dataAccessor.TargetTransform = null;
         }
@@ -128,6 +133,7 @@ namespace Entity.EnemySystem
 
             TargetDetector.DisableTargetDetection();
             TargetDetector.OnTargetDetected -= StopSearching;
+            TargetDetector.OnTargetLost += StartSearching;
 
             _stateMachine.SwitchState(EnemyState.MoveToTarget);
         }
@@ -138,8 +144,22 @@ namespace Entity.EnemySystem
         }
         public void ToggleColliders(bool value)
         {
-            //_collider.enabled = value;
-            //_rigidbody.useGravity = value;
+            if (value)
+            {
+                //_collider.includeLayers -= _playerLayer;
+                //_collider.includeLayers -= _enemyLayer;
+
+                _collider.excludeLayers += _playerLayer;
+                _collider.excludeLayers += _enemyLayer;
+            }
+            else
+            {
+                //_collider.includeLayers += _playerLayer;
+                //_collider.includeLayers += _enemyLayer;
+
+                _collider.excludeLayers -= _playerLayer;
+                _collider.excludeLayers -= _enemyLayer;
+            }
         }
 
         protected override void CreatureDeath(HealthComponent healthComponent)

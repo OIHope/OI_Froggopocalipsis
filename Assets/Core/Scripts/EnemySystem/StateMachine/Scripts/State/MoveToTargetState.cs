@@ -13,7 +13,6 @@ namespace BehaviourSystem.EnemySystem
             base.EnterState(stateMachine);
 
             _targetTransform = stateMachine.Context.TargetTransform;
-            stateMachine.Context.Agent.isStopped = false;
         }
         public override void ExitState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
@@ -28,14 +27,26 @@ namespace BehaviourSystem.EnemySystem
         }
         public override void FixedUpdateState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
-            Vector3 moveToPos = _targetTransform.position - (stateMachine.Context.AimDirection * stateMachine.Context.StopDistance * 0.75f);
-            stateMachine.Context.Agent.SetDestination(moveToPos);
-            stateMachine.Context.Agent.speed = stateMachine.Context.RunSpeed;
-
             Vector3 direction = (_targetTransform.position - stateMachine.Context.Agent.transform.position).normalized;
             stateMachine.Context.AimDirection = direction;
+            
+            float distance = Vector3.Distance(_targetTransform.position, stateMachine.Context.Agent.transform.position);
+            bool inAttackRange = distance <= 2f;
 
-            stateMachine.Context.PlayAnimation(EnemyRequestedAnimation.Run);
+            if (inAttackRange)
+            {
+                stateMachine.Context.Agent.isStopped = true;
+                stateMachine.Context.PlayAnimation(EnemyRequestedAnimation.Idle);
+            }
+            else
+            {
+                stateMachine.Context.Agent.isStopped = false;
+                stateMachine.Context.PlayAnimation(EnemyRequestedAnimation.Run);
+
+                Vector3 moveToPos = _targetTransform.position - (stateMachine.Context.AimDirection * stateMachine.Context.StopDistance * 0.75f);
+                stateMachine.Context.Agent.SetDestination(moveToPos);
+                stateMachine.Context.Agent.speed = stateMachine.Context.RunSpeed;
+            }
         }
         public override EnemyState GetNextState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
