@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8de2d57c2ee53b844966f56698119d5e, type: 3}
+  m_Name: Player State Machine Data SO
+  m_EditorClassIdentifier: 
+  _forPlayerStateMachine: 1
+  pl_EmptyState: 1
+  pl_IdleState: 1
+  pl_MoveState: 1
+  pl_TakeDamageState: 1
+  pl_StunState: 0
+  pl_SpawnState: 0
+  pl_DeathState: 0
+  pl_AttackState: 1
+  pl_ChargeAttackState: 0
+  pl_DodgeState: 1
+  _forEnemyStateMachine: 0
+  en_EmptyState: 0
+  en_IdleState: 0
+  en_RoamState: 0
+  en_SpawnState: 0
+  en_DeathState: 0
+  en_AttackState: 0
+  en_RunAwayState: 0
+  en_MoveToTargetState: 0
+  en_MakeDistanceState: 0
+  en_RangeAttackState: 0
+  en_TakeDamageState: 0
+  en_StunState: 0

@@ -3,6 +3,7 @@ using Components;
 using BehaviourSystem.PlayerSystem;
 using Data;
 using PlayerSystem;
+using BehaviourSystem;
 
 namespace Entity.PlayerSystem
 {
@@ -24,6 +25,7 @@ namespace Entity.PlayerSystem
         [SerializeField] private ProgressBarComponent _attackCooldownBar;
         [SerializeField] private ProgressBarComponent _dashCooldownBar;
         [Space]
+        [SerializeField] private StateMachineDataSO _stateMachineData;
         [SerializeField] private PlayerDataSO _playerDataSO;
         [SerializeField] private LayersDataSO _layersDataSO;
         [Space]
@@ -43,6 +45,7 @@ namespace Entity.PlayerSystem
         public InputManager InputManager => _inputManager;
         public PlayerDataSO PlayerData => _playerDataSO;
         public LayersDataSO LayersData => _layersDataSO;
+        public StateMachineDataSO StateMachineData => _stateMachineData;
         public GameObject NavigationArrow { get => _navigationArrow; set => _navigationArrow = value; }
         public Transform InstanceTransform { get => _instanceTransform; set => _instanceTransform = value; }
         public DamageDealer SimpleDamageDealerComponent => _simpleDamageDealer;

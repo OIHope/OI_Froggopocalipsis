@@ -1,10 +1,11 @@
 using PlayerSystem;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace BehaviourSystem.PlayerSystem
 {
     public enum PlayerStates
-    { Empty, Idle, Move, Dash, Attack, Stun }
+    { Empty, Idle, Move, Dodge, Attack, Stun }
     public enum PlayerSubStates
     { Empty, Aim, NoAim, FixedAim, TakeDamage}
 
@@ -13,7 +14,7 @@ namespace BehaviourSystem.PlayerSystem
         private State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> emptyState;
         private State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> idleState;
         private State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> moveState;
-        private State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> dashState;
+        private State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> dodgeState;
         private State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> attackState;
         private State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stunState;
         
@@ -26,11 +27,18 @@ namespace BehaviourSystem.PlayerSystem
         public PlayerStateMachine(PlayerControllerDataAccessor dataAccessor)
         {
             _dataAccessor = dataAccessor;
+            _stateMachineData = dataAccessor.StateMachineData;
+
+            if (_stateMachineData.ForEnemyStateMachine)
+            {
+                Debug.Log("<color=red>Wrong StateMachineData!</color>");
+                return;
+            }
 
             emptyState = new EmptyState();
             idleState = new IdleState();
             moveState = new MoveState();
-            dashState = new DashState();
+            dodgeState = new DodgeState();
             attackState = new SimpleAttackState();
             stunState = new StunState();
 
@@ -45,7 +53,7 @@ namespace BehaviourSystem.PlayerSystem
                 { PlayerStates.Empty, emptyState },
                 { PlayerStates.Idle, idleState },
                 { PlayerStates.Move, moveState },
-                { PlayerStates.Dash, dashState },
+                { PlayerStates.Dodge, dodgeState },
                 { PlayerStates.Attack, attackState },
                 { PlayerStates.Stun, stunState }
             };

@@ -1,3 +1,4 @@
+using BehaviourSystem;
 using Components;
 using System;
 using UnityEngine;
@@ -9,9 +10,11 @@ namespace Data
         where ControllerType : Entity.Creature where AnimationRequest : Enum
     {
         protected ControllerType _controllerData;
+        protected StateMachineDataSO _stateMachineData;
 
         protected abstract AnimationComponent Animation { get; }
 
+        public abstract StateMachineDataSO StateMachineData {  get; }
         public abstract bool AnimationComplete(string animationName);
         public abstract bool IsStatic { get; }
         public abstract bool CanAttack { get; }
@@ -34,7 +37,7 @@ namespace Data
 
         public abstract AnimationCurve SimpleAttackAnimationCurve { get; }
 
-        public abstract Transform TargetTransform { get; set; }
+        public abstract IAttackableTarget Target { get; set; }
 
         public abstract NavMeshAgent Agent { get; set; }
 
@@ -48,9 +51,6 @@ namespace Data
         public abstract void EnableTargetDetector();
         public abstract void MakeInvincible(bool value);
 
-        protected CreatureDataAccessor(ControllerType controllerData)
-        {
-            _controllerData = controllerData;
-        }
+        protected CreatureDataAccessor(ControllerType controllerData) { }
     }
 }

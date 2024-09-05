@@ -1,3 +1,4 @@
+using BehaviourSystem;
 using BehaviourSystem.EnemySystem;
 using Components;
 using Data;
@@ -13,6 +14,7 @@ namespace Entity.EnemySystem
         [Header("Data")]
         [Space]
         [SerializeField] private EnemyDataSO _enemyData;
+        [SerializeField] private StateMachineDataSO _stateMachineData;
         [SerializeField] private ZombieAnimationNameDataSO _zombieAnimationNameData;
         [SerializeField] private DamageDealer _damageDealer;
         [SerializeField] private Animator _animator;
@@ -41,6 +43,7 @@ namespace Entity.EnemySystem
 
         public bool Invincible { get => _isInvincible; set => _isInvincible = value; }
 
+        public StateMachineDataSO StateMachineData => _stateMachineData;
         public ColliderSwitchComponent ColliderSwitch => _colliderSwitchComponent;
         public ZombieStateMachine StateMachine => _stateMachine;
         public EnemyDataSO EnemyData => _enemyData;
@@ -129,12 +132,12 @@ namespace Entity.EnemySystem
             TargetDetector.OnTargetDetected += StopSearching;
             TargetDetector.OnTargetLost -= StartSearching;
 
-            _dataAccessor.TargetTransform = null;
+            _dataAccessor.Target = null;
         }
-        public void StopSearching(Transform targetTransform)
+        public void StopSearching(IAttackableTarget target)
         {
-            if (!CheckTargetIsClose(targetTransform, _enemyData.EnemyVisionData.SightDistance)) return;
-            _dataAccessor.TargetTransform = targetTransform;
+            if (!CheckTargetIsClose(target.InstanceTransform, _enemyData.EnemyVisionData.SightDistance)) return;
+            _dataAccessor.Target = target;
 
             TargetDetector.DisableTargetDetection();
             TargetDetector.OnTargetDetected -= StopSearching;

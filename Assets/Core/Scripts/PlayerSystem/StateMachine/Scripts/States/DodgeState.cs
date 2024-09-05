@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace BehaviourSystem.PlayerSystem
 {
-    public class DashState : State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>
+    public class DodgeState : State<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor>
     {
         private float _duration;
         private float _elapsedTime = 0f;
@@ -28,12 +28,12 @@ namespace BehaviourSystem.PlayerSystem
         }
         public override void UpdateState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
-            _isComplete = stateMachine.Context.AnimationComplete(stateMachine.Context.AnimationName(PlayerRequestedAnimation.Dash));
-            PerformDash(stateMachine);
+            _isComplete = stateMachine.Context.AnimationComplete(stateMachine.Context.AnimationName(PlayerRequestedAnimation.Dodge));
+            PerformDodge(stateMachine);
         }
-        private void PerformDash(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
+        private void PerformDodge(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
-            stateMachine.Context.PlayAnimation(PlayerRequestedAnimation.Dash);
+            stateMachine.Context.PlayAnimation(PlayerRequestedAnimation.Dodge);
 
             Vector3 moveVector = stateMachine.Context.DashAnimationCurve.Evaluate(_elapsedTime)
                 * stateMachine.Context.DashSpeed * Time.deltaTime * _dashDirection;
@@ -43,7 +43,7 @@ namespace BehaviourSystem.PlayerSystem
 
         public override PlayerStates GetNextState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
-            if (!_isComplete) return PlayerStates.Dash;
+            if (!_isComplete) return PlayerStates.Dodge;
             return PlayerStates.Idle;
         }
 

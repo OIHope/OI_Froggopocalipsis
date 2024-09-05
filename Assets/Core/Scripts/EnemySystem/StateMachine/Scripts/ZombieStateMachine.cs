@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using EnemySystem;
+using UnityEngine;
 
 namespace BehaviourSystem.EnemySystem
 {
-    public enum EnemyState { Empty, Idle, Roaming, MoveToTarget, Attack, Stun, RunAway, TakeDamage, Spawn, Death }
+    public enum EnemyState { Empty, Idle, Roaming, MoveToTarget, ChargeAttack, Attack, Stun, RunAway, TakeDamage, Spawn, Death }
     public enum EnemySubState { Empty, Invincible }
 
     public class ZombieStateMachine : StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor>
@@ -12,6 +13,7 @@ namespace BehaviourSystem.EnemySystem
         private State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> idleState;
         private State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> roamState;
         private State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> moveToTargetState;
+        private State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> chargeAttackState;
         private State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> attackState;
         private State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stunState;
         private State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> runAwayState;
@@ -25,11 +27,18 @@ namespace BehaviourSystem.EnemySystem
         public ZombieStateMachine(MeleeZombieControllerDataAccessor dataAccessor)
         {
             _dataAccessor = dataAccessor;
+            _stateMachineData = dataAccessor.StateMachineData;
+
+            if (!_stateMachineData.ForEnemyStateMachine)
+            {
+                Debug.Log("<color=red>Wrong StateMachineData!</color>");
+            }
 
             emptyState = new EmptyState();
             idleState = new IdleState();
             roamState = new RoamState();
             moveToTargetState = new MoveToTargetState();
+            chargeAttackState = new ChargeAttackState();
             attackState = new SimpleAttackState();
             stunState = new StunState();
             runAwayState = new RunAwayState();
@@ -46,6 +55,7 @@ namespace BehaviourSystem.EnemySystem
                 { EnemyState.Idle, idleState },
                 { EnemyState.Roaming, roamState },
                 { EnemyState.MoveToTarget, moveToTargetState },
+                { EnemyState.ChargeAttack, chargeAttackState },
                 { EnemyState.Attack, attackState },
                 { EnemyState.Stun, stunState },
                 { EnemyState.RunAway, runAwayState },

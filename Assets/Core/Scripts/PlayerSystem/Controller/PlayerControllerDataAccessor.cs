@@ -2,15 +2,18 @@ using UnityEngine;
 using Components;
 using Data;
 using Entity.PlayerSystem;
+using BehaviourSystem;
 
 namespace PlayerSystem
 {
     public enum PlayerRequestedAnimation
-    { Idle, Walk, Run, Attack01, Attack02, Dash, Die}
+    { Idle, Walk, Run, Attack01, Attack02, Dodge, Die}
     public class PlayerControllerDataAccessor
     {
         private PlayerController _controllerData;
+        private StateMachineDataSO _stateMachineData;
 
+        public StateMachineDataSO StateMachineData => _stateMachineData;
         public GameObject NavigationArrow { get => _controllerData.NavigationArrow; set => _controllerData.NavigationArrow = value; }
 
         public InputControls Input => _controllerData.InputManager.Input;
@@ -94,7 +97,7 @@ namespace PlayerSystem
                         return "anim_player_attack_01_back";
                     case PlayerRequestedAnimation.Attack02:
                         return "anim_player_attack_02_back";
-                    case PlayerRequestedAnimation.Dash:
+                    case PlayerRequestedAnimation.Dodge:
                         return "anim_player_dodge_back";
                     case PlayerRequestedAnimation.Die:
                         return "anim_player_die";
@@ -114,7 +117,7 @@ namespace PlayerSystem
                         return "anim_player_attack_01";
                     case PlayerRequestedAnimation.Attack02:
                         return "anim_player_attack_02";
-                    case PlayerRequestedAnimation.Dash:
+                    case PlayerRequestedAnimation.Dodge:
                         return "anim_player_dodge";
                     case PlayerRequestedAnimation.Die:
                         return "anim_player_die";
@@ -165,6 +168,7 @@ namespace PlayerSystem
         public PlayerControllerDataAccessor(PlayerController basePlayerController)
         {
             _controllerData = basePlayerController;
+            _stateMachineData = basePlayerController.StateMachineData;
         }
     }
 }

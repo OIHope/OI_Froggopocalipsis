@@ -8,5 +8,5 @@ public interface ISearchForTarget
     public DetectTargetComponent TargetDetector { get; }
     public bool CheckTargetIsClose(Transform targetTransform, float triggerDistance);
     public void StartSearching();
-    public void StopSearching(Transform targetTransform);
+    public void StopSearching(IAttackableTarget target);
 }

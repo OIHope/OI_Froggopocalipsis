@@ -44,7 +44,7 @@ namespace BehaviourSystem.PlayerSystem
             }
             if (stateMachine.Context.PressedDashInput && stateMachine.Context.CanDash)
             {
-                nextStateKey = PlayerStates.Dash;
+                nextStateKey = PlayerStates.Dodge;
             }
             if (stateMachine.Context.PressedAttackInput && stateMachine.Context.CanAttack)
             {

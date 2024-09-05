@@ -1,3 +1,4 @@
+using BehaviourSystem;
 using Components;
 using Data;
 using Entity.EnemySystem;
@@ -36,10 +37,11 @@ namespace EnemySystem
 
         public override AnimationCurve SimpleAttackAnimationCurve => _controllerData.SimpleDamageDealerComponent.AttackAnimationData.DataAnimationCurve;
 
-        public override Transform TargetTransform { get; set; }
+        public override IAttackableTarget Target { get; set; }
 
         public override NavMeshAgent Agent { get => _controllerData.Agent; set => _controllerData.Agent = value; }
 
+        public override StateMachineDataSO StateMachineData => _stateMachineData;
 
         public override AttackDataSO PerformAttack(AttackType attackType) => _controllerData.SimpleDamageDealerComponent.PerformAttack(AimDirection);
         public override void FinishAttack(AttackType attackType) => _controllerData.SimpleDamageDealerComponent.FinishAttack();
@@ -114,6 +116,7 @@ namespace EnemySystem
         {
             _controllerData = controllerData;
             _startPos = _controllerData.transform.position;
+            _stateMachineData = controllerData.StateMachineData;
         }
     }
 }

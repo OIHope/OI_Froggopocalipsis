@@ -423,6 +423,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SimpleZombie
       objectReference: {fileID: 0}
+    - target: {fileID: 5414786406343751699, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
+      propertyPath: _stateMachineData
+      value: 
+      objectReference: {fileID: 11400000, guid: 57887685f1118ff4a8b5bbfe350d31cb, type: 2}
     - target: {fileID: 5971756589542936502, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -757,6 +761,7 @@ MonoBehaviour:
   _healthBar: {fileID: 436996258}
   _attackCooldownBar: {fileID: 436996260}
   _dashCooldownBar: {fileID: 436996257}
+  _stateMachineData: {fileID: 11400000, guid: 847fd93fd68d85048a0dad111052edc6, type: 2}
   _playerDataSO: {fileID: 11400000, guid: 3cbb0ce5073dc3b4cbafaa5b920d6e9f, type: 2}
   _layersDataSO: {fileID: 11400000, guid: 7f51ee0316dfc39449553cc01a7d4f19, type: 2}
   _navigationArrow: {fileID: 1358984586}
@@ -1093,6 +1098,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4557295109647579434, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
+      propertyPath: _stateMachineData
+      value: 
+      objectReference: {fileID: 11400000, guid: 1036ba8b387a4e24ea77f3808cc60288, type: 2}
     - target: {fileID: 5101551184005486031, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
       propertyPath: m_Name
       value: SamuraiZombie
@@ -3656,6 +3665,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 4202149063336058036}
   _enemyData: {fileID: 11400000, guid: 01dcac12139329545b7cd66c768e4d8e, type: 2}
+  _stateMachineData: {fileID: 0}
   _zombieAnimationNameData: {fileID: 0}
   _damageDealer: {fileID: 1287687792592439963}
   _animator: {fileID: 5889723489822777051}

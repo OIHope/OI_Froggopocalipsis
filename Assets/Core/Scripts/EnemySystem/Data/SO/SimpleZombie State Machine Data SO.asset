@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8de2d57c2ee53b844966f56698119d5e, type: 3}
+  m_Name: SimpleZombie State Machine Data SO
+  m_EditorClassIdentifier: 
+  _forPlayerStateMachine: 0
+  pl_EmptyState: 0
+  pl_IdleState: 0
+  pl_MoveState: 0
+  pl_TakeDamageState: 0
+  pl_StunState: 0
+  pl_SpawnState: 0
+  pl_DeathState: 0
+  pl_AttackState: 0
+  pl_ChargeAttackState: 0
+  pl_DodgeState: 0
+  _forEnemyStateMachine: 1
+  en_EmptyState: 1
+  en_IdleState: 1
+  en_RoamState: 1
+  en_SpawnState: 1
+  en_DeathState: 1
+  en_AttackState: 1
+  en_RunAwayState: 1
+  en_MoveToTargetState: 1
+  en_TakeDamageState: 1
+  en_StunState: 1

@@ -18,14 +18,7 @@ namespace BehaviourSystem.EnemySystem
         public override EnemyState GetNextState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             if (!_isComplete) return EnemyState.TakeDamage;
-
-            bool targetIsAlive = stateMachine.Context.TargetTransform != null;
-            if (!targetIsAlive)
-            {
-                stateMachine.Context.EnableTargetDetector();
-                return EnemyState.Idle;
-            }
-            return EnemyState.MoveToTarget;
+            return EnemyState.Idle;
         }
         public override EnemySubState GetNextSubState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {

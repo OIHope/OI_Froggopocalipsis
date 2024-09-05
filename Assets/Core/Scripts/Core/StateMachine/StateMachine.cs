@@ -17,10 +17,12 @@ namespace BehaviourSystem
         protected SubState<EState, ESubState, ContextData> CurrentSubState;
 
         protected ContextData _dataAccessor;
+        protected StateMachineDataSO _stateMachineData;
 
         public EState GetStateKey => _stateKey;
         public ESubState GetSubStateKey => _subStateKey;
         public ContextData Context => _dataAccessor;
+        public StateMachineDataSO StateMachineData => _stateMachineData;
 
         public virtual void UpdateStateMachine()
         {
