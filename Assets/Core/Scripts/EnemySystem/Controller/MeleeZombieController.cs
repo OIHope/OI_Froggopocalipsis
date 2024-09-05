@@ -2,7 +2,6 @@ using BehaviourSystem.EnemySystem;
 using Components;
 using Data;
 using EnemySystem;
-using PlayerSystem;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -88,6 +87,8 @@ namespace Entity.EnemySystem
         }
         protected override void InitComponents()
         {
+            _agent.enabled = true;
+
             _healthComponent = new(_enemyData.HealthData, _healthBar);
             _attackCooldownComponent = new();
             _movementComponent = new(_rigidbody);
@@ -105,12 +106,12 @@ namespace Entity.EnemySystem
 
         public override void ApplyImpulseOnCreature(Vector3 impulseDirection, float inpulsePower)
         {
-            _rigidbody.AddForce(impulseDirection * (inpulsePower * 3), ForceMode.Impulse);
+            _rigidbody.AddForce(impulseDirection * (inpulsePower * 2), ForceMode.Impulse);
         }
-        public override void TakeDamage(AttackDataSO attackData, Vector3 attackVector)
+        public override void TakeDamage(AttackDataSO attackData, Vector3 attackVector, IDamagable target)
         {
             if (Invincible) return;
-            base.TakeDamage(attackData, attackVector);
+            base.TakeDamage(attackData, attackVector, target);
             if (_isAlive)
             {
                 _stateMachine.SwitchState(EnemyState.TakeDamage);
@@ -151,25 +152,28 @@ namespace Entity.EnemySystem
             if (value)
             {
                 _colliderSwitchComponent.CollideWithLayers();
-                _agent.enabled = true;
             }
             else
             {
                 _colliderSwitchComponent.DontCollideWithLayers();
-                _agent.enabled = false;
             }
         }
 
         protected override void CreatureDeath(HealthComponent healthComponent)
         {
+            if(healthComponent != _healthComponent) return;
+
             _isAlive = false;
 
             ToggleColliders(false);
             _healthBarObject.SetActive(false);
+            _targetDetector.DisableTargetDetection();
+            _targetDetector.enabled = false;
 
             _healthComponent.OnDeath -= CreatureDeath;
 
             _stateMachine.SwitchState(EnemyState.Death);
+            _agent.enabled = false;
         }
     }
 }

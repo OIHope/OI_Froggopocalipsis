@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 620511033176772324}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Render
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,9 +47,9 @@ GameObject:
   - component: {fileID: 5414786406343751699}
   - component: {fileID: 7146316249844237330}
   - component: {fileID: 6244896483115533733}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: SimpleZombie
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,7 +104,7 @@ Rigidbody:
   m_GameObject: {fileID: 4851569288884137705}
   serializedVersion: 4
   m_Mass: 12
-  m_Drag: 0
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -161,18 +161,11 @@ MonoBehaviour:
   _zombieAnimationNameData: {fileID: 11400000, guid: c78aec52d90340148bf007f45e32e0a1, type: 2}
   _damageDealer: {fileID: 613720908475664534}
   _animator: {fileID: 3798642600423209968}
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  _enemyLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  _playerLayer:
-    serializedVersion: 2
-    m_Bits: 64
+  _layersDataSO: {fileID: 11400000, guid: d162bc69f4cadb7428463c439064ab27, type: 2}
   _rigidbody: {fileID: 1228881745900017548}
   _collider: {fileID: 1816267095075425765}
   _healthBar: {fileID: 2118370564632384633}
+  _healthBarObject: {fileID: 2621434342886213558}
   _targetDetector: {fileID: 6244896483115533733}
   _agent: {fileID: 7149358750984075969}
 --- !u!136 &7146316249844237330
@@ -188,7 +181,7 @@ CapsuleCollider:
     m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 959
+    m_Bits: 191
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -223,7 +216,7 @@ GameObject:
   - component: {fileID: 4056279153969561873}
   - component: {fileID: 3798642600423209968}
   - component: {fileID: 4910044229891841962}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: EnemySpriteRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,10 +338,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthBar
       objectReference: {fileID: 0}
+    - target: {fileID: 838035481304543675, guid: a956bac7579b2d845b56ab31373bd589, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2456748316551211869, guid: a956bac7579b2d845b56ab31373bd589, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3649480027573330548, guid: a956bac7579b2d845b56ab31373bd589, type: 3}
       propertyPath: targetTransform
       value: 
       objectReference: {fileID: 813504195623038476}
+    - target: {fileID: 5322260112906598884, guid: a956bac7579b2d845b56ab31373bd589, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7267223627065539970, guid: a956bac7579b2d845b56ab31373bd589, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8264097463735299536, guid: a956bac7579b2d845b56ab31373bd589, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 9016075112304392635, guid: a956bac7579b2d845b56ab31373bd589, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -447,12 +460,17 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3649480027573330548, guid: a956bac7579b2d845b56ab31373bd589, type: 3}
   m_PrefabInstance: {fileID: 3440882545760843277}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2621434342886213558}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1911a9d3e47cf645ae8d61bc1eae475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2621434342886213558 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 838035481304543675, guid: a956bac7579b2d845b56ab31373bd589, type: 3}
+  m_PrefabInstance: {fileID: 3440882545760843277}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5767680702395782875 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9208334546914222294, guid: a956bac7579b2d845b56ab31373bd589, type: 3}
@@ -470,6 +488,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DamageDealer_Small
       objectReference: {fileID: 0}
+    - target: {fileID: 3049762811585015174, guid: af2a3c47c16e78343a0883eccc95dacf, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 6072303820744554158, guid: af2a3c47c16e78343a0883eccc95dacf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -480,7 +502,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6072303820744554158, guid: af2a3c47c16e78343a0883eccc95dacf, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.176
       objectReference: {fileID: 0}
     - target: {fileID: 6072303820744554158, guid: af2a3c47c16e78343a0883eccc95dacf, type: 3}
       propertyPath: m_LocalRotation.w
@@ -509,6 +531,10 @@ PrefabInstance:
     - target: {fileID: 6072303820744554158, guid: af2a3c47c16e78343a0883eccc95dacf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7142605727084789080, guid: af2a3c47c16e78343a0883eccc95dacf, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

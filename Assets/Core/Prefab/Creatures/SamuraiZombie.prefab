@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1531256242007520385}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Render
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,9 +47,9 @@ GameObject:
   - component: {fileID: 4557295109647579434}
   - component: {fileID: 4910280691067940554}
   - component: {fileID: 1979788964670805950}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: SamuraiZombie
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,8 +103,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5101551184005486031}
   serializedVersion: 4
-  m_Mass: 12
-  m_Drag: 0
+  m_Mass: 40
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -161,18 +161,11 @@ MonoBehaviour:
   _zombieAnimationNameData: {fileID: 11400000, guid: 84271de76457ac9449746773fe1c6849, type: 2}
   _damageDealer: {fileID: 3971303684410747285}
   _animator: {fileID: 7416316729563695121}
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  _enemyLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  _playerLayer:
-    serializedVersion: 2
-    m_Bits: 64
+  _layersDataSO: {fileID: 11400000, guid: d162bc69f4cadb7428463c439064ab27, type: 2}
   _rigidbody: {fileID: 7201013556697506920}
   _collider: {fileID: 8596202913423149706}
   _healthBar: {fileID: 5437366769006755614}
+  _healthBarObject: {fileID: 8246559514922953937}
   _targetDetector: {fileID: 1979788964670805950}
   _agent: {fileID: 8363322012039806621}
 --- !u!136 &4910280691067940554
@@ -188,7 +181,7 @@ CapsuleCollider:
     m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 959
+    m_Bits: 191
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -223,7 +216,7 @@ GameObject:
   - component: {fileID: 180770284899919170}
   - component: {fileID: 7416316729563695121}
   - component: {fileID: 4374053727666470289}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: EnemySpriteRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -341,6 +334,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2648424716132262104}
     m_Modifications:
+    - target: {fileID: 637359931292349263, guid: d3cd651700019fa45927d1f3c0c00b22, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3901592129384543868, guid: d3cd651700019fa45927d1f3c0c00b22, type: 3}
       propertyPath: _attackDataList
       value: 
@@ -359,7 +356,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4555960876828651552, guid: d3cd651700019fa45927d1f3c0c00b22, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 4555960876828651552, guid: d3cd651700019fa45927d1f3c0c00b22, type: 3}
       propertyPath: m_LocalRotation.w
@@ -395,11 +392,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5334634939256292595, guid: d3cd651700019fa45927d1f3c0c00b22, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
-      value: 776
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6165105604488174375, guid: d3cd651700019fa45927d1f3c0c00b22, type: 3}
       propertyPath: m_Name
       value: DamageDealer_Simple
+      objectReference: {fileID: 0}
+    - target: {fileID: 6165105604488174375, guid: d3cd651700019fa45927d1f3c0c00b22, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6165105604488174375, guid: d3cd651700019fa45927d1f3c0c00b22, type: 3}
       propertyPath: m_TagString
@@ -438,10 +439,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthBar
       objectReference: {fileID: 0}
+    - target: {fileID: 838035481304543675, guid: a956bac7579b2d845b56ab31373bd589, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2456748316551211869, guid: a956bac7579b2d845b56ab31373bd589, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3649480027573330548, guid: a956bac7579b2d845b56ab31373bd589, type: 3}
       propertyPath: targetTransform
       value: 
       objectReference: {fileID: 2648424716132262104}
+    - target: {fileID: 5322260112906598884, guid: a956bac7579b2d845b56ab31373bd589, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7267223627065539970, guid: a956bac7579b2d845b56ab31373bd589, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8264097463735299536, guid: a956bac7579b2d845b56ab31373bd589, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 9016075112304392635, guid: a956bac7579b2d845b56ab31373bd589, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -545,9 +566,14 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3649480027573330548, guid: a956bac7579b2d845b56ab31373bd589, type: 3}
   m_PrefabInstance: {fileID: 8777769640769953130}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 8246559514922953937}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1911a9d3e47cf645ae8d61bc1eae475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8246559514922953937 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 838035481304543675, guid: a956bac7579b2d845b56ab31373bd589, type: 3}
+  m_PrefabInstance: {fileID: 8777769640769953130}
+  m_PrefabAsset: {fileID: 0}

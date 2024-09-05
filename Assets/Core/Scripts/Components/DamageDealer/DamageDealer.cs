@@ -54,7 +54,7 @@ namespace Components
         private void OnTriggerEnter(Collider other)
         {
             IDamagable damagable = other.GetComponent<IDamagable>();
-            damagable?.TakeDamage(_requestedAttackData, transform.position);
+            damagable?.TakeDamage(_requestedAttackData, transform.position, damagable);
         }
 
     }

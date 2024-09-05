@@ -3,7 +3,6 @@ using Components;
 using BehaviourSystem.PlayerSystem;
 using Data;
 using PlayerSystem;
-using System.Collections.Generic;
 
 namespace Entity.PlayerSystem
 {
@@ -99,13 +98,14 @@ namespace Entity.PlayerSystem
         {
             _rigidbody.AddForce(impulseDirection * inpulsePower, ForceMode.Impulse);
         }
-        public override void TakeDamage(AttackDataSO attackData, Vector3 attackVector)
+        public override void TakeDamage(AttackDataSO attackData, Vector3 attackVector, IDamagable target)
         {
-            base.TakeDamage(attackData, attackVector);
+            base.TakeDamage(attackData, attackVector, target);
             
         }
         protected override void CreatureDeath(HealthComponent healthComponent)
         {
+            if (healthComponent != _healthComponent) return;
             _isAlive = false;
 
             _healthComponent.OnDeath -= CreatureDeath;

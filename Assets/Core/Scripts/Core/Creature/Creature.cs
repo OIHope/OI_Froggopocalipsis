@@ -27,8 +27,11 @@ namespace Entity
         protected abstract void InitComponents();
 
         public virtual void ApplyImpulseOnCreature(Vector3 impulseDirection, float inpulsePower) { }
-        public virtual void TakeDamage(AttackDataSO attackData, Vector3 attackVector)
+        public virtual void TakeDamage(AttackDataSO attackData, Vector3 attackVector, IDamagable target)
         {
+            IDamagable _target = this.GetComponent<IDamagable>();
+            if (_target != target) return;
+
             int damage = attackData.GetDamage;
             Vector3 damageDirection = (transform.position - attackVector).normalized;
             _healthComponent.TakeDamage(damage);
