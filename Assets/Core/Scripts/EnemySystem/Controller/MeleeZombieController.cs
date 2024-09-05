@@ -2,6 +2,7 @@ using BehaviourSystem.EnemySystem;
 using Components;
 using Data;
 using EnemySystem;
+using PlayerSystem;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -17,15 +18,14 @@ namespace Entity.EnemySystem
         [SerializeField] private DamageDealer _damageDealer;
         [SerializeField] private Animator _animator;
         [Space]
-        [SerializeField] private LayerMask _groundLayer;
-        [SerializeField] private LayerMask _enemyLayer;
-        [SerializeField] private LayerMask _playerLayer;
+        [SerializeField] private LayersDataSO _layersDataSO;
         [Space]
         [Header("Components")]
         [Space]
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Collider _collider;
         [SerializeField] private ProgressBarComponent _healthBar;
+        [SerializeField] private GameObject _healthBarObject;
         [SerializeField] private DetectTargetComponent _targetDetector;
         [SerializeField] private NavMeshAgent _agent;
 
@@ -37,9 +37,12 @@ namespace Entity.EnemySystem
         private CooldownComponent _attackCooldownComponent;
         private MovementComponent _movementComponent;
         private AnimationComponent _animationComponent;
+        private ColliderSwitchComponent _colliderSwitchComponent;
+
 
         public bool Invincible { get => _isInvincible; set => _isInvincible = value; }
 
+        public ColliderSwitchComponent ColliderSwitch => _colliderSwitchComponent;
         public ZombieStateMachine StateMachine => _stateMachine;
         public EnemyDataSO EnemyData => _enemyData;
         public ZombieAnimationNameDataSO AnimationNameData => _zombieAnimationNameData;
@@ -89,6 +92,7 @@ namespace Entity.EnemySystem
             _attackCooldownComponent = new();
             _movementComponent = new(_rigidbody);
             _animationComponent = new(_animator);
+            _colliderSwitchComponent = new(_collider, _layersDataSO.LayerMasks);
 
             _components = new()
             {
@@ -146,19 +150,13 @@ namespace Entity.EnemySystem
         {
             if (value)
             {
-                //_collider.includeLayers -= _playerLayer;
-                //_collider.includeLayers -= _enemyLayer;
-
-                _collider.excludeLayers += _playerLayer;
-                _collider.excludeLayers += _enemyLayer;
+                _colliderSwitchComponent.CollideWithLayers();
+                _agent.enabled = true;
             }
             else
             {
-                //_collider.includeLayers += _playerLayer;
-                //_collider.includeLayers += _enemyLayer;
-
-                _collider.excludeLayers -= _playerLayer;
-                _collider.excludeLayers -= _enemyLayer;
+                _colliderSwitchComponent.DontCollideWithLayers();
+                _agent.enabled = false;
             }
         }
 
@@ -167,6 +165,7 @@ namespace Entity.EnemySystem
             _isAlive = false;
 
             ToggleColliders(false);
+            _healthBarObject.SetActive(false);
 
             _healthComponent.OnDeath -= CreatureDeath;
 

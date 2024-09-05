@@ -8,7 +8,10 @@ namespace BehaviourSystem.EnemySystem
         public override void EnterState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
         {
             base.EnterState(stateMachine);
-            stateMachine.Context.Agent.isStopped = true;
+            if (stateMachine.Context.Agent.enabled)
+            {
+                stateMachine.Context.Agent.isStopped = true;
+            }
             PerformDeath(stateMachine);
         }
         private void PerformDeath(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)

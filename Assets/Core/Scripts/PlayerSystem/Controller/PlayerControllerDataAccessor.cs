@@ -157,8 +157,8 @@ namespace PlayerSystem
             }
         }
         public void StartDashCooldown() => _controllerData.DashCooldown.Cooldown(_controllerData.PlayerData.DashData.CooldownTime);
-        public void DontCollideWithEnemy() => _controllerData.ColliderSwitch.DontCollideWithEnemy();
-        public void CollideWithEnemy() => _controllerData.ColliderSwitch.CollideWithEnemy();
+        public void DontCollideWithEnemy() => _controllerData.ColliderSwitch.DontCollideWithLayers();
+        public void CollideWithEnemy() => _controllerData.ColliderSwitch.CollideWithLayers();
         public void Move(Vector3 moveVector) => _controllerData.MovementComponent.Move(moveVector);
         
 

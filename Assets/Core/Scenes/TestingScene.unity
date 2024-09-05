@@ -455,6 +455,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 106981635}
   m_CullTransparentMesh: 1
+--- !u!1 &115928243 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2621434342886213558, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
+  m_PrefabInstance: {fileID: 1444182486}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &163849314 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7386499365316216904, guid: df2b27d81528aff42a459c4315fdae6d, type: 3}
@@ -996,8 +1001,16 @@ PrefabInstance:
       value: FireflyParticle
       objectReference: {fileID: 0}
     - target: {fileID: 1671363452874120810, guid: 88cd69b77fb2abd45a4fbd3ea5977c6f, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1671363452874120810, guid: 88cd69b77fb2abd45a4fbd3ea5977c6f, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2782643592986810289, guid: 88cd69b77fb2abd45a4fbd3ea5977c6f, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2782643592986810289, guid: 88cd69b77fb2abd45a4fbd3ea5977c6f, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1926,7 +1939,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 15.7225, y: 15.7225, z: 15.7225}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 913390645}
@@ -2144,6 +2157,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 484145952}
     m_Modifications:
+    - target: {fileID: 637359931292349263, guid: d3cd651700019fa45927d1f3c0c00b22, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4555960876828651552, guid: d3cd651700019fa45927d1f3c0c00b22, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2184,9 +2201,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5334634939256292595, guid: d3cd651700019fa45927d1f3c0c00b22, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6165105604488174375, guid: d3cd651700019fa45927d1f3c0c00b22, type: 3}
       propertyPath: m_Name
       value: DamageDealer_Simple
+      objectReference: {fileID: 0}
+    - target: {fileID: 6165105604488174375, guid: d3cd651700019fa45927d1f3c0c00b22, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6165105604488174375, guid: d3cd651700019fa45927d1f3c0c00b22, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3153,7 +3182,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1358984588}
   - component: {fileID: 1358984587}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NavigationArrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3290,10 +3319,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 997661538015272272, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1228881745900017548, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
+      propertyPath: m_Drag
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1382694302905488768, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.176
+      objectReference: {fileID: 0}
+    - target: {fileID: 2621434342886213558, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2624150608681475702, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647714998854105826, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4851569288884137705, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
       propertyPath: m_Name
       value: SimpleZombie
       objectReference: {fileID: 0}
+    - target: {fileID: 4851569288884137705, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851569288884137705, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5411678667778263951, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5414786406343751699, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
+      propertyPath: _layersDataSO
+      value: 
+      objectReference: {fileID: 11400000, guid: d162bc69f4cadb7428463c439064ab27, type: 2}
+    - target: {fileID: 5414786406343751699, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
+      propertyPath: _healthBarObject
+      value: 
+      objectReference: {fileID: 115928243}
     - target: {fileID: 5971756589542936502, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -3301,6 +3374,30 @@ PrefabInstance:
     - target: {fileID: 5971756589542936502, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6732741437433879517, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146316249844237330, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146316249844237330, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7357772581827350505, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7865420329410236072, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586795026655219641, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3659,6 +3756,11 @@ MonoBehaviour:
   _simpleDamageDealer: {fileID: 739615305}
   _powerDamageDealer: {fileID: 0}
   _dashDamageDealer: {fileID: 0}
+--- !u!1 &1663955285 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8246559514922953937, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
+  m_PrefabInstance: {fileID: 1863098808}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1699778061
 GameObject:
   m_ObjectHideFlags: 0
@@ -4300,6 +4402,22 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 711992659569487014, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 828413983498907834, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1415613729299664815, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2092691246511038696, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2648424716132262104, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.0540266
@@ -4340,9 +4458,73 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3462302349354738830, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4468657909510614985, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557295109647579434, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
+      propertyPath: _layersDataSO
+      value: 
+      objectReference: {fileID: 11400000, guid: d162bc69f4cadb7428463c439064ab27, type: 2}
+    - target: {fileID: 4557295109647579434, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
+      propertyPath: _healthBarObject
+      value: 
+      objectReference: {fileID: 1663955285}
+    - target: {fileID: 4910280691067940554, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4910280691067940554, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5101551184005486031, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
       propertyPath: m_Name
       value: SamuraiZombie
+      objectReference: {fileID: 0}
+    - target: {fileID: 5101551184005486031, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5101551184005486031, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418310566352395034, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5437366769006755614, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6104347906505295054, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6179088280382409453, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6613810280430302775, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7201013556697506920, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
+      propertyPath: m_Drag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7201013556697506920, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
+      propertyPath: m_Mass
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8246559514922953937, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4405,7 +4587,7 @@ MonoBehaviour:
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_UseGeometry: 0
+  m_UseGeometry: 1
   m_DefaultArea: 0
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
@@ -4767,6 +4949,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 256_asset_nature_mushroom_1_1
       objectReference: {fileID: 0}
+    - target: {fileID: 9194808301367194412, guid: c1d2da5b02ec8f947aeba724e94f92fd, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4783,6 +4969,10 @@ PrefabInstance:
     - target: {fileID: 446753605221987488, guid: cd0a03c33f13e254e84e4ccd9ae2fa0a, type: 3}
       propertyPath: m_Name
       value: 256_asset_nature_grass_3_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 446753605221987488, guid: cd0a03c33f13e254e84e4ccd9ae2fa0a, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4052322241922433693, guid: cd0a03c33f13e254e84e4ccd9ae2fa0a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4841,6 +5031,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 256_asset_nature_grass_2_1
       objectReference: {fileID: 0}
+    - target: {fileID: 2918760317654401676, guid: e6e8556c43dca0c4c8b57308e4682bb4, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7446258158790345387, guid: e6e8556c43dca0c4c8b57308e4682bb4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10
@@ -4897,6 +5091,10 @@ PrefabInstance:
     - target: {fileID: 1104287742888496947, guid: 198c16d51e1ea88499670f18798dd992, type: 3}
       propertyPath: m_Name
       value: 256_asset_nature_grass_5_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1104287742888496947, guid: 198c16d51e1ea88499670f18798dd992, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6366214331708239274, guid: 198c16d51e1ea88499670f18798dd992, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5010,6 +5208,10 @@ PrefabInstance:
     - target: {fileID: 4111044713379155633, guid: 8494f4ab2522da248ba7424199d59c77, type: 3}
       propertyPath: m_Name
       value: 256_asset_nature_grass_3_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4111044713379155633, guid: 8494f4ab2522da248ba7424199d59c77, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5178,6 +5380,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 256_asset_nature_grass_3_2
       objectReference: {fileID: 0}
+    - target: {fileID: 8425697239068257599, guid: 0152525564d278145abe88f1c8811b1d, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5219,18 +5425,11 @@ MonoBehaviour:
   _zombieAnimationNameData: {fileID: 0}
   _damageDealer: {fileID: 1287687792592439963}
   _animator: {fileID: 5889723489822777051}
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  _enemyLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  _playerLayer:
-    serializedVersion: 2
-    m_Bits: 0
+  _layersDataSO: {fileID: 0}
   _rigidbody: {fileID: 5812907170584437645}
   _collider: {fileID: 3154356427776175277}
   _healthBar: {fileID: 5052236433343630762}
+  _healthBarObject: {fileID: 0}
   _targetDetector: {fileID: 5268153514986586339}
   _agent: {fileID: 2960675705327566187}
 --- !u!195 &2960675705327566187
@@ -5336,6 +5535,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 256_asset_nature_grass_5_1
       objectReference: {fileID: 0}
+    - target: {fileID: 8345196713546880344, guid: 436c8687326bee043bed1aa8f2ae5464, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5427,6 +5630,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 256_asset_nature_grass_4_2
       objectReference: {fileID: 0}
+    - target: {fileID: 7102100140134671759, guid: f058ad9e5fd1dd74788cd30c88200a85, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5500,6 +5707,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 512_asset_nature_grass_1_2
       objectReference: {fileID: 0}
+    - target: {fileID: 8679683501295288053, guid: 11e240f17d6c058438ebcb3e5be5814f, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5556,6 +5767,10 @@ PrefabInstance:
     - target: {fileID: 596408800890833404, guid: c53ec263c6d43b543877e1ecf3ad21e2, type: 3}
       propertyPath: m_Name
       value: 256_asset_nature_rock_1_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 596408800890833404, guid: c53ec263c6d43b543877e1ecf3ad21e2, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5666,6 +5881,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 256_asset_nature_grass_2_2
       objectReference: {fileID: 0}
+    - target: {fileID: 3734251693334570468, guid: fdcae81c4d395b344becbc446dd1212a, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5682,6 +5901,10 @@ PrefabInstance:
     - target: {fileID: 282912463210248766, guid: df2b27d81528aff42a459c4315fdae6d, type: 3}
       propertyPath: m_Name
       value: 256_asset_nature_rock_1_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 282912463210248766, guid: df2b27d81528aff42a459c4315fdae6d, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7386499365316216904, guid: df2b27d81528aff42a459c4315fdae6d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5740,6 +5963,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 1024_asset_nature_tree_1_1
       objectReference: {fileID: 0}
+    - target: {fileID: 2028531619165778122, guid: 13bb8e4a017260947878ca3fc1d8ffea, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4628989721702611989, guid: 13bb8e4a017260947878ca3fc1d8ffea, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1
@@ -5780,6 +6007,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9161553894054731615, guid: 13bb8e4a017260947878ca3fc1d8ffea, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5796,6 +6027,10 @@ PrefabInstance:
     - target: {fileID: 5979549797432624014, guid: 3b36b69e46100314f8c91320d0e32962, type: 3}
       propertyPath: m_Name
       value: 512_asset_nature_grass_1_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5979549797432624014, guid: 3b36b69e46100314f8c91320d0e32962, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7456384275651815803, guid: 3b36b69e46100314f8c91320d0e32962, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5853,6 +6088,10 @@ PrefabInstance:
     - target: {fileID: 4254328795122542143, guid: c7b643fca1407c043b4e463fe27584ee, type: 3}
       propertyPath: m_Name
       value: 512_asset_nature_grass_1_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254328795122542143, guid: c7b643fca1407c043b4e463fe27584ee, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8268928445274652848, guid: c7b643fca1407c043b4e463fe27584ee, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6137,6 +6376,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 256_asset_nature_rock_1_3
       objectReference: {fileID: 0}
+    - target: {fileID: 3909044827735919527, guid: 6b7cec3e35bd0b645aa9730aa92763f9, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6153,6 +6396,10 @@ PrefabInstance:
     - target: {fileID: 8420596555796044756, guid: ca18fd33314ad264a8864501d149e0fe, type: 3}
       propertyPath: m_Name
       value: 256_asset_nature_mushroom_1_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8420596555796044756, guid: ca18fd33314ad264a8864501d149e0fe, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9204835818375052582, guid: ca18fd33314ad264a8864501d149e0fe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6262,6 +6509,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 512_asset_nature_bush_1_1
       objectReference: {fileID: 0}
+    - target: {fileID: 7269044454350045385, guid: 6a4b1f425ee3a9e40a79643fbe2be984, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6342,6 +6593,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 256_asset_nature_grass_4_1
       objectReference: {fileID: 0}
+    - target: {fileID: 5832316227435411282, guid: 922522e7820e6964ba66a689c5a4b583, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6398,6 +6653,10 @@ PrefabInstance:
     - target: {fileID: 2769412534883116189, guid: 6bdad2cc44f643c4c9ec2d0c49a72a27, type: 3}
       propertyPath: m_Name
       value: 256_asset_nature_grass_2_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2769412534883116189, guid: 6bdad2cc44f643c4c9ec2d0c49a72a27, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6640,6 +6899,10 @@ PrefabInstance:
     - target: {fileID: 8372811511102467686, guid: d2f0ebd40bf939e47912cddf8fce48ab, type: 3}
       propertyPath: m_Name
       value: 256_asset_nature_grass_5_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8372811511102467686, guid: d2f0ebd40bf939e47912cddf8fce48ab, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b49034295f9fba41b3789376dbc35a4, type: 3}
-  m_Name: LayersDataSO
+  m_Name: PlayerLayersDataSO
   m_EditorClassIdentifier: 
   _groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  _playerLayer:
+  _creatureLayer:
     serializedVersion: 2
     m_Bits: 64
-  _enemyLayer:
-    serializedVersion: 2
-    m_Bits: 128
+  _layerMasks:
+  - serializedVersion: 2
+    m_Bits: 64

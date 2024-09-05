@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Data
@@ -6,11 +7,12 @@ namespace Data
     public class LayersDataSO : ScriptableObject
     {
         [SerializeField] private LayerMask _groundLayer;
-        [SerializeField] private LayerMask _playerLayer;
-        [SerializeField] private LayerMask _enemyLayer;
+        [SerializeField] private LayerMask _creatureLayer;
+        [Space] 
+        [SerializeField] private List<LayerMask> _layerMasks;
 
         public LayerMask GroundLayer => _groundLayer;
-        public LayerMask PlayerLayer => _playerLayer;
-        public LayerMask EnemyLayer => _enemyLayer;
+        public LayerMask CreatureLayer => _creatureLayer;
+        public List<LayerMask> LayerMasks => _layerMasks;
     }
 }

@@ -1,34 +1,42 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Components
 {
     public class ColliderSwitchComponent : ComponentBase
     {
-        private Collider _damageCollider;
-        private LayerMask _enemyLayer;
+        private Collider _ñollider;
+        private List<LayerMask> _excludeLayers;
 
-        private bool _isCollidingWithEnemy = true;
+        private bool _isColliding = true;
 
 
-        public void DontCollideWithEnemy()
+        public void DontCollideWithLayers()
         {
-            if (!_isCollidingWithEnemy) return;
+            if (!_isColliding) return;
 
-            _damageCollider.excludeLayers -= _enemyLayer;
-            _isCollidingWithEnemy = false;
+            foreach(LayerMask layer in _excludeLayers)
+            {
+                _ñollider.excludeLayers -= layer;
+            }
+            
+            _isColliding = false;
         }
-        public void CollideWithEnemy()
+        public void CollideWithLayers()
         {
-            if (_isCollidingWithEnemy) return;
+            if (_isColliding) return;
 
-            _damageCollider.excludeLayers += _enemyLayer;
-            _isCollidingWithEnemy = true;
+            foreach (LayerMask layer in _excludeLayers)
+            {
+                _ñollider.excludeLayers += layer;
+            }
+            _isColliding = true;
         }
 
-        public ColliderSwitchComponent(Collider damageCollider, LayerMask enemyLayer)
+        public ColliderSwitchComponent(Collider ñollider, List<LayerMask> excludeLayers)
         {
-            _damageCollider = damageCollider;
-            _enemyLayer = enemyLayer;
+            _ñollider = ñollider;
+            _excludeLayers = excludeLayers;
         }
         public override void UpdateComponent() { }
     }
