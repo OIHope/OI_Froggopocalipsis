@@ -22,18 +22,17 @@ namespace BehaviourSystem
         [SerializeField] private bool _forEnemyStateMachine;
         [Header("Check states that should work in the stateMachine")]
         [Space]
-        [SerializeField] private bool en_AttackState;
         [SerializeField] private bool en_ChargeAttackState;
         [SerializeField] private bool en_RunAwayState;
         [SerializeField] private bool en_MoveToTargetState;
         [SerializeField] private bool en_MakeDistanceState;
-        [SerializeField] private bool en_RangeAttackState;
+        [SerializeField] private bool en_RangeChargeState;
         [SerializeField] private bool en_TakeDamageState;
         [SerializeField] private bool en_StunState;
         [Space(20)]
         [Header("Common State Data")]
         [Space]
-        [SerializeField] private bool cm_something;
+        [SerializeField] private bool cm_InvincibleOnTakeDamage;
 
         public bool ForPlayerStateMachine => _forPlayerStateMachine;
         public bool PlMoveState => pl_MoveState;
@@ -46,12 +45,15 @@ namespace BehaviourSystem
         public bool PlDodgeState => pl_DodgeState;
 
         public bool ForEnemyStateMachine => _forEnemyStateMachine;
-        public bool EnAttackState => en_AttackState;
         public bool EnChargeAttackState => en_ChargeAttackState;
+        public bool EnRangeChargeState => en_RangeChargeState;
         public bool EnRunAwayState => en_RunAwayState;
         public bool EnMoveToTargetState => en_MoveToTargetState;
+        public bool EnMakeDistanceState => en_MakeDistanceState;
         public bool EnTakeDamageState => en_TakeDamageState;
         public bool EnStunState => en_StunState;
+
+        public bool InvincibleOnTakeDamage => cm_InvincibleOnTakeDamage;
 
         private void OnValidate()
         {

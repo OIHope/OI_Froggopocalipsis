@@ -8,6 +8,14 @@ namespace Components
         private int _currentHealth;
 
         public System.Action<HealthComponent> OnDeath;
+        public bool CriticalCondition
+        {
+            get
+            {
+                int limit = (int)(_healthData.MaxHP * 0.3f);
+                return _currentHealth <= limit;
+            }
+        }
 
         public void TakeDamage(int damage)
         {

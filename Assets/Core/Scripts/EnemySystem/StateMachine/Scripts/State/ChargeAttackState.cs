@@ -1,32 +1,52 @@
 using Data;
 using EnemySystem;
+using UnityEngine;
 
 namespace BehaviourSystem.EnemySystem
 {
-    public class ChargeAttackState : State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor>
+    public class ChargeAttackState : State<EnemyState, EnemySubState, EnemyControllerDataAccessor>
     {
-        public override void EnterState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
+        IAttackableTarget _target;
+        public override void EnterState(StateMachine<EnemyState, EnemySubState, EnemyControllerDataAccessor> stateMachine)
         {
             base.EnterState(stateMachine);
             stateMachine.Context.Agent.isStopped = true;
+            _target = stateMachine.Context.Target;
         }
-        public override void UpdateState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
+        public override void ExitState(StateMachine<EnemyState, EnemySubState, EnemyControllerDataAccessor> stateMachine)
+        {
+            base.ExitState(stateMachine);
+            if (stateMachine.StateMachineData.EnRangeChargeState)
+            {
+                stateMachine.Context.DisplayAim(false);
+            }
+        }
+        public override void UpdateState(StateMachine<EnemyState, EnemySubState, EnemyControllerDataAccessor> stateMachine)
         {
             PerformCharge(stateMachine);
         }
-        private void PerformCharge(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
+        private void PerformCharge(StateMachine<EnemyState, EnemySubState, EnemyControllerDataAccessor> stateMachine)
         {
             stateMachine.Context.PlayAnimation(EnemyRequestedAnimation.Charge);
             _isComplete = stateMachine.Context.AnimationComplete(stateMachine.Context.AnimationName(EnemyRequestedAnimation.Charge));
+            if (stateMachine.StateMachineData.EnRangeChargeState) AimAtTarget(stateMachine);
         }
-
-        public override EnemyState GetNextState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
+        private void AimAtTarget(StateMachine<EnemyState, EnemySubState, EnemyControllerDataAccessor> stateMachine)
         {
-            if (!_isComplete) return EnemyState.ChargeAttack;
-            return EnemyState.Attack;
+            Vector3 direction = (_target.InstanceTransform.position - stateMachine.Context.Agent.transform.position).normalized;
+            stateMachine.Context.AimDirection = direction;
+            stateMachine.Context.DisplayAim(true);
         }
 
-        public override EnemySubState GetNextSubState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
+        public override EnemyState GetNextState(StateMachine<EnemyState, EnemySubState, EnemyControllerDataAccessor> stateMachine)
+        {
+            bool hasTarget = stateMachine.Context.HasTarget;
+            if (!hasTarget) return EnemyState.Idle;
+
+            return _isComplete ? EnemyState.Attack : EnemyState.ChargeAttack;
+        }
+
+        public override EnemySubState GetNextSubState(StateMachine<EnemyState, EnemySubState, EnemyControllerDataAccessor> stateMachine)
         {
             return EnemySubState.Empty;
         }

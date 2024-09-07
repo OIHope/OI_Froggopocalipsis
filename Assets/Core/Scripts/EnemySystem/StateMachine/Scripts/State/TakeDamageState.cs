@@ -4,25 +4,26 @@ using UnityEngine;
 
 namespace BehaviourSystem.EnemySystem
 {
-    public class TakeDamageState : State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor>
+    public class TakeDamageState : State<EnemyState, EnemySubState, EnemyControllerDataAccessor>
     {
-        public override void EnterState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
+        public override void EnterState(StateMachine<EnemyState, EnemySubState, EnemyControllerDataAccessor> stateMachine)
         {
             base.EnterState(stateMachine);
             stateMachine.Context.PlayAnimation(EnemyRequestedAnimation.TakeDamage);
         }
-        public override void UpdateState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
+        public override void UpdateState(StateMachine<EnemyState, EnemySubState, EnemyControllerDataAccessor> stateMachine)
         {
             _isComplete = stateMachine.Context.AnimationComplete(stateMachine.Context.AnimationName(EnemyRequestedAnimation.TakeDamage));
         }
-        public override EnemyState GetNextState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
+        public override EnemyState GetNextState(StateMachine<EnemyState, EnemySubState, EnemyControllerDataAccessor> stateMachine)
         {
             if (!_isComplete) return EnemyState.TakeDamage;
             return EnemyState.Idle;
         }
-        public override EnemySubState GetNextSubState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
+        public override EnemySubState GetNextSubState(StateMachine<EnemyState, EnemySubState, EnemyControllerDataAccessor> stateMachine)
         {
-            return EnemySubState.Invincible;
+            if(stateMachine.StateMachineData.InvincibleOnTakeDamage) return EnemySubState.Invincible;
+            return EnemySubState.Empty;
         }
     }
 }

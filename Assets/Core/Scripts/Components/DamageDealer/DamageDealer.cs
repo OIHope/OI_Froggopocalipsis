@@ -4,54 +4,56 @@ using Data;
 namespace Components
 {
     public enum AttackType { SimpleAttack, PowerAttack, DashAttack }
-    public class DamageDealer : MonoBehaviour, IDamageDealler
+    public abstract class DamageDealer : MonoBehaviour, IDamageDealler
     {
-        [SerializeField] private Transform _damageDealerPivot;
-        [SerializeField] private Collider _damageDealerCollider;
-        [SerializeField] private GameObject _render;
+        [SerializeField] protected Transform _damageDealerPivot;
+        [SerializeField] protected Collider _damageDealerCollider;
+        [SerializeField] protected GameObject _render;
         [Space]
-        [SerializeField] private AttackDataListSO _attackDataList;
-        [SerializeField] private AnimationCurveDataSO _attackAnimationData;
+        [SerializeField] protected AttackDataListSO _attackDataList;
+        [SerializeField] protected AnimationCurveDataSO _attackAnimationData;
 
 
-        private AttackDataSO _requestedAttackData;
+        protected AttackDataSO _requestedAttackData;
+        protected Vector3 _attackDirection;
 
         public AnimationCurveDataSO AttackAnimationData => _attackAnimationData;
 
         public AttackDataSO LastAttackData => _requestedAttackData;
         public AttackDataSO AttackData() => _attackDataList.GetRandomAttackData();
 
-        private void Awake()
+        protected virtual void Awake()
         {
             ToggleDamageDealer(false);
             _requestedAttackData = _attackDataList.GetRandomAttackData();
         }
-        public AttackDataSO PerformAttack(Vector3 rotateDirection)
+        public virtual AttackDataSO PerformAttack(Vector3 rotateDirection)
         {
             _requestedAttackData = AttackData();
+            _attackDirection = rotateDirection;
             RotateDamageDealer(rotateDirection);
             return _requestedAttackData;
         }
-        public void StartAttack()
+        public virtual void StartAttack()
         {
             ToggleDamageDealer(true);
         }
-        public void FinishAttack()
+        public virtual void FinishAttack()
         {
             ToggleDamageDealer(false);
         }
-        private void ToggleDamageDealer(bool value)
+        protected virtual void ToggleDamageDealer(bool value)
         {
             _damageDealerCollider.enabled = value;
             _render.SetActive(value);
         }
-        private void RotateDamageDealer(Vector3 rotateDirection)
+        protected virtual void RotateDamageDealer(Vector3 rotateDirection)
         {
             Quaternion rotation = Quaternion.LookRotation(rotateDirection);
             _damageDealerPivot.rotation = Quaternion.Euler(0f, rotation.eulerAngles.y, 0f);
         }
 
-        private void OnTriggerEnter(Collider other)
+        protected virtual void OnTriggerEnter(Collider other)
         {
             IDamagable damagable = other.GetComponent<IDamagable>();
             damagable?.TakeDamage(_requestedAttackData, transform.position, damagable);

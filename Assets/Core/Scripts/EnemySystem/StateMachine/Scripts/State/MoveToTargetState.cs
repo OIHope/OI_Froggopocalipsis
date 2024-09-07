@@ -4,18 +4,20 @@ using UnityEngine;
 
 namespace BehaviourSystem.EnemySystem
 {
-    public class MoveToTargetState : State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor>
+    public class MoveToTargetState : State<EnemyState, EnemySubState, EnemyControllerDataAccessor>
     {
         private IAttackableTarget _target;
-        private float _reachRange = 1.5f;
+        private float _reachRange;
 
-        public override void EnterState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
+
+        public override void EnterState(StateMachine<EnemyState, EnemySubState, EnemyControllerDataAccessor> stateMachine)
         {
             base.EnterState(stateMachine);
 
             _target = stateMachine.Context.Target;
+            _reachRange = (stateMachine.Context.EnemyData.MaxAttackRange + stateMachine.Context.EnemyData.MinAttackRange) / 2;
         }
-        public override void ExitState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
+        public override void ExitState(StateMachine<EnemyState, EnemySubState, EnemyControllerDataAccessor> stateMachine)
         {
             base.ExitState(stateMachine);
 
@@ -25,13 +27,12 @@ namespace BehaviourSystem.EnemySystem
                 stateMachine.Context.AimDirection = direction;
             }
         }
-        public override void FixedUpdateState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
+        public override void FixedUpdateState(StateMachine<EnemyState, EnemySubState, EnemyControllerDataAccessor> stateMachine)
         {
             Vector3 direction = (_target.InstanceTransform.position - stateMachine.Context.Agent.transform.position).normalized;
             stateMachine.Context.AimDirection = direction;
-            
-            float distance = Vector3.Distance(_target.InstanceTransform.position, stateMachine.Context.Agent.transform.position);
-            bool inAttackRange = distance <= _reachRange;
+
+            bool inAttackRange = stateMachine.Context.TargetInRange;
 
             if (inAttackRange)
             {
@@ -42,28 +43,31 @@ namespace BehaviourSystem.EnemySystem
             {
                 stateMachine.Context.Agent.isStopped = false;
                 stateMachine.Context.PlayAnimation(EnemyRequestedAnimation.Run);
-
-                Vector3 moveToPos = _target.InstanceTransform.position - (stateMachine.Context.AimDirection * _reachRange * 0.75f);
-                stateMachine.Context.Agent.SetDestination(moveToPos);
-                stateMachine.Context.Agent.speed = stateMachine.Context.RunSpeed;
+                MoveToSpot(stateMachine);
             }
         }
-        public override EnemyState GetNextState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
+
+        private void MoveToSpot(StateMachine<EnemyState, EnemySubState, EnemyControllerDataAccessor> stateMachine)
         {
-            if (!_target.TargetIsAlive || _target == null)
-            {
-                return EnemyState.Idle;
-            }
-
-            float distance = Vector3.Distance(_target.InstanceTransform.position, stateMachine.Context.Agent.transform.position);
-            bool inAttackRange = distance <= _reachRange;
-            bool canAttack = stateMachine.Context.CanAttack;
-            if (inAttackRange && canAttack) return EnemyState.Attack;
-
-            return EnemyState.MoveToTarget;
+            Vector3 targetPos = _target.InstanceTransform.position - (stateMachine.Context.AimDirection * _reachRange);
+            stateMachine.Context.Agent.SetDestination(targetPos);
+            stateMachine.Context.Agent.speed = stateMachine.Context.RunSpeed;
         }
 
-        public override EnemySubState GetNextSubState(StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stateMachine)
+        public override EnemyState GetNextState(StateMachine<EnemyState, EnemySubState, EnemyControllerDataAccessor> stateMachine)
+        {
+            bool hasTarget = stateMachine.Context.HasTarget;
+            if (hasTarget)
+            {
+                bool canAttack = stateMachine.Context.CanAttack;
+                bool charge = stateMachine.StateMachineData.EnChargeAttackState;
+                if (canAttack) return charge ? EnemyState.ChargeAttack : EnemyState.Attack;
+                return EnemyState.MoveToTarget;
+            }
+            return EnemyState.Idle;
+        }
+
+        public override EnemySubState GetNextSubState(StateMachine<EnemyState, EnemySubState, EnemyControllerDataAccessor> stateMachine)
         {
             return EnemySubState.Empty;
         }

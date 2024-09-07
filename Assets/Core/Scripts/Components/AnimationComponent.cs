@@ -5,6 +5,7 @@ namespace Components
     public class AnimationComponent : ComponentBase
     {
         private Animator _animator;
+        public Animator AnimatorComponent { get =>  _animator; set { _animator = value; } }
 
         public bool IsAnimationComplete(string ANIMATION_NAME)
         {

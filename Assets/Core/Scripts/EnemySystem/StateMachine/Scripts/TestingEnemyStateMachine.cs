@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TestingEnemyStateMachine : MonoBehaviour
 {
-    [SerializeField] private MeleeZombieController _testSubject;
+    [SerializeField] private EnemyController _testSubject;
 
     public void EnterEmptyState()
     {

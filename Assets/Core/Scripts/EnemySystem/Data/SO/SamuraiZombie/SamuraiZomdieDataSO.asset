@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: SamuraiZomdieDataSO
   m_EditorClassIdentifier: 
   _healthData: {fileID: 11400000, guid: 2e4221e2b2d2ff84ca94a5d3110467d4, type: 2}
-  _attackData: {fileID: 11400000, guid: e8b6c32caa02ab44ba6fe40450d71de0, type: 2}
   _movementData: {fileID: 11400000, guid: ce1c02c92ecd3954a91afb9d6a12c24f, type: 2}
   _enemyVisionData: {fileID: 11400000, guid: a1d915de6f0ab4247b50e75b24d9ad8d, type: 2}
   _roamingData: {fileID: 11400000, guid: 3e06ed98b6759c943b618fb7b4d5a19d, type: 2}
+  _minAttackRange: 0.1
+  _maxAttackRange: 2.3
+  _hasProjectile: 0
+  _projectile: {fileID: 0}

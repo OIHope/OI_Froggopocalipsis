@@ -7,27 +7,38 @@ using UnityEngine.AI;
 
 namespace EnemySystem
 {
-    public class MeleeZombieControllerDataAccessor 
-        : CreatureDataAccessor<MeleeZombieController, EnemyRequestedAnimation>
+    public class EnemyControllerDataAccessor 
+        : CreatureDataAccessor<EnemyController, EnemyRequestedAnimation>
     {
         private Vector3 _startPos;
 
         protected override AnimationComponent Animation => _controllerData.Animation;
 
         public override bool AnimationComplete(string animationName) => Animation.IsAnimationComplete(animationName);
-        public override bool IsStatic => _controllerData.EnemyData.RoamingData.IsStatic;
-        public override bool CanAttack => _controllerData.SimpleAttackCooldown.CanUseAbility;
+        public override bool IsStatic => EnemyData.RoamingData.IsStatic;
+        public override bool CanAttack => _controllerData.SimpleAttackCooldown.CanUseAbility && TargetInRange;
+        public bool HasTarget => _target != null;
+        public override bool TargetInRange
+        {
+            get
+            {
+                float distance = Vector3.Distance(Target.InstanceTransform.position, _controllerData.transform.position);
+                bool inRange = distance < EnemyData.MaxAttackRange && distance > EnemyData.MinAttackRange;
+                return inRange;
+            }
+        }
+        public override bool IsInCriticalCondition => _controllerData.HealthComponent.CriticalCondition;
 
-        public override int RoamingDistance => _controllerData.EnemyData.RoamingData.RoamingDistance;
+        public override int RoamingDistance => EnemyData.RoamingData.RoamingDistance;
 
-        public override float WalkSpeed => _controllerData.EnemyData.MovementData.WalkSpeed;
-        public override float RunSpeed => _controllerData.EnemyData.MovementData.RunSpeed;
-        public override float StopDistance => _controllerData.EnemyData.RoamingData.StopDistance;
-        public override float WaitTillRoam => _controllerData.EnemyData.RoamingData.WaitTillRoamTime;
-        public override float CheckPointDistance => _controllerData.EnemyData.RoamingData.CheckPointDistance;
+        public override float WalkSpeed => EnemyData.MovementData.WalkSpeed;
+        public override float RunSpeed => EnemyData.MovementData.RunSpeed;
+        public override float StopDistance => EnemyData.RoamingData.StopDistance;
+        public override float WaitTillRoam => EnemyData.RoamingData.WaitTillRoamTime;
+        public override float CheckPointDistance => EnemyData.RoamingData.CheckPointDistance;
 
-        public override float SightDistance => _controllerData.EnemyData.EnemyVisionData.SightDistance;
-        public override float TimeToSpotTarget => _controllerData.EnemyData.EnemyVisionData.TimeToSpotTarget;
+        public override float SightDistance => EnemyData.EnemyVisionData.SightDistance;
+        public override float TimeToSpotTarget => EnemyData.EnemyVisionData.TimeToSpotTarget;
 
         public override float SimpleAttackDuration => _controllerData.SimpleDamageDealerComponent.AttackAnimationData.Duration;
         public override float SimpleAttackSlideDistance => _controllerData.SimpleDamageDealerComponent.AttackAnimationData.SlideDistance;
@@ -37,19 +48,26 @@ namespace EnemySystem
 
         public override AnimationCurve SimpleAttackAnimationCurve => _controllerData.SimpleDamageDealerComponent.AttackAnimationData.DataAnimationCurve;
 
-        public override IAttackableTarget Target { get; set; }
+        public override IAttackableTarget Target
+        {
+            get => _target;
+            set => _target = value;
+        }
 
         public override NavMeshAgent Agent { get => _controllerData.Agent; set => _controllerData.Agent = value; }
-
         public override StateMachineDataSO StateMachineData => _stateMachineData;
+        public override EnemyDataSO EnemyData => _enemyDataSO;
 
-        public override AttackDataSO PerformAttack(AttackType attackType) => _controllerData.SimpleDamageDealerComponent.PerformAttack(AimDirection);
+
+        public override AttackDataSO PerformAttack(AttackType attackType)
+        {
+            return _controllerData.SimpleDamageDealerComponent.PerformAttack(AimDirection);
+        }
         public override void FinishAttack(AttackType attackType) => _controllerData.SimpleDamageDealerComponent.FinishAttack();
         public override void StartAttackCooldown() => _controllerData.SimpleAttackCooldown.Cooldown(_controllerData.SimpleDamageDealerComponent.LastAttackData.CooldownTime);
         public override void Move(Vector3 moveVector) => _controllerData.MovementComponent.Move(moveVector);
         public override void EnableTargetDetector() => _controllerData.TargetDetector.EnableTargetDetection();
         public override void MakeInvincible(bool value) => _controllerData.MakeInvincible(value);
-
         public override void PlayAnimation(EnemyRequestedAnimation request)
         {
             if (AimDirection.x < 0)
@@ -60,9 +78,9 @@ namespace EnemySystem
             {
                 _controllerData.Renderer.flipX = false;
             }
+            Animation.AnimatorComponent.SetFloat("directionZ", AimDirection.z);
             Animation.PlayAnimation(AnimationName(request));
         }
-
         public override string AnimationName(EnemyRequestedAnimation request)
         {
             if (AimDirection.z > 0)
@@ -111,12 +129,27 @@ namespace EnemySystem
             }
             return _controllerData.AnimationNameData.IdleAnimationName;
         }
+        public void DisplayAim(bool value)
+        {
+            if (value)
+            {
+                _controllerData.AimArrow.SetActive(true);
 
-        public MeleeZombieControllerDataAccessor(MeleeZombieController controllerData) : base(controllerData)
+                Quaternion aimArrowRotation = Quaternion.LookRotation(AimDirection);
+                _controllerData.AimArrow.transform.rotation = Quaternion.Euler(90f, aimArrowRotation.eulerAngles.y, 0f);
+            }
+            else
+            {
+                _controllerData.AimArrow.SetActive(false);
+            }
+        }
+
+        public EnemyControllerDataAccessor(EnemyController controllerData) : base(controllerData)
         {
             _controllerData = controllerData;
             _startPos = _controllerData.transform.position;
             _stateMachineData = controllerData.StateMachineData;
+            _enemyDataSO = controllerData.EnemyData;
         }
     }
 }

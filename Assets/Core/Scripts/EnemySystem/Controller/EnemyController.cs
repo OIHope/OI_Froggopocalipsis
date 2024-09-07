@@ -9,15 +9,13 @@ using UnityEngine.AI;
 
 namespace Entity.EnemySystem
 {
-    public class MeleeZombieController : Creature, ISimpleAttacker, ISearchForTarget, IHaveMovementComponent, IInvincibility, IMoveInteractor
+    public class EnemyController : Creature, ISimpleAttacker, ISearchForTarget, IHaveMovementComponent, IInvincibility, IMoveInteractor
     {
         [Header("Data")]
         [Space]
         [SerializeField] private EnemyDataSO _enemyData;
         [SerializeField] private StateMachineDataSO _stateMachineData;
         [SerializeField] private ZombieAnimationNameDataSO _zombieAnimationNameData;
-        [SerializeField] private DamageDealer _damageDealer;
-        [SerializeField] private Animator _animator;
         [Space]
         [SerializeField] private LayersDataSO _layersDataSO;
         [Space]
@@ -25,15 +23,32 @@ namespace Entity.EnemySystem
         [Space]
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private Collider _collider;
+        [Space]
+        [SerializeField] private Animator _animator;
+        [Space]
         [SerializeField] private ProgressBarComponent _healthBar;
         [SerializeField] private GameObject _healthBarObject;
+        [Space]
         [SerializeField] private DetectTargetComponent _targetDetector;
+        [Space]
         [SerializeField] private NavMeshAgent _agent;
+        [Space]
+        [Header("Melee Type Components")]
+        [Header("Toggle bool to make this creature MELEE TYPE!")]
+        [Space]
+        [SerializeField] private bool _isMeleeType;
+        [SerializeField] private DamageDealer _damageDealer;
+        [Space]
+        [Header("Ranged Type Components")]
+        [Header("Toggle bool to make this creature RANGE TYPE!")]
+        [Space]
+        [SerializeField] private bool _isRangedType;
+        [SerializeField] private GameObject _aimArrow;
 
         private bool _isInvincible = false;
 
-        private MeleeZombieControllerDataAccessor _dataAccessor;
-        private ZombieStateMachine _stateMachine;
+        private EnemyControllerDataAccessor _dataAccessor;
+        private EnemyStateMachine _stateMachine;
 
         private CooldownComponent _attackCooldownComponent;
         private MovementComponent _movementComponent;
@@ -43,9 +58,10 @@ namespace Entity.EnemySystem
 
         public bool Invincible { get => _isInvincible; set => _isInvincible = value; }
 
+        public GameObject AimArrow { get => _aimArrow; set => _aimArrow = value; }
         public StateMachineDataSO StateMachineData => _stateMachineData;
         public ColliderSwitchComponent ColliderSwitch => _colliderSwitchComponent;
-        public ZombieStateMachine StateMachine => _stateMachine;
+        public EnemyStateMachine StateMachine => _stateMachine;
         public EnemyDataSO EnemyData => _enemyData;
         public ZombieAnimationNameDataSO AnimationNameData => _zombieAnimationNameData;
         public NavMeshAgent Agent { get => _agent; set => _agent = value; }
@@ -54,8 +70,10 @@ namespace Entity.EnemySystem
         public MovementComponent MovementComponent => _movementComponent;
         public DetectTargetComponent TargetDetector => _targetDetector;
         public AnimationComponent Animation => _animationComponent;
+        public HealthComponent HealthComponent => _healthComponent;
 
         public bool InstanceInMove => _agent.hasPath && _isAlive;
+        public bool RangedType => _isRangedType;
 
         protected override void Awake()
         {
@@ -96,7 +114,7 @@ namespace Entity.EnemySystem
             _attackCooldownComponent = new();
             _movementComponent = new(_rigidbody);
             _animationComponent = new(_animator);
-            _colliderSwitchComponent = new(_collider, _layersDataSO.LayerMasks);
+            _colliderSwitchComponent = new(_collider, _layersDataSO);
 
             _components = new()
             {
@@ -109,13 +127,14 @@ namespace Entity.EnemySystem
 
         public override void ApplyImpulseOnCreature(Vector3 impulseDirection, float inpulsePower)
         {
-            _rigidbody.AddForce(impulseDirection * (inpulsePower * 2), ForceMode.Impulse);
+            int multiplier = _stateMachine.CurrentStateKey.Equals(EnemyState.TakeDamage) ? 8 : 3;
+            _rigidbody.AddForce(impulseDirection * (inpulsePower * multiplier), ForceMode.Impulse);
         }
         public override void TakeDamage(AttackDataSO attackData, Vector3 attackVector, IDamagable target)
         {
             if (Invincible) return;
             base.TakeDamage(attackData, attackVector, target);
-            if (_isAlive)
+            if (_isAlive && _stateMachine.StateMachineData.EnTakeDamageState)
             {
                 _stateMachine.SwitchState(EnemyState.TakeDamage);
             }

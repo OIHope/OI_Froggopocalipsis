@@ -49,7 +49,7 @@ BlendTree:
   m_PrefabAsset: {fileID: 0}
   m_Name: Blend Tree
   m_Childs: []
-  m_BlendParameter: FrontBack
+  m_BlendParameter: directionZ
   m_BlendParameterY: FrontBack
   m_MinThreshold: 0
   m_MaxThreshold: 1
@@ -273,7 +273,7 @@ AnimatorController:
   m_Name: PlayerAnimation
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: FrontBack
+  - m_Name: directionZ
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0

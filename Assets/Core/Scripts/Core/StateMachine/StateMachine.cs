@@ -19,8 +19,8 @@ namespace BehaviourSystem
         protected ContextData _dataAccessor;
         protected StateMachineDataSO _stateMachineData;
 
-        public EState GetStateKey => _stateKey;
-        public ESubState GetSubStateKey => _subStateKey;
+        public EState CurrentStateKey => _stateKey;
+        public ESubState CurrentSubStateKey => _subStateKey;
         public ContextData Context => _dataAccessor;
         public StateMachineDataSO StateMachineData => _stateMachineData;
 
@@ -31,7 +31,7 @@ namespace BehaviourSystem
             EState nextStateKey = CurrentState.GetNextState(this);
             ESubState nextSubStatKey = CurrentState.GetNextSubState(this);
 
-            if (nextStateKey.Equals(_stateKey))
+            if (nextStateKey.Equals(CurrentStateKey))
             {
                 CurrentState.UpdateState(this);
             }
@@ -40,7 +40,7 @@ namespace BehaviourSystem
                 SwitchState(nextStateKey);
             }
 
-            if (nextSubStatKey.Equals(_subStateKey))
+            if (nextSubStatKey.Equals(CurrentSubStateKey))
             {
                 CurrentSubState.UpdateSubState(this);
             }
@@ -59,20 +59,20 @@ namespace BehaviourSystem
         }
         public virtual void SwitchState(EState state)
         {
-            if (state.Equals(_stateKey)) return;
+            if (state.Equals(CurrentStateKey)) return;
 
             CurrentState.ExitState(this);
             _stateKey = state;
-            CurrentState = _states[_stateKey];
+            CurrentState = _states[CurrentStateKey];
             CurrentState.EnterState(this);
         }
         public virtual void SwitchSubState(ESubState subState)
         {
-            if (subState.Equals(_subStateKey)) return;
+            if (subState.Equals(CurrentSubStateKey)) return;
 
             CurrentSubState.ExitSubState(this);
             _subStateKey = subState;
-            CurrentSubState = _subStates[_subStateKey];
+            CurrentSubState = _subStates[CurrentSubStateKey];
             CurrentSubState.EnterSubState(this);
         }
     }

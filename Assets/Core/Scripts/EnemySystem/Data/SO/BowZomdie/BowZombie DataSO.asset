@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 000708b341476064ebd4c937c8ef0c4f, type: 3}
+  m_Name: BowZombie DataSO
+  m_EditorClassIdentifier: 
+  _healthData: {fileID: 11400000, guid: 3164a9ad47f762e4982e5e5ae7ad360a, type: 2}
+  _movementData: {fileID: 11400000, guid: c1303790ea5893544b3f2ec67757b272, type: 2}
+  _enemyVisionData: {fileID: 11400000, guid: 30a940d290ad58141ad3a83094f10823, type: 2}
+  _roamingData: {fileID: 11400000, guid: 7328eaf832bf865479e7343ef57fd99e, type: 2}
+  _minAttackRange: 5
+  _maxAttackRange: 10
+  _projectile: {fileID: 2324193645381006301, guid: 5c0cd72f59a1a604288310855b451fbc, type: 3}

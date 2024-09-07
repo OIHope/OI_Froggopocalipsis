@@ -15,7 +15,7 @@ namespace BehaviourSystem.PlayerSystem
         }
         public override PlayerStates GetNextState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {
-            PlayerStates nextStateKey = stateMachine.GetStateKey;
+            PlayerStates nextStateKey = stateMachine.CurrentStateKey;
             if (stateMachine.Context.IsMoving)
             {
                 nextStateKey = PlayerStates.Move;

@@ -10,11 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8de2d57c2ee53b844966f56698119d5e, type: 3}
-  m_Name: BowZombie State Machine Data SO 2
+  m_Name: BowZombie State Machine Data SO
   m_EditorClassIdentifier: 
   _forPlayerStateMachine: 0
-  pl_EmptyState: 0
-  pl_IdleState: 0
   pl_MoveState: 0
   pl_TakeDamageState: 0
   pl_StunState: 0
@@ -24,15 +22,11 @@ MonoBehaviour:
   pl_ChargeAttackState: 0
   pl_DodgeState: 0
   _forEnemyStateMachine: 1
-  en_EmptyState: 1
-  en_IdleState: 1
-  en_RoamState: 1
-  en_SpawnState: 1
-  en_DeathState: 1
-  en_AttackState: 0
+  en_ChargeAttackState: 1
   en_RunAwayState: 0
   en_MoveToTargetState: 0
   en_MakeDistanceState: 1
-  en_RangeAttackState: 1
+  en_RangeChargeState: 1
   en_TakeDamageState: 1
   en_StunState: 0
+  cm_InvincibleOnTakeDamage: 0

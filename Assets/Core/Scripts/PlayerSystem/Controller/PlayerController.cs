@@ -77,7 +77,7 @@ namespace Entity.PlayerSystem
         {
             _healthComponent = new(_playerDataSO.HealthData, _healthBar);
             _movementComponent = new(_rigidbody);
-            _colliderSwitchComponent = new(_collider, _layersDataSO.LayerMasks);
+            _colliderSwitchComponent = new(_collider, _layersDataSO);
             _attackCooldownComponent = new(_attackCooldownBar);
             _dashCooldownComponent = new(_dashCooldownBar);
             _animationComponent = new(_animator);

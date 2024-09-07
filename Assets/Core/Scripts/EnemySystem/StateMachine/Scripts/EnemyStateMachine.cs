@@ -7,24 +7,24 @@ namespace BehaviourSystem.EnemySystem
     public enum EnemyState { Empty, Idle, Roaming, MoveToTarget, ChargeAttack, Attack, Stun, RunAway, TakeDamage, Spawn, Death }
     public enum EnemySubState { Empty, Invincible }
 
-    public class ZombieStateMachine : StateMachine<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor>
+    public class EnemyStateMachine : StateMachine<EnemyState, EnemySubState, EnemyControllerDataAccessor>
     {
-        private State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> emptyState;
-        private State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> idleState;
-        private State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> roamState;
-        private State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> moveToTargetState;
-        private State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> chargeAttackState;
-        private State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> attackState;
-        private State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> stunState;
-        private State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> runAwayState;
-        private State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> takeDamageState;
-        private State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> spawnState;
-        private State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> deathState;
+        private State<EnemyState, EnemySubState, EnemyControllerDataAccessor> emptyState;
+        private State<EnemyState, EnemySubState, EnemyControllerDataAccessor> idleState;
+        private State<EnemyState, EnemySubState, EnemyControllerDataAccessor> roamState;
+        private State<EnemyState, EnemySubState, EnemyControllerDataAccessor> moveToTargetState;
+        private State<EnemyState, EnemySubState, EnemyControllerDataAccessor> chargeAttackState;
+        private State<EnemyState, EnemySubState, EnemyControllerDataAccessor> attackState;
+        private State<EnemyState, EnemySubState, EnemyControllerDataAccessor> stunState;
+        private State<EnemyState, EnemySubState, EnemyControllerDataAccessor> runAwayState;
+        private State<EnemyState, EnemySubState, EnemyControllerDataAccessor> takeDamageState;
+        private State<EnemyState, EnemySubState, EnemyControllerDataAccessor> spawnState;
+        private State<EnemyState, EnemySubState, EnemyControllerDataAccessor> deathState;
 
-        private SubState<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> emptySubState;
-        private SubState<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor> invincibleSubState;
+        private SubState<EnemyState, EnemySubState, EnemyControllerDataAccessor> emptySubState;
+        private SubState<EnemyState, EnemySubState, EnemyControllerDataAccessor> invincibleSubState;
 
-        public ZombieStateMachine(MeleeZombieControllerDataAccessor dataAccessor)
+        public EnemyStateMachine(EnemyControllerDataAccessor dataAccessor)
         {
             _dataAccessor = dataAccessor;
             _stateMachineData = dataAccessor.StateMachineData;
@@ -39,7 +39,7 @@ namespace BehaviourSystem.EnemySystem
             roamState = new RoamState();
             moveToTargetState = new MoveToTargetState();
             chargeAttackState = new ChargeAttackState();
-            attackState = new SimpleAttackState();
+            attackState = new AttackState();
             stunState = new StunState();
             runAwayState = new RunAwayState();
             takeDamageState = new TakeDamageState();
@@ -49,7 +49,7 @@ namespace BehaviourSystem.EnemySystem
             emptySubState = new EmptySubState();
             invincibleSubState = new InvincibleSubState();
 
-            _states = new Dictionary<EnemyState, State<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor>>
+            _states = new Dictionary<EnemyState, State<EnemyState, EnemySubState, EnemyControllerDataAccessor>>
             {
                 { EnemyState.Empty, emptyState },
                 { EnemyState.Idle, idleState },
@@ -63,7 +63,7 @@ namespace BehaviourSystem.EnemySystem
                 { EnemyState.Spawn, spawnState },
                 { EnemyState.Death, deathState }
             };
-            _subStates = new Dictionary<EnemySubState, SubState<EnemyState, EnemySubState, MeleeZombieControllerDataAccessor>>
+            _subStates = new Dictionary<EnemySubState, SubState<EnemyState, EnemySubState, EnemyControllerDataAccessor>>
             {
                 { EnemySubState.Empty, emptySubState },
                 { EnemySubState.Invincible, invincibleSubState }
