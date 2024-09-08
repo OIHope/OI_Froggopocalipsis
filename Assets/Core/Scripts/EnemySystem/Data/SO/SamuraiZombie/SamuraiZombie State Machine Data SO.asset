@@ -22,12 +22,12 @@ MonoBehaviour:
   pl_ChargeAttackState: 0
   pl_DodgeState: 0
   _forEnemyStateMachine: 1
-  en_AttackState: 1
   en_ChargeAttackState: 1
   en_RunAwayState: 0
   en_MoveToTargetState: 1
   en_MakeDistanceState: 0
-  en_RangeAttackState: 0
+  en_RangeChargeState: 0
   en_TakeDamageState: 0
   en_StunState: 0
   cm_InvincibleOnTakeDamage: 0
+  cm_DisplayAttackDirection: 1

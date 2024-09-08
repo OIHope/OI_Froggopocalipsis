@@ -16,10 +16,7 @@ namespace BehaviourSystem.EnemySystem
         public override void ExitState(StateMachine<EnemyState, EnemySubState, EnemyControllerDataAccessor> stateMachine)
         {
             base.ExitState(stateMachine);
-            if (stateMachine.StateMachineData.EnRangeChargeState)
-            {
-                stateMachine.Context.DisplayAim(false);
-            }
+            if (stateMachine.StateMachineData.DisplayAttackDirection) stateMachine.Context.DisplayAim(false);
         }
         public override void UpdateState(StateMachine<EnemyState, EnemySubState, EnemyControllerDataAccessor> stateMachine)
         {
@@ -30,12 +27,12 @@ namespace BehaviourSystem.EnemySystem
             stateMachine.Context.PlayAnimation(EnemyRequestedAnimation.Charge);
             _isComplete = stateMachine.Context.AnimationComplete(stateMachine.Context.AnimationName(EnemyRequestedAnimation.Charge));
             if (stateMachine.StateMachineData.EnRangeChargeState) AimAtTarget(stateMachine);
+            if (stateMachine.StateMachineData.DisplayAttackDirection) stateMachine.Context.DisplayAim(true);
         }
         private void AimAtTarget(StateMachine<EnemyState, EnemySubState, EnemyControllerDataAccessor> stateMachine)
         {
             Vector3 direction = (_target.InstanceTransform.position - stateMachine.Context.Agent.transform.position).normalized;
             stateMachine.Context.AimDirection = direction;
-            stateMachine.Context.DisplayAim(true);
         }
 
         public override EnemyState GetNextState(StateMachine<EnemyState, EnemySubState, EnemyControllerDataAccessor> stateMachine)

@@ -33,6 +33,7 @@ namespace BehaviourSystem
         [Header("Common State Data")]
         [Space]
         [SerializeField] private bool cm_InvincibleOnTakeDamage;
+        [SerializeField] private bool cm_DisplayAttackDirection;
 
         public bool ForPlayerStateMachine => _forPlayerStateMachine;
         public bool PlMoveState => pl_MoveState;
@@ -54,6 +55,7 @@ namespace BehaviourSystem
         public bool EnStunState => en_StunState;
 
         public bool InvincibleOnTakeDamage => cm_InvincibleOnTakeDamage;
+        public bool DisplayAttackDirection => cm_DisplayAttackDirection;
 
         private void OnValidate()
         {

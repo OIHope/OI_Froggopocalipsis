@@ -131,6 +131,7 @@ namespace EnemySystem
         }
         public void DisplayAim(bool value)
         {
+            if (_controllerData.AimArrow == null) return;
             if (value)
             {
                 _controllerData.AimArrow.SetActive(true);
