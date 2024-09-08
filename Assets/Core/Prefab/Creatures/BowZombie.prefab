@@ -86,7 +86,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 300fa465e8b95424cba282cdf14de098, type: 2}
+  - {fileID: 2100000, guid: 22be313f2697eb0498a976a998837c91, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -384,7 +384,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b3ace4c6357a24e4995f158525c36ce7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -683,6 +683,10 @@ PrefabInstance:
       propertyPath: _trajectory.m_Curve.Array.data[2].tangentMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1140597261687159981, guid: 5c0cd72f59a1a604288310855b451fbc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 22be313f2697eb0498a976a998837c91, type: 2}
     - target: {fileID: 1428077291157669907, guid: 5c0cd72f59a1a604288310855b451fbc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
