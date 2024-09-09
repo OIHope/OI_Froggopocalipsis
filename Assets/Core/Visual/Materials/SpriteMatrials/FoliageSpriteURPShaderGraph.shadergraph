@@ -23,6 +23,9 @@
         },
         {
             "m_Id": "9b3a0ec9c8a04dd0aa52d87fdb01fe98"
+        },
+        {
+            "m_Id": "8fa9538a3081463fae7a3a05ca6b4a36"
         }
     ],
     "m_Keywords": [],
@@ -2577,6 +2580,33 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Texture2DArrayShaderProperty",
+    "m_ObjectId": "8fa9538a3081463fae7a3a05ca6b4a36",
+    "m_Guid": {
+        "m_GuidSerialized": "0ac409e2-1050-4f59-9afe-3eaca301e201"
+    },
+    "m_Name": "Texture2D Array",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "Texture2D Array",
+    "m_DefaultReferenceName": "_Texture2D_Array",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": {
+        "m_SerializedTexture": "{\"textureArray\":{\"instanceID\":0}}",
+        "m_Guid": ""
+    },
+    "m_Modifiable": true
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.ColorRGBMaterialSlot",
     "m_ObjectId": "912ecb3d26694051b4f073cffd67d8b1",
     "m_Id": 0,
@@ -2783,6 +2813,9 @@
         },
         {
             "m_Id": "9b3a0ec9c8a04dd0aa52d87fdb01fe98"
+        },
+        {
+            "m_Id": "8fa9538a3081463fae7a3a05ca6b4a36"
         }
     ]
 }
