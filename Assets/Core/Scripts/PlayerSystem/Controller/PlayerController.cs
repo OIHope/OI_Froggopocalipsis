@@ -42,6 +42,7 @@ namespace Entity.PlayerSystem
         private CooldownComponent _dashCooldownComponent;
         private AnimationComponent _animationComponent;
 
+        public PlayerControllerDataAccessor ControllerData => _dataAccessor;
         public InputManager InputManager => _inputManager;
         public PlayerDataSO PlayerData => _playerDataSO;
         public LayersDataSO LayersData => _layersDataSO;
