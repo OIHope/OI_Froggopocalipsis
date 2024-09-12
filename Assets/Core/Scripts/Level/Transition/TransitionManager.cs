@@ -1,5 +1,6 @@
 using Core;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +11,9 @@ namespace Level.Stage
     public class TransitionManager : MonoBehaviour
     {
         public static TransitionManager Instance { get; private set; }
-        public System.Action<TransitionDirection, CurrentLevelStage> OnTransitionEnter;
+        public Action<TransitionDirection, CurrentLevelStage> OnTransitionEnter;
+        public Action OnRoomSwitchStart;
+        public Action OnRoomSwitchEnd;
 
         [SerializeField] private LevelStageSO _hubStageData;
         [SerializeField] private LevelStageSO _fieldStageData;
@@ -35,30 +38,43 @@ namespace Level.Stage
 
             FillStageBuffer(_startStage);
 
-            OnTransitionEnter += ChangeStage;
+            OnTransitionEnter += StartTransition;
         }
 
-        private void ChangeStage(TransitionDirection changeDirection, CurrentLevelStage requestedStage)
+        private void StartTransition(TransitionDirection changeDirection, CurrentLevelStage requestedStage)
         {
+            StartCoroutine(ChangeStage(changeDirection, requestedStage));
+        }
+        private IEnumerator ChangeStage(TransitionDirection changeDirection, CurrentLevelStage requestedStage)
+        {
+            OnRoomSwitchStart?.Invoke();
+
+            yield return new WaitForSeconds(1f);
+
             int stepDirection = changeDirection == TransitionDirection.Forward ? 1 : -1;
             int roomLimit = _currentStageBuffer.Count;
             int nextIndex = _currentRoomIndex + stepDirection;
 
-            if (nextIndex > roomLimit || nextIndex < 0)
+
+            if (nextIndex >= roomLimit || nextIndex < 0)
             {
-                FillStageBuffer(CurrentLevelStage.Hub);
-                MovePlayerToEntrance(changeDirection);
+                _currentRoomIndex = 0;
+                FillStageBuffer(requestedStage);
             }
             else
             {
+                _currentRoomIndex = nextIndex;
                 SwitchRoom(nextIndex);
-                MovePlayerToEntrance(changeDirection);
             }
+
+            MovePlayerToEntrance(changeDirection);
+
+            yield return new WaitForSeconds(0.5f);
+
+            OnRoomSwitchEnd?.Invoke();
         }
         private void SwitchRoom(int stageIndex)
         {
-            if (_currentRoomIndex == stageIndex) return;
-
             for (int i = 0; i < _currentStageBuffer.Count; i++)
             {
                 bool enable = i == stageIndex;
@@ -79,7 +95,7 @@ namespace Level.Stage
             {
                 GameObject room = roomBuffer[i];
                 GameObject roomInstance = Instantiate(room, Vector3.zero, Quaternion.identity, _parent);
-                TransitionData roomTransitionData = roomInstance.GetComponent<TransitionData>();
+                TransitionData roomTransitionData = roomInstance.GetComponent<TransitionComponent>().TransData;
 
                 _currentStageBuffer.Add(roomInstance);
                 _currentTransitionBuffer.Add(roomTransitionData);

@@ -1,4 +1,5 @@
 using Entity.PlayerSystem;
+using Level.Stage;
 using PlayerSystem;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace Core
 
         private PlayerController _controller;
         private PlayerControllerDataAccessor _controllerData;
-        private Transform _player;
+        private GameObject _player;
 
         private void Awake()
         {
@@ -21,14 +22,27 @@ namespace Core
 
             _controller = _playerPrefab.GetComponent<PlayerController>();
             _controllerData = _controller.ControllerData;
-            _player = _controller.transform;
+            _player = _controller.transform.gameObject;
 
             OnPlayerChangeLevelStage += ForcePlayerChangePosition;
+        }
+        private void Start()
+        {
+            TransitionManager.Instance.OnRoomSwitchStart += DisableInput;
+            TransitionManager.Instance.OnRoomSwitchEnd += EnableInput;
         }
 
         private void ForcePlayerChangePosition(Vector3 position)
         {
-            _player.position = position;
+            _player.transform.position = position;
+        }
+        private void EnableInput()
+        {
+            _controller.InputManager.EnableControls();
+        }
+        private void DisableInput()
+        {
+            _controller.InputManager.DisableControls();
         }
 
         private void SingletonMethod()
