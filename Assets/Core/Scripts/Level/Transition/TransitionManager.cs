@@ -99,6 +99,8 @@ namespace Level.Stage
 
                 _currentStageBuffer.Add(roomInstance);
                 _currentTransitionBuffer.Add(roomTransitionData);
+
+                roomInstance.SetActive(false);
             }
 
             SwitchRoom(0);

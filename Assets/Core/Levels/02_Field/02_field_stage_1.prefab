@@ -704,6 +704,7 @@ GameObject:
   - component: {fileID: 4940152726408817339}
   - component: {fileID: 5065160913872977072}
   - component: {fileID: 2382268601761508913}
+  - component: {fileID: 265737582574058599}
   m_Layer: 3
   m_Name: 02_field_stage_1
   m_TagString: Untagged
@@ -780,6 +781,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _transData: {fileID: 974765410367820433}
+--- !u!114 &265737582574058599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6053814508275717708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 094dde64ad477bb469e31669fc3cc092, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _executeOnce: 0
+  _executeOnEnable: 1
+  _executeOnDisable: 0
+  _executeOnAwake: 0
+  _executeOnStart: 0
+  _executeOnDestroy: 0
+  _cameraDataToTransmit: {fileID: 11400000, guid: 6d7bfd3029aa73540849e7ce21a825aa, type: 2}
 --- !u!1 &6312164749630849509
 GameObject:
   m_ObjectHideFlags: 0
