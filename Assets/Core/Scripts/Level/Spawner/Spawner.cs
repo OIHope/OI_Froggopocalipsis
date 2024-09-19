@@ -9,20 +9,31 @@ namespace Level
         [Header("This object must be placed on the scene")]
         [Header("Entities will spawn in range, be sure to have no obstacles in spawn area")]
         [Space(10)]
-        [SerializeField] private List<SpawnDataSO> _spawnList;
+        [SerializeField] private WaveDataSO _waveList;
         [SerializeField][Range(0.5f, 10f)] private float _spawnRange = 1f;
 
-        [ContextMenu("Spawn Entities")]
-        public void InitSpawn()
+        private int _currentWaveIndex = 0;
+
+        public bool CanSpawnAnotherWave => _currentWaveIndex < _waveList.WavesCount;
+
+        public int InitSpawn()
         {
-            foreach (SpawnDataSO entity in _spawnList)
+            if (_currentWaveIndex >= _waveList.WavesCount) return 0;
+
+            int spawnedCount = 0;
+            int spawnCount = _waveList.SpawnCount(_currentWaveIndex);
+
+            spawnedCount += spawnCount;
+
+            List<GameObject> entitiesToSpawn = _waveList.EntityList(_currentWaveIndex);
+
+            foreach (GameObject entity in entitiesToSpawn)
             {
-                int spawnCound = entity.SpawnCount;
-                for (int i = 0; i < spawnCound; i++)
-                {
-                    Instantiate(entity.Entity, GetSpawnPosition(), Quaternion.identity, this.transform); 
-                }
+                Instantiate(entity, GetSpawnPosition(), Quaternion.identity, this.transform);
             }
+            _currentWaveIndex++;
+
+            return spawnedCount;
         }
         private Vector3 GetSpawnPosition()
         {

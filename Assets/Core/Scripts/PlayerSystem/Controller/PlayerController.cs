@@ -105,6 +105,7 @@ namespace Entity.PlayerSystem
         public override void TakeDamage(AttackDataSO attackData, Vector3 attackVector, IDamagable target)
         {
             base.TakeDamage(attackData, attackVector, target);
+            GameEventsBase.OnPlayerHit?.Invoke();
             
         }
         protected override void CreatureDeath(HealthComponent healthComponent)
@@ -118,6 +119,7 @@ namespace Entity.PlayerSystem
             _stateMachine.SwitchSubState(PlayerSubStates.Empty);
 
             _dataAccessor.PlayAnimation(PlayerRequestedAnimation.Die);
+            GameEventsBase.OnPlayerDeath?.Invoke();
         }
     }
 }

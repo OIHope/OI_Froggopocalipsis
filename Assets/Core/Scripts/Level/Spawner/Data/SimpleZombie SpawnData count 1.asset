@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92bd1174356a84843bac8f8e4e377861, type: 3}
-  m_Name: PlayerSimpleAttack 1
+  m_Script: {fileID: 11500000, guid: 44f0150ae064829449beeab1780561c4, type: 3}
+  m_Name: SimpleZombie SpawnData count 1
   m_EditorClassIdentifier: 
-  _damage: 10
-  _critDamage: 15
-  _critDamageChance: 30
-  _chargeTime: 0
-  _cooldownTime: 0.1
-  _effectData: {fileID: 0}
+  _entity: {fileID: 6110710959619228957, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
+  _spawnCount: 1
+  _hasSpawnRate: 0
+  _maxSpawnCount: 1

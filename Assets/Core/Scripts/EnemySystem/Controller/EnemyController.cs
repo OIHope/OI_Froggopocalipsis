@@ -138,6 +138,7 @@ namespace Entity.EnemySystem
             {
                 _stateMachine.SwitchState(EnemyState.TakeDamage);
             }
+            GameEventsBase.OnEnemyHit?.Invoke();
         }
 
         public bool CheckTargetIsClose(Transform targetTransform, float triggerDistance)
@@ -196,6 +197,8 @@ namespace Entity.EnemySystem
 
             _stateMachine.SwitchState(EnemyState.Death);
             _agent.enabled = false;
+
+            GameEventsBase.OnEnemyDeath?.Invoke();
         }
     }
 }

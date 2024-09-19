@@ -15,8 +15,8 @@ namespace BehaviourSystem.PlayerSystem
 
             _duration = stateMachine.Context.DashAnimationCurveDuration;
             _elapsedTime = 0f;
-            _dashDirection = new(stateMachine.Context.AimDirection.x, 
-                0f, stateMachine.Context.AimDirection.z);
+            _dashDirection = new(stateMachine.Context.AimDirection.x,
+                0f, stateMachine.Context.AimDirection.z) ;
 
             stateMachine.Context.DontCollideWithEnemy();
             stateMachine.Context.StartDashCooldown();
@@ -36,7 +36,7 @@ namespace BehaviourSystem.PlayerSystem
             stateMachine.Context.PlayAnimation(PlayerRequestedAnimation.Dodge);
 
             Vector3 moveVector = stateMachine.Context.DashAnimationCurve.Evaluate(_elapsedTime)
-                * stateMachine.Context.DashSpeed * Time.deltaTime * _dashDirection;
+                * stateMachine.Context.DashSpeed * Time.deltaTime * _dashDirection.normalized;
             stateMachine.Context.Move(moveVector);
             _elapsedTime += Time.deltaTime;
         }
