@@ -32,6 +32,8 @@ namespace PlayerSystem
                 return true;
             }
         }
+        public bool PressedInteractInput => Input.GameplayInputMap.Interact.WasReleasedThisFrame();
+
         public bool PressedDashInput => Input.GameplayInputMap.Dash.IsPressed();
         public bool PressedAttackInput => Input.GameplayInputMap.Attack.IsPressed();
         public bool CanAttack

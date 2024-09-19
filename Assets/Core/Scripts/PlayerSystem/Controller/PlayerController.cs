@@ -7,7 +7,7 @@ using BehaviourSystem;
 
 namespace Entity.PlayerSystem
 {
-    public class PlayerController : Creature, ISimpleAttacker, IDasher, IAttackableTarget, IHaveMovementComponent, IMoveInteractor
+    public class PlayerController : Creature, ISimpleAttacker, IDasher, IAttackableTarget, IHaveMovementComponent, IMoveInteractor, IInteractor
     {
         [Header("Managers")]
         [Space]
@@ -120,6 +120,12 @@ namespace Entity.PlayerSystem
 
             _dataAccessor.PlayAnimation(PlayerRequestedAnimation.Die);
             GameEventsBase.OnPlayerDeath?.Invoke();
+        }
+
+        public bool RequestInteraction()
+        {
+            bool pressedInteract = _dataAccessor.PressedInteractInput;
+            return pressedInteract;
         }
     }
 }
