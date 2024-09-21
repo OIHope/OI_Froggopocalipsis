@@ -1,7 +1,11 @@
 using UnityEngine;
 
-public abstract class RoomCondition : MonoBehaviour
+namespace Core.Progression
 {
-    public abstract void PrepareCondition();
-    public abstract bool ConditionMet();
+    public abstract class RoomCondition : MonoBehaviour
+    {
+        public abstract void PrepareCondition();
+        public abstract bool ConditionMet();
+        public abstract void ClearAfterYourself();
+    }
 }

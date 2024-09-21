@@ -538,7 +538,6 @@ GameObject:
   - component: {fileID: 8241202037617586663}
   - component: {fileID: 5116817321176691979}
   - component: {fileID: 6816265816645110616}
-  - component: {fileID: 3793670225978854474}
   m_Layer: 6
   m_Name: PlayerInstance
   m_TagString: Player
@@ -628,7 +627,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 3937312566577366093}
-  _inputManager: {fileID: 3793670225978854474}
+  _inputManager: {fileID: 0}
   _simpleDamageDealer: {fileID: 7951036273591143704}
   _instanceTransform: {fileID: 2959158695113970431}
   _rigidbody: {fileID: 5116817321176691979}
@@ -641,16 +640,3 @@ MonoBehaviour:
   _playerDataSO: {fileID: 11400000, guid: 3cbb0ce5073dc3b4cbafaa5b920d6e9f, type: 2}
   _layersDataSO: {fileID: 11400000, guid: 7f51ee0316dfc39449553cc01a7d4f19, type: 2}
   _navigationArrow: {fileID: 1808331816772844420}
---- !u!114 &3793670225978854474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9125573524476385221}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2877b8b685a7358499c20b4c4fd8062b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _usingGamepad: 0

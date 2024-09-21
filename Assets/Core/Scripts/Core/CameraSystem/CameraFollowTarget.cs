@@ -7,7 +7,6 @@ namespace Core.Camera
     public class CameraFollowTarget : MonoBehaviour
     {
 
-        private InputControls _inputSystem;
         private InputAction _move;
 
         [SerializeField] private Transform _target;
@@ -58,13 +57,7 @@ namespace Core.Camera
 
         private void OnEnable()
         {
-            _inputSystem = new();
-            _inputSystem.Enable();
-            _move = _inputSystem.GameplayInputMap.Move;
-        }
-        private void OnDisable()
-        {
-            _inputSystem.Disable();
+            _move = InputManager.Instance.Input.MainInputMap.Move;
         }
 
         public void SetupCameraLimits(CameraData cameraData)

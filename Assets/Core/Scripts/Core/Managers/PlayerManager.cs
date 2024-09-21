@@ -5,16 +5,24 @@ using UnityEngine;
 
 namespace Core
 {
+    public enum PlayerInputMode
+    {
+        Disabled, Dialogue, Main, UI, Minigame
+    }
     public class PlayerManager : MonoBehaviour
     {
         public static PlayerManager Instance { get; private set; }
         public System.Action<Vector3> OnPlayerChangeLevelStage;
+        public System.Action<PlayerInputMode> OnRequestSwitchInputMode;
 
         [SerializeField] private GameObject _playerPrefab;
+        [SerializeField] private InputManager _inputManager;
 
         private PlayerController _controller;
         private PlayerControllerDataAccessor _controllerData;
         private GameObject _player;
+
+        private PlayerInputMode _currentInputMode = PlayerInputMode.Main;
 
         private void Awake()
         {
@@ -25,6 +33,7 @@ namespace Core
             _player = _controller.transform.gameObject;
 
             OnPlayerChangeLevelStage += ForcePlayerChangePosition;
+            OnRequestSwitchInputMode += SwitchInput;
         }
         private void Start()
         {
@@ -36,13 +45,19 @@ namespace Core
         {
             _player.transform.position = position;
         }
+        private void SwitchInput(PlayerInputMode inputMode)
+        {
+            if (_currentInputMode == inputMode) return;
+            _currentInputMode = inputMode;
+            _inputManager.SwitchInputScheme(_currentInputMode);
+        }
         private void EnableInput()
         {
-            _controller.InputManager.EnableControls();
+            _inputManager.EnableControls();
         }
         private void DisableInput()
         {
-            _controller.InputManager.DisableControls();
+            _inputManager.DisableControls();
         }
 
         private void SingletonMethod()

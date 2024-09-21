@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Level.Stage
 {
     public enum TransitionDirection { Forward, Backward }
-    public enum CurrentLevelStage { Empty, Hub, Field, Swamp, Forest}
+    public enum CurrentLevelStage { Empty, IntroScene, Hub, Field, Swamp, Forest, OutroScene}
     public class TransitionManager : MonoBehaviour
     {
         public static TransitionManager Instance { get; private set; }
@@ -15,10 +15,12 @@ namespace Level.Stage
         public Action OnRoomSwitchStart;
         public Action OnRoomSwitchEnd;
 
+        [SerializeField] private LevelStageSO _introStageData;
         [SerializeField] private LevelStageSO _hubStageData;
         [SerializeField] private LevelStageSO _fieldStageData;
         [SerializeField] private LevelStageSO _swampStageData;
         [SerializeField] private LevelStageSO _forestStageData;
+        [SerializeField] private LevelStageSO _outroStageData;
         [Space]
         [SerializeField] private Transform _parent;
         [SerializeField] private CurrentLevelStage _startStage;
@@ -37,6 +39,8 @@ namespace Level.Stage
             _currentRoomIndex = -1;
 
             FillStageBuffer(_startStage);
+
+            SwitchRoom(0);
 
             OnTransitionEnter += StartTransition;
         }
@@ -58,14 +62,17 @@ namespace Level.Stage
 
             if (nextIndex >= roomLimit || nextIndex < 0)
             {
-                _currentRoomIndex = 0;
                 FillStageBuffer(requestedStage);
+
+                nextIndex = nextIndex < 0 ? _currentStageBuffer.Count - 1 : 0;
+                _currentRoomIndex = nextIndex;
             }
             else
             {
                 _currentRoomIndex = nextIndex;
-                SwitchRoom(nextIndex);
             }
+
+            SwitchRoom(nextIndex);
 
             MovePlayerToEntrance(changeDirection);
 
@@ -73,15 +80,15 @@ namespace Level.Stage
 
             OnRoomSwitchEnd?.Invoke();
         }
-        private void SwitchRoom(int stageIndex)
+        private void SwitchRoom(int switchIndex)
         {
             for (int i = 0; i < _currentStageBuffer.Count; i++)
             {
-                bool enable = i == stageIndex;
+                bool enable = i == switchIndex;
                 _currentStageBuffer[i].SetActive(enable);
             }
 
-            _currentRoomIndex = stageIndex;
+            _currentRoomIndex = switchIndex;
         }
 
         private void FillStageBuffer(CurrentLevelStage bufferKey)
@@ -102,8 +109,6 @@ namespace Level.Stage
 
                 roomInstance.SetActive(false);
             }
-
-            SwitchRoom(0);
             _stageKey = bufferKey;
         }
         private void EmptyBuffer()
@@ -128,6 +133,8 @@ namespace Level.Stage
         {
             switch (stage)
             {
+                case CurrentLevelStage.IntroScene:
+                    return _introStageData;
                 case CurrentLevelStage.Hub:
                     return _hubStageData;
                 case CurrentLevelStage.Field:
@@ -136,6 +143,8 @@ namespace Level.Stage
                     return _swampStageData;
                 case CurrentLevelStage.Forest:
                     return _forestStageData;
+                case CurrentLevelStage.OutroScene:
+                    return _outroStageData;
                 default:
                     return _hubStageData;
             }

@@ -1,16 +1,23 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
+using Core;
 
 namespace PlayerSystem
 {
     public class InputManager : MonoBehaviour
     {
+        public static InputManager Instance { get; private set; }
+
         [SerializeField] private bool _usingGamepad = false;
         private InputControls _inputControls;
 
         public bool IsUsingGamepad => _usingGamepad;
         public InputControls Input => _inputControls;
 
+        private void Awake()
+        {
+            SingletonMethod();
+        }
         private void Update()
         {
             CheckInputDeviceChange();
@@ -53,11 +60,13 @@ namespace PlayerSystem
 
         private void SwitchToKeyboard()
         {
+            GameEventsBase.IsUsingKeybord?.Invoke();
             _usingGamepad = false;
             Cursor.visible = true;
         }
         private void SwitchToGamepad()
         {
+            GameEventsBase.IsUsingGamepad?.Invoke();
             _usingGamepad = true;
             Cursor.visible = false;
         }
@@ -80,6 +89,51 @@ namespace PlayerSystem
         public void DisableControls()
         {
             _inputControls.Disable();
+        }
+
+        public void SwitchInputScheme(PlayerInputMode mode)
+        {
+            switch (mode)
+            {
+                case PlayerInputMode.Disabled:
+                    DisableAll(); break;
+                case PlayerInputMode.Dialogue:
+                    DisableAll();
+                    _inputControls.DialogueInputMap.Enable();
+                    break;
+                case PlayerInputMode.Main:
+                    DisableAll();
+                    _inputControls.MainInputMap.Enable();
+                    break;
+                case PlayerInputMode.UI:
+                    DisableAll();
+                    _inputControls.UIInputMap.Enable();
+                    break;
+                default:
+                    DisableAll();
+                    _inputControls.MainInputMap.Enable();
+                    break;
+            }
+        }
+        private void DisableAll()
+        {
+            _inputControls.MainInputMap.Disable();
+            _inputControls.UIInputMap.Disable();
+            _inputControls.DialogueInputMap.Disable();
+            _inputControls.MinigameInputMap.Disable();
+        }
+
+        private void SingletonMethod()
+        {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
         }
     }
 }

@@ -20,28 +20,28 @@ namespace PlayerSystem
         private AnimationComponent Animation => _controllerData.Animation;
 
         public bool UsingGamepad => _controllerData.InputManager.IsUsingGamepad;
-        public bool IsMoving => Input.GameplayInputMap.Move.ReadValue<Vector2>() != Vector2.zero;
+        public bool IsMoving => Input.MainInputMap.Move.ReadValue<Vector2>() != Vector2.zero;
         public bool IsAiming
         {
             get
             {
                 if (UsingGamepad)
                 {
-                    return Input.GameplayInputMap.LookAround.ReadValue<Vector2>() != Vector2.zero;
+                    return Input.MainInputMap.LookAround.ReadValue<Vector2>() != Vector2.zero;
                 }
                 return true;
             }
         }
-        public bool PressedInteractInput => Input.GameplayInputMap.Interact.WasReleasedThisFrame();
+        public bool PressedInteractInput => Input.MainInputMap.Interact.WasReleasedThisFrame();
 
-        public bool PressedDashInput => Input.GameplayInputMap.Dash.IsPressed();
-        public bool PressedAttackInput => Input.GameplayInputMap.Attack.IsPressed();
+        public bool PressedDashInput => Input.MainInputMap.Dash.IsPressed();
+        public bool PressedAttackInput => Input.MainInputMap.Attack.IsPressed();
         public bool CanAttack
         {
             get
             {
                 bool isReloaded = _controllerData.SimpleAttackCooldown.CanUseAbility;
-                bool keyIsUp = Input.GameplayInputMap.Attack.WasPressedThisFrame();
+                bool keyIsUp = Input.MainInputMap.Attack.WasPressedThisFrame();
                 return isReloaded && keyIsUp;
             }
         }
@@ -51,8 +51,8 @@ namespace PlayerSystem
             return Animation.IsAnimationComplete(animationName);
         }
 
-        public Vector2 MoveInput => Input.GameplayInputMap.Move.ReadValue<Vector2>();
-        public Vector2 AimInput => Input.GameplayInputMap.LookAround.ReadValue<Vector2>();
+        public Vector2 MoveInput => Input.MainInputMap.Move.ReadValue<Vector2>();
+        public Vector2 AimInput => Input.MainInputMap.LookAround.ReadValue<Vector2>();
 
         public Vector3 AimDirection { get; set; }
 

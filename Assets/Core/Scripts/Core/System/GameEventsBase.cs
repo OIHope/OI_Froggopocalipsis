@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
 using Core.Progression;
 
@@ -12,6 +9,10 @@ public class GameEventsBase
     public static Action OnPlayerHit;
     public static Action OnPlayerDeath;
 
+    public static Action IsUsingGamepad;
+    public static Action IsUsingKeybord;
+
+    public static Action OnLanguageChanged;
 
     public static Action<GameStage> OnReachNewGameStage;
 }

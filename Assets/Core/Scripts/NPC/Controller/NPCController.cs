@@ -1,9 +1,11 @@
+using Core.DialogueSystem;
 using UnityEngine;
 
 namespace NPC
 {
     public class NPCController : MonoBehaviour, IInteractable
     {
+        [SerializeField] private DialogueContainerData _dialogueContainerData;
         [SerializeField] private GameObject _text;
 
         private IInteractor currentInteractor;
@@ -15,19 +17,18 @@ namespace NPC
 
         public void DisplayInteraction()
         {
-            Debug.Log("Herbalist cat talk to you");
             _text.SetActive(true);
         }
 
         public void HideInteraction()
         {
-            Debug.Log("Herbalist will miss you");
             _text.SetActive(false);
         }
 
         public void Interact()
         {
-            Debug.Log("Herbalist greets you!");
+            DialogueManager.Instance.OnDialoguePanelOpenRequested?.Invoke();
+            DialogueManager.Instance.OnDialogueInitialize?.Invoke(_dialogueContainerData);
         }
 
         private void OnTriggerEnter(Collider other)
