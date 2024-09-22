@@ -6,12 +6,13 @@ using UnityEngine;
 
 namespace Level.Stage
 {
-    public enum TransitionDirection { Forward, Backward }
+    public enum TransitionDirection { Forward, Backward}
+    public enum EntranceDirection { Front, Back, Custom1, Custom2, Custom3 }
     public enum CurrentLevelStage { Empty, IntroScene, Hub, Field, Swamp, Forest, OutroScene}
     public class TransitionManager : MonoBehaviour
     {
         public static TransitionManager Instance { get; private set; }
-        public Action<TransitionDirection, CurrentLevelStage> OnTransitionEnter;
+        public Action<TransitionDirection, EntranceDirection, CurrentLevelStage> OnTransitionEnter;
         public Action OnRoomSwitchStart;
         public Action OnRoomSwitchEnd;
 
@@ -24,6 +25,7 @@ namespace Level.Stage
         [Space]
         [SerializeField] private Transform _parent;
         [SerializeField] private CurrentLevelStage _startStage;
+        [SerializeField] private EntranceDirection _startEntrance;
 
         private CurrentLevelStage _stageKey;
         private List<GameObject> _currentStageBuffer;
@@ -38,27 +40,26 @@ namespace Level.Stage
             _currentTransitionBuffer = new List<TransitionData>();
             _currentRoomIndex = -1;
 
-            FillStageBuffer(_startStage);
+            //FillStageBuffer(_startStage);
+            StartTransition(TransitionDirection.Forward, _startEntrance, _startStage);
 
             SwitchRoom(0);
 
             OnTransitionEnter += StartTransition;
         }
 
-        private void StartTransition(TransitionDirection changeDirection, CurrentLevelStage requestedStage)
+        private void StartTransition(TransitionDirection changeDirection, EntranceDirection entrance, CurrentLevelStage requestedStage)
         {
-            StartCoroutine(ChangeStage(changeDirection, requestedStage));
+            StartCoroutine(ChangeStage(changeDirection, entrance, requestedStage));
         }
-        private IEnumerator ChangeStage(TransitionDirection changeDirection, CurrentLevelStage requestedStage)
+        private IEnumerator ChangeStage(TransitionDirection changeDirection, EntranceDirection entrance, CurrentLevelStage requestedStage)
         {
             OnRoomSwitchStart?.Invoke();
-
             yield return new WaitForSeconds(1f);
 
             int stepDirection = changeDirection == TransitionDirection.Forward ? 1 : -1;
             int roomLimit = _currentStageBuffer.Count;
             int nextIndex = _currentRoomIndex + stepDirection;
-
 
             if (nextIndex >= roomLimit || nextIndex < 0)
             {
@@ -73,11 +74,9 @@ namespace Level.Stage
             }
 
             SwitchRoom(nextIndex);
-
-            MovePlayerToEntrance(changeDirection);
+            MovePlayerToEntrance(entrance);
 
             yield return new WaitForSeconds(0.5f);
-
             OnRoomSwitchEnd?.Invoke();
         }
         private void SwitchRoom(int switchIndex)
@@ -121,12 +120,19 @@ namespace Level.Stage
             _currentTransitionBuffer.Clear();
         }
 
-        private void MovePlayerToEntrance(TransitionDirection entranceDirection)
+        private void MovePlayerToEntrance(EntranceDirection entrance)
         {
             TransitionData enteredRoomData = _currentTransitionBuffer[_currentRoomIndex];
-            Vector3 entrancePos = entranceDirection == TransitionDirection.Forward ? enteredRoomData.StartPointPos : enteredRoomData.EndPointPos;
-
-            PlayerManager.Instance.OnPlayerChangeLevelStage(entrancePos);
+            Vector3 entrancePos = entrance switch
+            {
+                EntranceDirection.Front => enteredRoomData.StartPointPos,
+                EntranceDirection.Back => enteredRoomData.EndPointPos,
+                EntranceDirection.Custom1 => enteredRoomData.CustomPointPos1,
+                EntranceDirection.Custom2 => enteredRoomData.CustomPointPos2,
+                EntranceDirection.Custom3 => enteredRoomData.CustomPointPos3,
+                _ => enteredRoomData.StartPointPos
+            };
+            PlayerManager.Instance.OnPlayerChangeLevelStage?.Invoke(entrancePos);
         }
 
         private LevelStageSO GetCurrentStage(CurrentLevelStage stage)
