@@ -31,6 +31,7 @@ namespace Level.Stage
         private List<GameObject> _currentStageBuffer;
         private List<TransitionData> _currentTransitionBuffer;
         private int _currentRoomIndex;
+        private int _roomLimit => _currentStageBuffer.Count;
 
         private void Awake()
         {
@@ -40,10 +41,9 @@ namespace Level.Stage
             _currentTransitionBuffer = new List<TransitionData>();
             _currentRoomIndex = -1;
 
-            //FillStageBuffer(_startStage);
             StartTransition(TransitionDirection.Forward, _startEntrance, _startStage);
 
-            SwitchRoom(0);
+            //SwitchRoom(0);
 
             OnTransitionEnter += StartTransition;
         }
@@ -58,20 +58,21 @@ namespace Level.Stage
             yield return new WaitForSeconds(1f);
 
             int stepDirection = changeDirection == TransitionDirection.Forward ? 1 : -1;
-            int roomLimit = _currentStageBuffer.Count;
-            int nextIndex = _currentRoomIndex + stepDirection;
+            int nextIndex;
 
-            if (nextIndex >= roomLimit || nextIndex < 0)
+            bool onTheSameStage = requestedStage == _stageKey;
+
+            if (!onTheSameStage)
             {
                 FillStageBuffer(requestedStage);
-
-                nextIndex = nextIndex < 0 ? _currentStageBuffer.Count - 1 : 0;
-                _currentRoomIndex = nextIndex;
+                nextIndex = stepDirection > 0 ? 0 : _roomLimit - 1;
             }
             else
             {
-                _currentRoomIndex = nextIndex;
+                nextIndex = _currentRoomIndex + stepDirection;
             }
+
+            _currentRoomIndex = nextIndex;
 
             SwitchRoom(nextIndex);
             MovePlayerToEntrance(entrance);
