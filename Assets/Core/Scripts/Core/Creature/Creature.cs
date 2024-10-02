@@ -12,6 +12,7 @@ namespace Entity
         public SpriteRenderer Renderer { get => _spriteRenderer; set => _spriteRenderer = value; }
 
         protected bool _isAlive;
+        public bool IsCreatureAlive => _isAlive;
 
         protected List<ComponentBase> _components;
         protected HealthComponent _healthComponent;
@@ -43,6 +44,10 @@ namespace Entity
             Destroy(transform.gameObject);
             _isAlive = false;
             Debug.Log(transform.name + " is dead");
+        }
+        public virtual void RestoreThisCreature()
+        {
+
         }
     }
 }

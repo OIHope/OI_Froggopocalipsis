@@ -12,5 +12,7 @@ namespace Data
 
         public float WalkSpeed => _walkSpeed;
         public float RunSpeed => _runSpeed;
+
+        public void SetRunSpeed(float speed) { _runSpeed = speed; }
     }
 }

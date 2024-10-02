@@ -1,11 +1,10 @@
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Components
 {
     public class DetectTargetComponent : MonoBehaviour
     {
-
+        [SerializeField] private bool isWorking = true;
         [SerializeField] private Collider _triggerZoneCollider;
 
         private IAttackableTarget _target;
@@ -24,6 +23,8 @@ namespace Components
         }
         private void OnTriggerEnter(Collider other)
         {
+            if (!isWorking) return;
+
             IAttackableTarget target = other.GetComponent<IAttackableTarget>();
             if (target == null) return;
             if (target.TargetIsAlive)
@@ -34,6 +35,8 @@ namespace Components
         }
         private void Update()
         {
+            if (!isWorking) return;
+
             if (_target != null && !_target.TargetIsAlive)
             {
                 OnTargetLost.Invoke();

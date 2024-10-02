@@ -1,6 +1,8 @@
+using Core.Progression;
 using Entity.PlayerSystem;
 using Level.Stage;
 using PlayerSystem;
+using System;
 using UnityEngine;
 
 namespace Core
@@ -12,8 +14,9 @@ namespace Core
     public class PlayerManager : MonoBehaviour
     {
         public static PlayerManager Instance { get; private set; }
-        public System.Action<Vector3> OnPlayerChangeLevelStage;
-        public System.Action<PlayerInputMode> OnRequestSwitchInputMode;
+        public Action<Vector3> OnPlayerChangeLevelStage;
+        public Action<PlayerInputMode> OnRequestSwitchInputMode;
+        public Action OnPlayerRestoreRequest;
 
         [SerializeField] private GameObject _playerPrefab;
         [SerializeField] private InputManager _inputManager;
@@ -34,11 +37,16 @@ namespace Core
 
             OnPlayerChangeLevelStage += ForcePlayerChangePosition;
             OnRequestSwitchInputMode += SwitchInput;
+            OnPlayerRestoreRequest += () => _controller.RestoreThisCreature();
+
+
         }
         private void Start()
         {
             TransitionManager.Instance.OnRoomSwitchStart += DisableInput;
             TransitionManager.Instance.OnRoomSwitchEnd += EnableInput;
+            TransitionManager.Instance.OnRoomSwitchEnd += (() => SwitchInput(PlayerInputMode.Main));
+            PlayerProgressionManager.Instance.OnPlayerLavelUP += ((_) => _controller.RestoreThisCreature());
         }
 
         private void ForcePlayerChangePosition(Vector3 position)

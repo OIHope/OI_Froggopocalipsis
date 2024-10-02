@@ -13,6 +13,7 @@ namespace Level
         [SerializeField][Range(0.5f, 10f)] private float _spawnRange = 1f;
 
         private int _currentWaveIndex = 0;
+        private List<GameObject> _spawnedCreatures = new();
 
         public bool CanSpawnAnotherWave => _currentWaveIndex < _waveList.WavesCount;
 
@@ -29,7 +30,8 @@ namespace Level
 
             foreach (GameObject entity in entitiesToSpawn)
             {
-                Instantiate(entity, GetSpawnPosition(), Quaternion.identity, this.transform);
+                GameObject instance = Instantiate(entity, GetSpawnPosition(), Quaternion.identity, this.transform);
+                _spawnedCreatures.Add(instance);
             }
             _currentWaveIndex++;
 
@@ -43,6 +45,20 @@ namespace Level
             Vector3 prePos = new(offsetPos.x * spawnDirection.x, 0f, offsetPos.z * spawnDirection.z);
 
             return startPos + prePos;
+        }
+
+        private void CleanUp()
+        {
+            foreach (GameObject entity in _spawnedCreatures)
+            {
+                Destroy(entity);
+            }
+            _spawnedCreatures.Clear();
+        }
+
+        private void OnDisable()
+        {
+            CleanUp();
         }
     }
 }

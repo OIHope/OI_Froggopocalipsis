@@ -30,6 +30,7 @@ namespace Core.Progression
         private IEnumerator StartWaveDefenceCondition()
         {
             GameEventsBase.OnEnemyDeath += AddToEnemyDefeatedCount;
+            GameEventsBase.OnPlotItemPickUp += AddToEnemyDefeatedCount;
 
             while (!AllWavesAreFinished)
             {

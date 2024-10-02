@@ -43,8 +43,6 @@ namespace Level.Stage
 
             StartTransition(TransitionDirection.Forward, _startEntrance, _startStage);
 
-            //SwitchRoom(0);
-
             OnTransitionEnter += StartTransition;
         }
 

@@ -1,11 +1,12 @@
 using UnityEngine;
+using System;
 
 namespace Core.Camera
 {
     public class CameraManager : MonoBehaviour
     {
         public static CameraManager Instance { get; private set; }
-        public System.Action<CameraData> OnNewRoomLoaded;
+        public Action<CameraData> OnNewRoomLoaded;
 
         [SerializeField] private CameraFollowTarget _cameraFolowComponent;
 

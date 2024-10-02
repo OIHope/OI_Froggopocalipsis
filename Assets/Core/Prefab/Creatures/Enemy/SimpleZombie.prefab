@@ -15,6 +15,9 @@ GameObject:
   - component: {fileID: 4454307729105566704}
   - component: {fileID: 949009208941096921}
   - component: {fileID: 5287844127400055376}
+  - component: {fileID: 457088352851754297}
+  - component: {fileID: 2720916596300116641}
+  - component: {fileID: 2424389906266160136}
   m_Layer: 6
   m_Name: SimpleZombie
   m_TagString: Enemy
@@ -175,7 +178,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f130c8942990fa40930923832789d4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isWorking: 1
   _triggerZoneCollider: {fileID: 949009208941096921}
+--- !u!114 &457088352851754297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6110710959619228957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fb34012fd96a4b4086a8002c672f2ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _conditions:
+  - {fileID: 2720916596300116641}
+  _actions:
+  - {fileID: 2424389906266160136}
+  _executeOnce: 1
+  _executeOnEnable: 0
+  _executeOnAwake: 0
+  _executeOnStart: 0
+  _checkEveryFrame: 1
+  _onTriggerEnter: 0
+--- !u!114 &2720916596300116641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6110710959619228957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 272b7a410309d5a409e114229ca0f7d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  request: 0
+  _creature: {fileID: 4454307729105566704}
+--- !u!114 &2424389906266160136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6110710959619228957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe6331fc31ad5154cbfbee69a462c5ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _executeOnce: 0
+  _executeOnEnable: 0
+  _executeOnDisable: 0
+  _executeOnAwake: 0
+  _executeOnStart: 0
+  _executeOnDestroy: 0
+  _expValue: 10
 --- !u!1 &6653527112543567082
 GameObject:
   m_ObjectHideFlags: 0

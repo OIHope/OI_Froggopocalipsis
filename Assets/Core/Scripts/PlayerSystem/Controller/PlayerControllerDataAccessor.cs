@@ -33,6 +33,7 @@ namespace PlayerSystem
             }
         }
         public bool PressedInteractInput => Input.MainInputMap.Interact.WasReleasedThisFrame();
+        public bool PressedInteractAltInput => Input.MainInputMap.AltInteract.WasReleasedThisFrame();
 
         public bool PressedDashInput => Input.MainInputMap.Dash.IsPressed();
         public bool PressedAttackInput => Input.MainInputMap.Attack.IsPressed();

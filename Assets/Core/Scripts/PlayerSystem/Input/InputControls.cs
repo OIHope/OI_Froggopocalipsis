@@ -66,6 +66,15 @@ namespace PlayerSystem
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""AltInteract"",
+                    ""type"": ""Button"",
+                    ""id"": ""da96435d-ff49-49a5-bca3-051bb724dbbe"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""LookAround"",
                     ""type"": ""Value"",
                     ""id"": ""9b21be8e-ef39-4d85-9b47-f104078d9055"",
@@ -269,6 +278,28 @@ namespace PlayerSystem
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4413544e-4727-4280-ac05-891727b6ad9d"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""AltInteract"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9c4bc33c-3590-48c7-9157-13abc7f14390"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""AltInteract"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -667,6 +698,17 @@ namespace PlayerSystem
                 },
                 {
                     ""name"": """",
+                    ""id"": ""c3ff6c45-ef12-4a97-87ff-f02f465d1844"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""412148b4-6898-4d90-a658-79258b5993b1"",
                     ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
@@ -982,6 +1024,7 @@ namespace PlayerSystem
             m_MainInputMap_Attack = m_MainInputMap.FindAction("Attack", throwIfNotFound: true);
             m_MainInputMap_Dash = m_MainInputMap.FindAction("Dash", throwIfNotFound: true);
             m_MainInputMap_Interact = m_MainInputMap.FindAction("Interact", throwIfNotFound: true);
+            m_MainInputMap_AltInteract = m_MainInputMap.FindAction("AltInteract", throwIfNotFound: true);
             m_MainInputMap_LookAround = m_MainInputMap.FindAction("LookAround", throwIfNotFound: true);
             m_MainInputMap_Menu = m_MainInputMap.FindAction("Menu", throwIfNotFound: true);
             // UIInputMap
@@ -1069,6 +1112,7 @@ namespace PlayerSystem
         private readonly InputAction m_MainInputMap_Attack;
         private readonly InputAction m_MainInputMap_Dash;
         private readonly InputAction m_MainInputMap_Interact;
+        private readonly InputAction m_MainInputMap_AltInteract;
         private readonly InputAction m_MainInputMap_LookAround;
         private readonly InputAction m_MainInputMap_Menu;
         public struct MainInputMapActions
@@ -1079,6 +1123,7 @@ namespace PlayerSystem
             public InputAction @Attack => m_Wrapper.m_MainInputMap_Attack;
             public InputAction @Dash => m_Wrapper.m_MainInputMap_Dash;
             public InputAction @Interact => m_Wrapper.m_MainInputMap_Interact;
+            public InputAction @AltInteract => m_Wrapper.m_MainInputMap_AltInteract;
             public InputAction @LookAround => m_Wrapper.m_MainInputMap_LookAround;
             public InputAction @Menu => m_Wrapper.m_MainInputMap_Menu;
             public InputActionMap Get() { return m_Wrapper.m_MainInputMap; }
@@ -1102,6 +1147,9 @@ namespace PlayerSystem
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @AltInteract.started += instance.OnAltInteract;
+                @AltInteract.performed += instance.OnAltInteract;
+                @AltInteract.canceled += instance.OnAltInteract;
                 @LookAround.started += instance.OnLookAround;
                 @LookAround.performed += instance.OnLookAround;
                 @LookAround.canceled += instance.OnLookAround;
@@ -1124,6 +1172,9 @@ namespace PlayerSystem
                 @Interact.started -= instance.OnInteract;
                 @Interact.performed -= instance.OnInteract;
                 @Interact.canceled -= instance.OnInteract;
+                @AltInteract.started -= instance.OnAltInteract;
+                @AltInteract.performed -= instance.OnAltInteract;
+                @AltInteract.canceled -= instance.OnAltInteract;
                 @LookAround.started -= instance.OnLookAround;
                 @LookAround.performed -= instance.OnLookAround;
                 @LookAround.canceled -= instance.OnLookAround;
@@ -1397,6 +1448,7 @@ namespace PlayerSystem
             void OnAttack(InputAction.CallbackContext context);
             void OnDash(InputAction.CallbackContext context);
             void OnInteract(InputAction.CallbackContext context);
+            void OnAltInteract(InputAction.CallbackContext context);
             void OnLookAround(InputAction.CallbackContext context);
             void OnMenu(InputAction.CallbackContext context);
         }

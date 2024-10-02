@@ -1,0 +1,198 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32a1636dbf9aadf47af83fee63804cf1, type: 3}
+  m_Name: 05_dBlock_fieldComplete_hub01_01
+  m_EditorClassIdentifier: 
+  _alreadyTalked: 0
+  _dialogueBlock:
+  - _englishLine: Oh, you're back! Did you find the flower?
+    _ukrainianLine: "\u041E, \u0442\u0438 \u043F\u043E\u0432\u0435\u0440\u043D\u0443\u0432\u0441\u044F!
+      \u0417\u043D\u0430\u0439\u0448\u043E\u0432 \u043A\u0432\u0456\u0442\u043A\u0443?"
+    _speakerData: {fileID: 11400000, guid: da6ce9c3fe15bf44d97010c8ad592aff, type: 2}
+    _thisLineEmotion: 7
+  - _englishLine: Yeah, even better.
+    _ukrainianLine: "\u041A\u0440\u0430\u0449\u0435."
+    _speakerData: {fileID: 11400000, guid: 518fe9bb2fa5bc4448a54c91a565cf83, type: 2}
+    _thisLineEmotion: 1
+  - _englishLine: I found a drawing of the flower.
+    _ukrainianLine: "\u042F \u0437\u043D\u0430\u0439\u0448\u043E\u0432 \u043C\u0430\u043B\u044E\u043D\u043E\u043A
+      \u043A\u0432\u0456\u0442\u043A\u0438."
+    _speakerData: {fileID: 11400000, guid: 518fe9bb2fa5bc4448a54c91a565cf83, type: 2}
+    _thisLineEmotion: 2
+  - _englishLine: Are you an idiot?
+    _ukrainianLine: "\u0422\u0438 \u0456\u0434\u0456\u043E\u0442?"
+    _speakerData: {fileID: 11400000, guid: da6ce9c3fe15bf44d97010c8ad592aff, type: 2}
+    _thisLineEmotion: 0
+  - _englishLine: Alright, alright. Bad joke.
+    _ukrainianLine: "\u0414\u043E\u0431\u0440\u0435-\u0434\u043E\u0431\u0440\u0435.
+      \u041D\u0435\u0432\u0434\u0430\u043B\u0438\u0439 \u0436\u0430\u0440\u0442."
+    _speakerData: {fileID: 11400000, guid: 518fe9bb2fa5bc4448a54c91a565cf83, type: 2}
+    _thisLineEmotion: 3
+  - _englishLine: I found this paper with some strange symbols. Not sure what language...
+    _ukrainianLine: "\u042F \u0437\u043D\u0430\u0439\u0448\u043E\u0432 \u0446\u0435\u0439
+      \u043F\u0430\u043F\u0456\u0440 \u0437 \u044F\u043A\u0438\u043C\u0438\u0441\u044C
+      \u0434\u0438\u0432\u043D\u0438\u043C\u0438 \u0441\u0438\u043C\u0432\u043E\u043B\u0430\u043C\u0438.
+      \u041D\u0435 \u0432\u043F\u0435\u0432\u043D\u0435\u043D\u0438\u0439, \u044F\u043A\u043E\u044E
+      \u043C\u043E\u0432\u043E\u044E..."
+    _speakerData: {fileID: 11400000, guid: 518fe9bb2fa5bc4448a54c91a565cf83, type: 2}
+    _thisLineEmotion: 0
+  - _englishLine: Incredible! This is the recipe for the potion that cures all diseases!
+      Where did you find it?
+    _ukrainianLine: "\u041D\u0435\u0439\u043C\u043E\u0432\u0456\u0440\u043D\u043E!
+      \u0426\u0435\u0439 \u0436 \u0440\u0435\u0446\u0435\u043F\u0442 \u0437\u0456\u043B\u043B\u044F,
+      \u044F\u043A\u0435 \u043B\u0456\u043A\u0443\u0454 \u0432\u0441\u0456 \u0445\u0432\u043E\u0440\u043E\u0431\u0438!
+      \u0414\u0435 \u0442\u0438 \u0439\u043E\u0433\u043E \u0437\u043D\u0430\u0439\u0448\u043E\u0432?"
+    _speakerData: {fileID: 11400000, guid: da6ce9c3fe15bf44d97010c8ad592aff, type: 2}
+    _thisLineEmotion: 8
+  - _englishLine: It was lying near three large stones in the field. It was guarded
+      by a whole bunch of warriors!
+    _ukrainianLine: "\u041B\u0435\u0436\u0430\u0432 \u0431\u0456\u043B\u044F \u0442\u0440\u044C\u043E\u0445
+      \u0432\u0435\u043B\u0438\u043A\u0438\u0445 \u043A\u0430\u043C\u0435\u043D\u0456\u0432
+      \u043D\u0430 \u043F\u043E\u043B\u0456. \u0419\u043E\u0433\u043E \u043E\u0445\u043E\u0440\u043E\u043D\u044F\u043B\u0430
+      \u0446\u0456\u043B\u0430 \u043A\u0443\u043F\u0430 \u0432\u043E\u0457\u043D\u0456\u0432!"
+    _speakerData: {fileID: 11400000, guid: 518fe9bb2fa5bc4448a54c91a565cf83, type: 2}
+    _thisLineEmotion: 1
+  - _englishLine: The battle was unbelievable, I was like the wind...
+    _ukrainianLine: "\u041D\u0435\u0439\u043C\u043E\u0432\u0456\u0440\u043D\u0430
+      \u0431\u0443\u043B\u0430 \u0431\u0438\u0442\u0432\u0430, \u044F \u043D\u0456\u0431\u0438
+      \u0432\u0456\u0442\u0435\u0440..."
+    _speakerData: {fileID: 11400000, guid: 518fe9bb2fa5bc4448a54c91a565cf83, type: 2}
+    _thisLineEmotion: 11
+  - _englishLine: Yeah, yeah, very interesting.
+    _ukrainianLine: "\u0422\u0430\u043A-\u0442\u0430\u043A, \u0434\u0443\u0436\u0435
+      \u0446\u0456\u043A\u0430\u0432\u043E..."
+    _speakerData: {fileID: 11400000, guid: da6ce9c3fe15bf44d97010c8ad592aff, type: 2}
+    _thisLineEmotion: 0
+  - _englishLine: And what language is that?
+    _ukrainianLine: "\u0429\u043E \u0446\u0435 \u0437\u0430 \u043C\u043E\u0432\u0430?"
+    _speakerData: {fileID: 11400000, guid: 518fe9bb2fa5bc4448a54c91a565cf83, type: 2}
+    _thisLineEmotion: 9
+  - _englishLine: It's Katsurian.
+    _ukrainianLine: "\u0426\u0435 \u043A\u0430\u0446\u044E\u0440\u0441\u044C\u043A\u0430."
+    _speakerData: {fileID: 11400000, guid: da6ce9c3fe15bf44d97010c8ad592aff, type: 2}
+    _thisLineEmotion: 0
+  - _englishLine: The language of Emperor Half-Witted Frog?
+    _ukrainianLine: "\u041C\u043E\u0432\u0430 \u0406\u043C\u043F\u0435\u0440\u0430\u0442\u043E\u0440\u0430
+      \u0416\u0430\u0431\u0430 \u041D\u0430\u043F\u0456\u0432\u0440\u043E\u0437\u0443\u043C\u043D\u043E\u0433\u043E? "
+    _speakerData: {fileID: 11400000, guid: 518fe9bb2fa5bc4448a54c91a565cf83, type: 2}
+    _thisLineEmotion: 7
+  - _englishLine: That explains why the guards were wearing those armors. Blood-red
+      armor that brings death and ruin.
+    _ukrainianLine: "\u0426\u0435 \u043F\u043E\u044F\u0441\u043D\u044E\u0454, \u0447\u043E\u043C\u0443
+      \u043E\u0445\u043E\u0440\u043E\u043D\u0446\u0456 \u0431\u0443\u043B\u0438 \u0432
+      \u0442\u0438\u0445 \u043E\u0431\u043B\u0430\u0434\u0443\u043D\u043A\u0430\u0445.
+      \u041A\u0440\u0438\u0432\u0430\u0432\u043E-\u0447\u0435\u0440\u0432\u043E\u043D\u0456
+      \u043B\u0430\u0442\u0438, \u044F\u043A\u0456 \u043D\u0435\u0441\u0443\u0442\u044C
+      \u0441\u043C\u0435\u0440\u0442\u044C \u0442\u0430 \u0440\u0443\u0457\u043D\u0443."
+    _speakerData: {fileID: 11400000, guid: 518fe9bb2fa5bc4448a54c91a565cf83, type: 2}
+    _thisLineEmotion: 6
+  - _englishLine: Yes, they were unlucky.
+    _ukrainianLine: "\u0422\u0430\u043A, \u043D\u0435 \u043F\u043E\u0449\u0430\u0441\u0442\u0438\u043B\u043E
+      \u0457\u043C."
+    _speakerData: {fileID: 11400000, guid: da6ce9c3fe15bf44d97010c8ad592aff, type: 2}
+    _thisLineEmotion: 1
+  - _englishLine: What do you mean? Do you know why they suddenly came back to life?
+    _ukrainianLine: "\u0422\u043E\u0431\u0442\u043E? \u0422\u0438 \u0437\u043D\u0430\u0454\u0448,
+      \u0449\u043E \u0441\u0442\u0430\u043B\u043E\u0441\u044C? \u0427\u043E\u043C\u0443
+      \u0432\u043E\u043D\u0438 \u0440\u0430\u043F\u0442\u043E\u043C \u043E\u0436\u0438\u043B\u0438?"
+    _speakerData: {fileID: 11400000, guid: 518fe9bb2fa5bc4448a54c91a565cf83, type: 2}
+    _thisLineEmotion: 8
+  - _englishLine: Of course.
+    _ukrainianLine: "\u041D\u0443 \u0437\u0432\u0456\u0441\u043D\u043E \u0436."
+    _speakerData: {fileID: 11400000, guid: da6ce9c3fe15bf44d97010c8ad592aff, type: 2}
+    _thisLineEmotion: 1
+  - _englishLine: "It\u2019s very simple:"
+    _ukrainianLine: "\u0412\u0441\u0435 \u0434\u0443\u0436\u0435 \u043F\u0440\u043E\u0441\u0442\u043E..."
+    _speakerData: {fileID: 11400000, guid: da6ce9c3fe15bf44d97010c8ad592aff, type: 2}
+    _thisLineEmotion: 0
+  - _englishLine: "Shit doesn\u2019t sink!"
+    _ukrainianLine: "\u041B\u0430\u0439\u043D\u043E \u043D\u0435 \u0442\u043E\u043D\u0435!"
+    _speakerData: {fileID: 11400000, guid: da6ce9c3fe15bf44d97010c8ad592aff, type: 2}
+    _thisLineEmotion: 2
+  - _englishLine: ...
+    _ukrainianLine: ...
+    _speakerData: {fileID: 11400000, guid: 518fe9bb2fa5bc4448a54c91a565cf83, type: 2}
+    _thisLineEmotion: 0
+  - _englishLine: "Let\u2019s talk about that some other time."
+    _ukrainianLine: "\u041F\u043E\u0433\u043E\u0432\u043E\u0440\u0438\u043C\u043E
+      \u043F\u0440\u043E \u0446\u0435 \u044F\u043A\u043E\u0441\u044C \u0456\u043D\u0448\u0438\u043C
+      \u0440\u0430\u0437\u043E\u043C."
+    _speakerData: {fileID: 11400000, guid: 518fe9bb2fa5bc4448a54c91a565cf83, type: 2}
+    _thisLineEmotion: 0
+  - _englishLine: What does the recipe say?
+    _ukrainianLine: "\u0429\u043E \u043D\u0430\u043F\u0438\u0441\u0430\u043D\u043E
+      \u0432 \u0440\u0435\u0446\u0435\u043F\u0442\u0456?"
+    _speakerData: {fileID: 11400000, guid: 518fe9bb2fa5bc4448a54c91a565cf83, type: 2}
+    _thisLineEmotion: 0
+  - _englishLine: Give me a second...
+    _ukrainianLine: "\u0414\u0430\u0439 \u043C\u0435\u043D\u0456 \u0441\u0435\u043A\u0443\u043D\u0434\u0443..."
+    _speakerData: {fileID: 11400000, guid: da6ce9c3fe15bf44d97010c8ad592aff, type: 2}
+    _thisLineEmotion: 9
+  - _englishLine: ...
+    _ukrainianLine: ...
+    _speakerData: {fileID: 11400000, guid: da6ce9c3fe15bf44d97010c8ad592aff, type: 2}
+    _thisLineEmotion: 9
+  - _englishLine: We definitely need fish!
+    _ukrainianLine: "\u041D\u0430\u043C \u0442\u043E\u0447\u043D\u043E \u0437\u043D\u0430\u0434\u043E\u0431\u0438\u0442\u044C\u0441\u044F
+      \u0440\u0438\u0431\u0430!"
+    _speakerData: {fileID: 11400000, guid: da6ce9c3fe15bf44d97010c8ad592aff, type: 2}
+    _thisLineEmotion: 7
+  - _englishLine: Some kind of special healing fish that only lives on the shores
+      of the icy ocean and can only be caught at midnight during a hedgehog battle?
+    _ukrainianLine: "\u042F\u043A\u0430\u0441\u044C \u043E\u0441\u043E\u0431\u043B\u0438\u0432\u0430
+      \u0446\u0456\u043B\u044E\u0449\u0430 \u0440\u0438\u0431\u0430, \u044F\u043A\u0430
+      \u0432\u043E\u0434\u0438\u0442\u044C\u0441\u044F \u043D\u0430 \u0443\u0437\u0431\u0435\u0440\u0435\u0436\u0436\u0456
+      \u041A\u0440\u0438\u0436\u0430\u043D\u043E\u0433\u043E \u043C\u043E\u0440\u044F
+      \u0456 \u044F\u043A\u0443 \u043C\u043E\u0436\u043D\u0430 \u0432\u0438\u043B\u043E\u0432\u0438\u0442\u0438
+      \u0432\u0438\u043A\u043B\u044E\u0447\u043D\u043E \u043E\u043F\u0456\u0432\u043D\u043E\u0447\u0456
+      \u043F\u0456\u0434 \u0447\u0430\u0441 \u0431\u0438\u0442\u0432\u0438 \u0457\u0436\u0430\u043A\u0456\u0432?"
+    _speakerData: {fileID: 11400000, guid: 518fe9bb2fa5bc4448a54c91a565cf83, type: 2}
+    _thisLineEmotion: 11
+  - _englishLine: Did you hit your head? Or maybe the fumes are getting to you?
+    _ukrainianLine: "\u0422\u0438 \u0433\u043E\u043B\u043E\u0432\u043E\u044E \u0432\u0434\u0430\u0440\u0438\u0432\u0441\u044F?
+      \u0427\u0438 \u043F\u0430\u0445\u043E\u0449\u0456\u0432 \u043F\u043E\u043D\u044E\u0445\u0430\u0432?"
+    _speakerData: {fileID: 11400000, guid: da6ce9c3fe15bf44d97010c8ad592aff, type: 2}
+    _thisLineEmotion: 6
+  - _englishLine: I need time to properly translate this recipe.
+    _ukrainianLine: "\u041C\u0435\u043D\u0456 \u0442\u0440\u0435\u0431\u0430 \u0447\u0430\u0441
+      \u043D\u0430 \u043F\u0435\u0440\u0435\u043A\u043B\u0430\u0434 \u0446\u044C\u043E\u0433\u043E
+      \u0440\u0435\u0446\u0435\u043F\u0442\u0430."
+    _speakerData: {fileID: 11400000, guid: da6ce9c3fe15bf44d97010c8ad592aff, type: 2}
+    _thisLineEmotion: 6
+  - _englishLine: In the meantime, we need something to eat.
+    _ukrainianLine: "\u0410 \u043F\u043E\u043A\u0438 \u043D\u0430\u043C \u0442\u0440\u0435\u0431\u0430
+      \u043F\u043E\u0457\u0441\u0442\u0438."
+    _speakerData: {fileID: 11400000, guid: da6ce9c3fe15bf44d97010c8ad592aff, type: 2}
+    _thisLineEmotion: 0
+  - _englishLine: Go quickly to the swamp and catch something.
+    _ukrainianLine: "\u0417\u0431\u0456\u0433\u0430\u0439 \u0448\u0432\u0438\u0434\u0435\u043D\u044C\u043A\u043E
+      \u043D\u0430 \u0431\u043E\u043B\u043E\u0442\u043E \u0442\u0430 \u0432\u043F\u0456\u0439\u043C\u0430\u0439
+      \u0445\u043E\u0447 \u0448\u043E\u0441\u044C."
+    _speakerData: {fileID: 11400000, guid: da6ce9c3fe15bf44d97010c8ad592aff, type: 2}
+    _thisLineEmotion: 0
+  - _englishLine: ...
+    _ukrainianLine: ...
+    _speakerData: {fileID: 11400000, guid: da6ce9c3fe15bf44d97010c8ad592aff, type: 2}
+    _thisLineEmotion: 0
+  - _englishLine: Idiot.
+    _ukrainianLine: "\u0419\u043E\u043B\u043E\u043F."
+    _speakerData: {fileID: 11400000, guid: da6ce9c3fe15bf44d97010c8ad592aff, type: 2}
+    _thisLineEmotion: 3
+  _recapBlock:
+  - _englishLine: I'm hungry. Go to the swamp and bring us some fish!
+    _ukrainianLine: "\u042F \u0433\u043E\u043B\u043E\u0434\u043D\u0438\u0439. \u0419\u0434\u0438
+      \u043D\u0430 \u0431\u043E\u043B\u043E\u0442\u043E \u043D\u0430\u043B\u043E\u0432\u0438
+      \u0440\u0438\u0431\u0438!"
+    _speakerData: {fileID: 11400000, guid: da6ce9c3fe15bf44d97010c8ad592aff, type: 2}
+    _thisLineEmotion: 3
+  _hasImpactOnProgression: 1
+  _stageUpgrageAfterThisDialogue: 6

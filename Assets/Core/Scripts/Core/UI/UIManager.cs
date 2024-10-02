@@ -1,5 +1,8 @@
 using Core.DialogueSystem;
+using Core.Progression;
 using PlayerSystem;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,100 +13,128 @@ namespace Core.UI
         [SerializeField] private GameObject _inGameMenuPanel;
         [SerializeField] private GameObject _dialoguePanel;
 
-        private InputAction _menuAction;
+        [SerializeField] private GameObject _levelUpPanel;
+        [SerializeField] private TextMeshProUGUI _levelText;
+        [SerializeField] private TextMeshProUGUI _skillPointsText;
+        [SerializeField] private List<GameObject> _attackPowerSkillImageList;
+        [SerializeField] private List<GameObject> _attackCooldownSkillImageList;
+        [SerializeField] private List<GameObject> _critChanceSkillImageList;
+        [SerializeField] private List<GameObject> _dodgeCooldownSkillImageList;
+        [SerializeField] private List<GameObject> _moveSpeedSkillImageList;
+        [SerializeField] private List<GameObject> _maxHPSkillImageList;
 
-        private bool _active = false;
+        [SerializeField] private GameObject _baseInfoPanel;
+        [SerializeField] private TextMeshProUGUI _plLevelText;
+        [SerializeField] private TextMeshProUGUI _plEXPText;
+        [SerializeField] private TextMeshProUGUI _plSkillPointsText;
+
+        private InputAction _menuAction;
+        private bool _menuActive = false;
 
         private void Start()
         {
             CloseAllPanels();
-            SwitchMenuAction();
 
-            DialogueManager.Instance.OnDialoguePanelOpenRequested += (()=>ToggleDialoguePanel(true));
-            DialogueManager.Instance.OnDialoguePanelOpenRequested += (() => ToggleDialogueInput(true));
+            DialogueManager.Instance.OnDialoguePanelOpenRequested += () => TogglePanel(_dialoguePanel, true);
+            DialogueManager.Instance.OnDialoguePanelCloseRequested += () => TogglePanel(_dialoguePanel, false);
+            PlayerProgressionManager.Instance.OnOpenLevelUpMenu += () => TogglePanel(_levelUpPanel, true);
+            PlayerProgressionManager.Instance.OnCloseLevelUpMenu += () => TogglePanel(_levelUpPanel, false);
 
-            DialogueManager.Instance.OnDialoguePanelCloseRequested += (() => ToggleDialoguePanel(false));
-            DialogueManager.Instance.OnDialoguePanelCloseRequested += (() => ToggleDialogueInput(false));
+            ToggleInputMode(PlayerInputMode.Main);
+            _baseInfoPanel.SetActive(true);
         }
 
-        #region Action Handle Region
-
-        private void SwitchMenuAction()
+        private void TogglePanel(GameObject panel, bool toggle)
         {
-            if (_active)
+            CloseAllPanels();
+            panel.SetActive(toggle);
+
+            if (panel == _dialoguePanel)
             {
-                _menuAction = InputManager.Instance.Input.UIInputMap.Menu;
+                ToggleInputMode(toggle ? PlayerInputMode.Dialogue : PlayerInputMode.Main);
+            }
+            else if (panel == _inGameMenuPanel || panel == _levelUpPanel)
+            {
+                ToggleInputMode(toggle ? PlayerInputMode.UI : PlayerInputMode.Main);
             }
             else
             {
-                _menuAction = InputManager.Instance.Input.MainInputMap.Menu;
+                ToggleInputMode(PlayerInputMode.Main);
             }
+
+            _baseInfoPanel.SetActive(!toggle);
         }
 
-        #endregion
-
-        #region Panels Open Close Handle Region
         private void CloseAllPanels()
         {
             _inGameMenuPanel.SetActive(false);
             _dialoguePanel.SetActive(false);
+            _levelUpPanel.SetActive(false);
+            _baseInfoPanel.SetActive(false);
         }
 
-        private void ToggleInGameMenuPanel(bool toggle)
+        private void ToggleInputMode(PlayerInputMode mode)
         {
-            CloseAllPanels();
-            SwitchMenuAction();
-            ToogleTimeScale(toggle);
-            _inGameMenuPanel.SetActive(toggle);
+            Debug.Log("UI reguested " + mode.ToString() + " Input Switch!");
+            PlayerManager.Instance.OnRequestSwitchInputMode?.Invoke(mode);
+            _menuAction = mode == PlayerInputMode.UI ? InputManager.Instance.Input.UIInputMap.Menu :
+                    InputManager.Instance.Input.MainInputMap.Menu;
         }
-        private void ToggleDialoguePanel(bool toggle)
+
+        private void UpdateBasicPanel(PlayerProgressionData data)
         {
-            CloseAllPanels();
-            _dialoguePanel.SetActive(toggle);
+            _plLevelText.text = "LVL: " + data.CurrentLVL;
+            _plEXPText.text = "EXP: " + data.CurrentEXP + " / " + data.GetRequiredEXPForNextLevel();
+            _plSkillPointsText.text = "Skill points: " + data.LevelUpPoints;
         }
-
-        private static void ToogleTimeScale(bool toggle)
+        private void UpdateLevelUpPanel(PlayerProgressionData data)
         {
-            Time.timeScale = toggle ? 0f : 1f;
+            _levelText.text = "LVL: " + data.CurrentLVL;
+            _skillPointsText.text = "Skill points: " + data.LevelUpPoints;
+
+            for (int i = 0; i < _attackPowerSkillImageList.Count; i++)
+            {
+                bool activate = i > data.AttackPowerPoints;
+                _attackPowerSkillImageList[i].SetActive(!activate);
+            }
+            for (int i = 0; i < _attackCooldownSkillImageList.Count; i++)
+            {
+                bool activate = i > data.AttackCooldownPoints;
+                _attackCooldownSkillImageList[i].SetActive(!activate);
+            }
+            for (int i = 0; i < _critChanceSkillImageList.Count; i++)
+            {
+                bool activate = i > data.CritChancePoints;
+                _critChanceSkillImageList[i].SetActive(!activate);
+            }
+            for (int i = 0; i < _dodgeCooldownSkillImageList.Count; i++)
+            {
+                bool activate = i > data.DodgeCooldownPoints;
+                _dodgeCooldownSkillImageList[i].SetActive(!activate);
+            }
+            for (int i = 0; i < _moveSpeedSkillImageList.Count; i++)
+            {
+                bool activate = i > data.MoveSpeedPoints;
+                _moveSpeedSkillImageList[i].SetActive(!activate);
+            }
+            for (int i = 0; i < _maxHPSkillImageList.Count; i++)
+            {
+                bool activate = i > data.MaxHPPoints;
+                _maxHPSkillImageList[i].SetActive(!activate);
+            }
         }
-
-        #endregion
-
-        #region Input Handler
 
         private void Update()
         {
-            HandleInGameMenuPanel();
-        }
+            if (_menuAction.WasReleasedThisFrame())
+            {
+                _menuActive = !_menuActive;
+                TogglePanel(_inGameMenuPanel, _menuActive);
+            }
 
-        private void ToggleDialogueInput(bool toggle)
-        {
-            if (toggle)
-            {
-                PlayerManager.Instance.OnRequestSwitchInputMode?.Invoke(PlayerInputMode.Dialogue);
-            }
-            else
-            {
-                PlayerManager.Instance.OnRequestSwitchInputMode?.Invoke(PlayerInputMode.Main);
-            }
+            PlayerProgressionData data = PlayerProgressionManager.Instance.SkillData();
+            UpdateBasicPanel(data);
+            UpdateLevelUpPanel(data);
         }
-        private void HandleInGameMenuPanel()
-        {
-            if (_menuAction.WasReleasedThisFrame() && !_active)
-            {
-                _active = true;
-                ToggleInGameMenuPanel(true);
-                PlayerManager.Instance.OnRequestSwitchInputMode?.Invoke(PlayerInputMode.UI);
-            }
-            else if (_menuAction.WasReleasedThisFrame() && _active)
-            {
-                _active = false;
-                ToggleInGameMenuPanel(false);
-                PlayerManager.Instance.OnRequestSwitchInputMode?.Invoke(PlayerInputMode.Main);
-            }
-        }
-
-        #endregion
-
     }
 }

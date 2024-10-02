@@ -3,6 +3,8 @@ using Core.Progression;
 
 public class GameEventsBase
 {
+    public static Action OnPlotItemPickUp;
+
     public static Action OnEnemyDeath;
     public static Action OnEnemyHit;
 
@@ -15,4 +17,5 @@ public class GameEventsBase
     public static Action OnLanguageChanged;
 
     public static Action<GameStage> OnReachNewGameStage;
+    public static Action OnGameReset;
 }

@@ -5,7 +5,7 @@ namespace Core.Progression
 {
     public enum GameStage
     {
-        Intro, Arrival, 
+        Intro, Arrival, ArrivalComplete,
         FieldEnter, FieldDeath, FieldComplete, 
         SwampEnter, SwampDeath, SwampComplete,
         ForestEnter, ForestDeath, ForestComplete,
@@ -26,12 +26,18 @@ namespace Core.Progression
         {
             GameEventsBase.OnReachNewGameStage += ChangeGameStage;
             DialogueManager.Instance.OnDialogueFinish += ChangeGameStage;
+            ResetProgression.Instance.OnGameStageResetRequested += ResetGameStage;
         }
 
         private void ChangeGameStage(GameStage stage)
         {
             _currentStageData.CurrentGameStage = stage;
             Debug.Log("Game stage is: " + _currentStageData.CurrentGameStage);
+        }
+
+        private void ResetGameStage()
+        {
+            _currentStageData.ResetGameStage();
         }
 
         private void SingletonAwakeMethod()
@@ -63,5 +69,6 @@ namespace Core.Progression
                 
             }
         }
+        public void ResetGameStage() => _currentGameStage = GameStage.Intro; 
     }
 }

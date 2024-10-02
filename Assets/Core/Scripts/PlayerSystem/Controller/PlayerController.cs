@@ -127,5 +127,18 @@ namespace Entity.PlayerSystem
             bool pressedInteract = _dataAccessor.PressedInteractInput;
             return pressedInteract;
         }
+        public bool RequestAlternativeInteraction()
+        {
+            bool pressedAltInteract = _dataAccessor.PressedInteractAltInput;
+            return pressedAltInteract;
+        }
+
+        public override void RestoreThisCreature()
+        {
+            _isAlive = true;
+            _healthComponent.Heal(_healthComponent, 99999);
+            _stateMachine.SwitchState(PlayerStates.Idle);
+        }
+
     }
 }

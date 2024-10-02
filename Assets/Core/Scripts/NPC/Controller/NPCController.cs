@@ -1,4 +1,5 @@
 using Core.DialogueSystem;
+using Core.Progression;
 using UnityEngine;
 
 namespace NPC
@@ -27,8 +28,11 @@ namespace NPC
 
         public void Interact()
         {
-            DialogueManager.Instance.OnDialoguePanelOpenRequested?.Invoke();
             DialogueManager.Instance.OnDialogueInitialize?.Invoke(_dialogueContainerData);
+        }
+        public void AltInteract()
+        {
+            PlayerProgressionManager.Instance.OnOpenLevelUpMenu?.Invoke();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -53,6 +57,10 @@ namespace NPC
             if (currentInteractor != null && currentInteractor.RequestInteraction())
             {
                 Interact();
+            }
+            if (currentInteractor != null && currentInteractor.RequestAlternativeInteraction())
+            {
+                AltInteract();
             }
         }
     }

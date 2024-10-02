@@ -100,18 +100,22 @@ namespace PlayerSystem
                 case PlayerInputMode.Dialogue:
                     DisableAll();
                     _inputControls.DialogueInputMap.Enable();
+                    Debug.Log("Dialogue Input Enabled");
                     break;
                 case PlayerInputMode.Main:
                     DisableAll();
                     _inputControls.MainInputMap.Enable();
+                    Debug.Log("Main Input Enabled");
                     break;
                 case PlayerInputMode.UI:
                     DisableAll();
                     _inputControls.UIInputMap.Enable();
+                    Debug.Log("UI Input Enabled");
                     break;
                 default:
                     DisableAll();
                     _inputControls.MainInputMap.Enable();
+                    Debug.Log("Main Input Enabled");
                     break;
             }
         }

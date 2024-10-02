@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44f0150ae064829449beeab1780561c4, type: 3}
+  m_Name: 04_forest_stage_02 Wave Data
+  m_EditorClassIdentifier: 
+  _waveList:
+  - _entityList:
+    - _entity: {fileID: 3394893292575182581, guid: ba55e8e6ecc1fa846bdfb2b5331639e5, type: 3}
+      _spawnCount: 3
+      _hasSpawnRate: 0
+      _maxSpawnCount: 0
+    - _entity: {fileID: 6110710959619228957, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
+      _spawnCount: 3
+      _hasSpawnRate: 0
+      _maxSpawnCount: 0
+  - _entityList:
+    - _entity: {fileID: 3394893292575182581, guid: ba55e8e6ecc1fa846bdfb2b5331639e5, type: 3}
+      _spawnCount: 5
+      _hasSpawnRate: 0
+      _maxSpawnCount: 0
+    - _entity: {fileID: 6110710959619228957, guid: 88fe6af1acb9a8a4eb166c18541260cc, type: 3}
+      _spawnCount: 3
+      _hasSpawnRate: 0
+      _maxSpawnCount: 0
+  - _entityList:
+    - _entity: {fileID: 3394893292575182581, guid: ba55e8e6ecc1fa846bdfb2b5331639e5, type: 3}
+      _spawnCount: 5
+      _hasSpawnRate: 0
+      _maxSpawnCount: 0
+    - _entity: {fileID: 4898023098558213087, guid: 7c43fe6d7e0223247a1268100ca635df, type: 3}
+      _spawnCount: 3
+      _hasSpawnRate: 0
+      _maxSpawnCount: 0

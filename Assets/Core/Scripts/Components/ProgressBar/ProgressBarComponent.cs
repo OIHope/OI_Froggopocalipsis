@@ -26,6 +26,9 @@ namespace Components
 
             _fill.color = _colorPalette.MainColor;
             _background.color = _colorPalette.SubColor;
+
+            bool shouldShow = currentValue > 0 && currentValue < maxValue;
+            progressBar.gameObject.SetActive(shouldShow);
         }
         protected void Update()
         {

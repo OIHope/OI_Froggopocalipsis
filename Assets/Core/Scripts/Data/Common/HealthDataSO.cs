@@ -12,5 +12,7 @@ namespace Data
 
         public int StartHP => _startHp;
         public int MaxHP => _maxHp;
+
+        public void SetMaxHP(int maxHp) { _maxHp = maxHp; }
     }
 }

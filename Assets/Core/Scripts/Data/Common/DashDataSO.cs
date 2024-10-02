@@ -17,5 +17,7 @@ namespace Data
         public float CooldownTime => _dashCooldown;
         public float Duration => AnimationCurveDuration.Duration(_dashAnimationCurve);
         public AnimationCurve DashAnimationCurve => _dashAnimationCurve;
+
+        public void SetCooldownTime(float time) { _dashCooldown = time; }
     }
 }

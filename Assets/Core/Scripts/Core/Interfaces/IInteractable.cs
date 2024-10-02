@@ -7,4 +7,5 @@ public interface IInteractable
 public interface IInteractor
 {
     public bool RequestInteraction();
+    public bool RequestAlternativeInteraction();
 }
