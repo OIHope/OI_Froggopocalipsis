@@ -172,6 +172,7 @@ namespace PlayerSystem
         {
             _controllerData = basePlayerController;
             _stateMachineData = basePlayerController.StateMachineData;
+            AimDirection = Vector3.forward;
         }
     }
 }

@@ -79,13 +79,11 @@ namespace Core.Progression
             if (allConditionsValid && !_allConditionsMet)
             {
                 _allConditionsMet = true;
-                Debug.Log("All conditions are met");
                 ExecuteActionsOnOpen();
             }
             else if (!allConditionsValid && _allConditionsMet)
             {
                 _allConditionsMet = false;
-                Debug.Log("No conditions are met");
                 ExecuteActionsOnClose();
             }
         }
@@ -93,7 +91,6 @@ namespace Core.Progression
         private void ExecuteActionsOnClose()
         {
             if (_actionOnClose.Count <= 0) return;
-            Debug.Log("Opening doors");
             foreach (var action in _actionOnClose)
             {
                 action.Execute();
@@ -103,7 +100,6 @@ namespace Core.Progression
         private void ExecuteActionsOnOpen()
         {
             if (_actionOnOpen.Count <= 0) return;
-            Debug.Log("Closing doors");
             foreach (var action in _actionOnOpen)
             {
                 action.Execute();

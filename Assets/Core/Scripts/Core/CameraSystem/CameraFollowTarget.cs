@@ -70,7 +70,7 @@ namespace Core.Camera
             return position;
         }
 
-        private void OnEnable()
+        public void Init()
         {
             _move = InputManager.Instance.Input.MainInputMap.Move;
         }

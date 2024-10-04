@@ -1,4 +1,6 @@
+using Core.System;
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Core.Language
@@ -7,7 +9,7 @@ namespace Core.Language
     {
         English, Ukrainian
     }
-    public class LanguageManager : MonoBehaviour
+    public class LanguageManager : Manager
     {
         public static LanguageManager Instance {  get; private set; }
         public Action<GameLanguage> OnRequestToChangeGameLanguage;
@@ -19,6 +21,15 @@ namespace Core.Language
         private void Awake()
         {
             SingletonMethod();
+        }
+        public override IEnumerator InitManager()
+        {
+            OnRequestToChangeGameLanguage += ChangeGameLanguage;
+            yield return null;
+        }
+        public override IEnumerator SetupManager()
+        {
+            yield return null;
         }
 
         private void ChangeGameLanguage(GameLanguage request)
@@ -38,8 +49,9 @@ namespace Core.Language
             else
             {
                 Instance = this;
-                DontDestroyOnLoad(gameObject);
+                //DontDestroyOnLoad(gameObject);
             }
         }
+
     }
 }

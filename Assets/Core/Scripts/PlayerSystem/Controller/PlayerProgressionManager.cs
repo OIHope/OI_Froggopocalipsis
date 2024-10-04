@@ -1,10 +1,12 @@
+using Core.System;
 using Data;
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Core.Progression
 {
-    public class PlayerProgressionManager : MonoBehaviour
+    public class PlayerProgressionManager : Manager
     {
         public static PlayerProgressionManager Instance { get; private set; }
 
@@ -19,14 +21,25 @@ namespace Core.Progression
         public PlayerProgressionData SkillData() => _progressionData;
         public bool CanUseSkillPointOnSkill(PlayerSkill skill) => _progressionData.CanLevelUpSkill(skill);
 
-        private void Awake()
+
+        public override IEnumerator InitManager()
         {
-            SingletonMethod();
             OnPlayerEarnSomeEXP += GivePlayerSomeEXP;
             OnPlayerWantsToUpSkill += LevelUpSkill;
             _progressionData.ResetValues();
 
             GameEventsBase.OnGameReset += () => _progressionData.ResetAllData();
+            yield return null;
+        }
+
+        public override IEnumerator SetupManager()
+        {
+            yield return null;
+        }
+
+        private void Awake()
+        {
+            SingletonMethod();
         }
 
         private void LevelUpSkill(PlayerSkill skill) => _progressionData.LevelUpSkill(skill);
@@ -41,7 +54,7 @@ namespace Core.Progression
             else
             {
                 Instance = this;
-                DontDestroyOnLoad(gameObject);
+                //DontDestroyOnLoad(gameObject);
             }
         }
     }

@@ -14,27 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentEXP: 0
   _currentLVL: 0
-  _levelUpPoints: 6
+  _levelUpPoints: 0
   _levelUpCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 100
-      outSlope: 100
-      tangentMode: 34
+      inSlope: 18.879862
+      outSlope: 18.879862
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0.04608289
     - serializedVersion: 3
-      time: 25
-      value: 2500
-      inSlope: 100
-      outSlope: 100
-      tangentMode: 34
+      time: 30
+      value: 1500
+      inSlope: 4.7332735
+      outSlope: 4.7332735
+      tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.0577013
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2

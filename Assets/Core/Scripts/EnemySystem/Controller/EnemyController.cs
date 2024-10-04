@@ -75,9 +75,13 @@ namespace Entity.EnemySystem
         public bool InstanceInMove => _agent.hasPath && _isAlive;
         public bool RangedType => _isRangedType;
 
-        protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
+            Init();
+        }
+        public override void Init()
+        {
+            base.Init();
             StartCoroutine(SpawnEntity());
         }
 

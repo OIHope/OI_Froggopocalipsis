@@ -10,6 +10,7 @@ public class GameEventsBase
 
     public static Action OnPlayerHit;
     public static Action OnPlayerDeath;
+    public static Action OnPlayerIsStuckAndNeedsHelp;
 
     public static Action IsUsingGamepad;
     public static Action IsUsingKeybord;
@@ -18,4 +19,6 @@ public class GameEventsBase
 
     public static Action<GameStage> OnReachNewGameStage;
     public static Action OnGameReset;
+    public static Action OnBackToMaunMenu;
+    public static Action OnResumeGameplay;
 }

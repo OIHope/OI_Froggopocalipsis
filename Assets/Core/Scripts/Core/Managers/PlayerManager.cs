@@ -1,8 +1,10 @@
 using Core.Progression;
+using Core.System;
 using Entity.PlayerSystem;
 using Level.Stage;
 using PlayerSystem;
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Core
@@ -11,7 +13,7 @@ namespace Core
     {
         Disabled, Dialogue, Main, UI, Minigame
     }
-    public class PlayerManager : MonoBehaviour
+    public class PlayerManager : Manager
     {
         public static PlayerManager Instance { get; private set; }
         public Action<Vector3> OnPlayerChangeLevelStage;
@@ -27,10 +29,8 @@ namespace Core
 
         private PlayerInputMode _currentInputMode = PlayerInputMode.Main;
 
-        private void Awake()
+        public override IEnumerator InitManager()
         {
-            SingletonMethod();
-
             _controller = _playerPrefab.GetComponent<PlayerController>();
             _controllerData = _controller.ControllerData;
             _player = _controller.transform.gameObject;
@@ -38,15 +38,25 @@ namespace Core
             OnPlayerChangeLevelStage += ForcePlayerChangePosition;
             OnRequestSwitchInputMode += SwitchInput;
             OnPlayerRestoreRequest += () => _controller.RestoreThisCreature();
-
-
+            yield return null;
         }
-        private void Start()
+
+        public override IEnumerator SetupManager()
         {
+            GameEventsBase.OnPlayerIsStuckAndNeedsHelp += () => ForcePlayerChangePosition(Vector3.zero);
             TransitionManager.Instance.OnRoomSwitchStart += DisableInput;
             TransitionManager.Instance.OnRoomSwitchEnd += EnableInput;
             TransitionManager.Instance.OnRoomSwitchEnd += (() => SwitchInput(PlayerInputMode.Main));
             PlayerProgressionManager.Instance.OnPlayerLavelUP += ((_) => _controller.RestoreThisCreature());
+
+            _controller.Init();
+
+            yield return null;
+        }
+
+        private void Awake()
+        {
+            SingletonMethod();
         }
 
         private void ForcePlayerChangePosition(Vector3 position)
@@ -77,7 +87,7 @@ namespace Core
             else
             {
                 Instance = this;
-                DontDestroyOnLoad(gameObject);
+                //DontDestroyOnLoad(gameObject);
             }
         }
     }

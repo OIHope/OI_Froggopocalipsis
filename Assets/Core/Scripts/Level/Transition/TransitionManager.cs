@@ -1,4 +1,5 @@
 using Core;
+using Core.System;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,14 +9,15 @@ namespace Level.Stage
 {
     public enum TransitionDirection { Forward, Backward}
     public enum EntranceDirection { Front, Back, Custom1, Custom2, Custom3 }
-    public enum CurrentLevelStage { Empty, IntroScene, Hub, Field, Swamp, Forest, OutroScene}
-    public class TransitionManager : MonoBehaviour
+    public enum CurrentLevelStage { MenuScene, IntroScene, Hub, Field, Swamp, Forest, OutroScene}
+    public class TransitionManager : Manager
     {
         public static TransitionManager Instance { get; private set; }
         public Action<TransitionDirection, EntranceDirection, CurrentLevelStage> OnTransitionEnter;
         public Action OnRoomSwitchStart;
         public Action OnRoomSwitchEnd;
 
+        [SerializeField] private LevelStageSO _initStageData;
         [SerializeField] private LevelStageSO _introStageData;
         [SerializeField] private LevelStageSO _hubStageData;
         [SerializeField] private LevelStageSO _fieldStageData;
@@ -33,24 +35,32 @@ namespace Level.Stage
         private int _currentRoomIndex;
         private int _roomLimit => _currentStageBuffer.Count;
 
+        public override IEnumerator InitManager()
+        {
+            _currentStageBuffer = new List<GameObject>();
+            _currentTransitionBuffer = new List<TransitionData>();
+            _stageKey = CurrentLevelStage.MenuScene;
+            FillStageBuffer(_stageKey);
+            _currentRoomIndex = -1;
+            yield return null;
+        }
+
+        public override IEnumerator SetupManager()
+        {
+            OnTransitionEnter += StartTransition;
+            yield return ChangeStage(TransitionDirection.Forward, _startEntrance, _startStage);
+        }
+
         private void Awake()
         {
             SingletonAwakeMethod();
-
-            _currentStageBuffer = new List<GameObject>();
-            _currentTransitionBuffer = new List<TransitionData>();
-            _currentRoomIndex = -1;
-
-            StartTransition(TransitionDirection.Forward, _startEntrance, _startStage);
-
-            OnTransitionEnter += StartTransition;
         }
 
         private void StartTransition(TransitionDirection changeDirection, EntranceDirection entrance, CurrentLevelStage requestedStage)
         {
             StartCoroutine(ChangeStage(changeDirection, entrance, requestedStage));
         }
-        private IEnumerator ChangeStage(TransitionDirection changeDirection, EntranceDirection entrance, CurrentLevelStage requestedStage)
+        public IEnumerator ChangeStage(TransitionDirection changeDirection, EntranceDirection entrance, CurrentLevelStage requestedStage)
         {
             OnRoomSwitchStart?.Invoke();
             yield return new WaitForSeconds(1f);
@@ -91,22 +101,43 @@ namespace Level.Stage
 
         private void FillStageBuffer(CurrentLevelStage bufferKey)
         {
-            if (bufferKey == _stageKey) return;
+            if (bufferKey == _stageKey && _currentStageBuffer.Count != 0)
+            {
+                return;
+            }
 
             EmptyBuffer();
-            List<GameObject> roomBuffer = GetCurrentStage(bufferKey).LevelStage;
+
+            var currentStage = GetCurrentStage(bufferKey);
+            if (currentStage == null)
+            {
+                return;
+            }
+
+            List<GameObject> roomBuffer = currentStage.LevelStage;
+
+            if (roomBuffer == null || roomBuffer.Count == 0)
+            {
+                return;
+            }
 
             for (int i = 0; i < roomBuffer.Count; i++)
             {
                 GameObject room = roomBuffer[i];
                 GameObject roomInstance = Instantiate(room, Vector3.zero, Quaternion.identity, _parent);
-                TransitionData roomTransitionData = roomInstance.GetComponent<TransitionComponent>().TransData;
+                TransitionData roomTransitionData = roomInstance.GetComponent<TransitionComponent>()?.TransData;
+
+                if (roomTransitionData == null)
+                {
+                    continue;
+                }
 
                 _currentStageBuffer.Add(roomInstance);
                 _currentTransitionBuffer.Add(roomTransitionData);
 
                 roomInstance.SetActive(false);
             }
+
             _stageKey = bufferKey;
         }
         private void EmptyBuffer()
@@ -136,23 +167,17 @@ namespace Level.Stage
 
         private LevelStageSO GetCurrentStage(CurrentLevelStage stage)
         {
-            switch (stage)
+            return stage switch
             {
-                case CurrentLevelStage.IntroScene:
-                    return _introStageData;
-                case CurrentLevelStage.Hub:
-                    return _hubStageData;
-                case CurrentLevelStage.Field:
-                    return _fieldStageData;
-                case CurrentLevelStage.Swamp:
-                    return _swampStageData;
-                case CurrentLevelStage.Forest:
-                    return _forestStageData;
-                case CurrentLevelStage.OutroScene:
-                    return _outroStageData;
-                default:
-                    return _hubStageData;
-            }
+                CurrentLevelStage.MenuScene => _initStageData,
+                CurrentLevelStage.IntroScene => _introStageData,
+                CurrentLevelStage.Hub => _hubStageData,
+                CurrentLevelStage.Field => _fieldStageData,
+                CurrentLevelStage.Swamp => _swampStageData,
+                CurrentLevelStage.Forest => _forestStageData,
+                CurrentLevelStage.OutroScene => _outroStageData,
+                _ => _initStageData,
+            };
         }
         private void SingletonAwakeMethod()
         {
@@ -163,7 +188,7 @@ namespace Level.Stage
             else
             {
                 Instance = this;
-                DontDestroyOnLoad(gameObject);
+                //DontDestroyOnLoad(gameObject);
             }
         }
     }

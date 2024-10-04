@@ -33,6 +33,8 @@ namespace Entity.PlayerSystem
         [Space]
         [SerializeField] private GameObject _navigationArrow;
 
+        private bool _init = false;
+
         private PlayerControllerDataAccessor _dataAccessor;
         protected PlayerStateMachine _stateMachine;
 
@@ -59,19 +61,24 @@ namespace Entity.PlayerSystem
         public bool InstanceInMove => _dataAccessor.IsMoving;
         public bool TargetIsAlive => _isAlive;
 
-        protected override void Awake()
+        public override void Init()
         {
-            base.Awake();
-            _inputManager.InitializeInputControls();
+            InitComponents();
+            InitStateMachine();
+            _healthComponent.OnDeath += CreatureDeath;
+            _isAlive = true;
+            _init = true;
         }
 
         private void Update()
         {
+            if (!_init) return;
             _stateMachine.UpdateStateMachine();
             foreach (var component in _components) component.UpdateComponent();
         }
         private void FixedUpdate()
         {
+            if (!_init) return;
             _stateMachine.FixedUpdateStateMachine();
         }
         protected override void InitComponents()
@@ -110,15 +117,18 @@ namespace Entity.PlayerSystem
         }
         protected override void CreatureDeath(HealthComponent healthComponent)
         {
-            if (healthComponent != _healthComponent) return;
-            _isAlive = false;
+            if (healthComponent != _healthComponent || !_isAlive)
+            {
+                return;
+            }
 
-            _healthComponent.OnDeath -= CreatureDeath;
+            _isAlive = false;
 
             _stateMachine.SwitchState(PlayerStates.Empty);
             _stateMachine.SwitchSubState(PlayerSubStates.Empty);
 
             _dataAccessor.PlayAnimation(PlayerRequestedAnimation.Die);
+
             GameEventsBase.OnPlayerDeath?.Invoke();
         }
 

@@ -8,7 +8,6 @@ namespace Core.DialogueSystem
         [SerializeField] private DialogueBlockData dialogueBlock;
         protected override void ActionToPerform()
         {
-            Debug.Log("Starting small talk...");
             DialogueManager.Instance.OnSmallTalkInitialize?.Invoke(dialogueBlock);
         }
     }

@@ -106,6 +106,8 @@ namespace Core.Progression
                     return _dodgeCooldownPoints < MaxSkillLevel(_dodgeCooldownCurve);
                 case PlayerSkill.MoveSpeed:
                     return _moveSpeedPoints < MaxSkillLevel(_moveSpeedCurve);
+                case PlayerSkill.MaxHP:
+                    return _maxHPPoints < MaxSkillLevel(_maxHPCurve);
                 default:
                     return false;
             }

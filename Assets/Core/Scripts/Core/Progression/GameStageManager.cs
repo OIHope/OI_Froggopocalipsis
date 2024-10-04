@@ -1,4 +1,6 @@
 using Core.DialogueSystem;
+using Core.System;
+using System.Collections;
 using UnityEngine;
 
 namespace Core.Progression
@@ -11,28 +13,35 @@ namespace Core.Progression
         ForestEnter, ForestDeath, ForestComplete,
         Outro
     }
-    public class GameStageManager : MonoBehaviour
+    public class GameStageManager : Manager
     {
         public static GameStageManager Instance { get; private set; }
         public GameStage CurrentGameStage => _currentStageData.CurrentGameStage;
 
-        [SerializeField] private StageData _currentStageData;
+        [SerializeField] private GameStageData _currentStageData;
+
+        public override IEnumerator InitManager()
+        {
+            ResetGameStage();
+            yield return null;
+        }
+
+        public override IEnumerator SetupManager()
+        {
+            GameEventsBase.OnReachNewGameStage += ChangeGameStage;
+            DialogueManager.Instance.OnDialogueFinish += ChangeGameStage;
+            ResetProgression.Instance.OnGameStageResetRequested += ResetGameStage;
+            yield return null;
+        }
 
         private void Awake()
         {
             SingletonAwakeMethod();
         }
-        private void Start()
-        {
-            GameEventsBase.OnReachNewGameStage += ChangeGameStage;
-            DialogueManager.Instance.OnDialogueFinish += ChangeGameStage;
-            ResetProgression.Instance.OnGameStageResetRequested += ResetGameStage;
-        }
 
         private void ChangeGameStage(GameStage stage)
         {
             _currentStageData.CurrentGameStage = stage;
-            Debug.Log("Game stage is: " + _currentStageData.CurrentGameStage);
         }
 
         private void ResetGameStage()
@@ -49,26 +58,8 @@ namespace Core.Progression
             else
             {
                 Instance = this;
-                DontDestroyOnLoad(gameObject);
+                //DontDestroyOnLoad(gameObject);
             }
         }
-    }
-
-    [CreateAssetMenu(menuName =("Core/Game Stage"))]
-    public class StageData : ScriptableObject
-    {
-        [SerializeField] private GameStage _currentGameStage;
-
-        public GameStage CurrentGameStage
-        {
-            get { return _currentGameStage; }
-            set
-            {
-                if (value <= _currentGameStage) return;
-                _currentGameStage = value;
-                
-            }
-        }
-        public void ResetGameStage() => _currentGameStage = GameStage.Intro; 
     }
 }

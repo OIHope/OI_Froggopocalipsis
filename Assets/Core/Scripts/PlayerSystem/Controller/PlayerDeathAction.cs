@@ -1,39 +1,43 @@
 using Core.Progression;
 using Level.Stage;
+using UnityEngine;
 
 namespace ActionExecuteSystem
 {
     public class PlayerDeathAction : ActionBase
     {
-        private void Awake()
+        private void OnEnable()
         {
             GameEventsBase.OnPlayerDeath += Execute;
+        }
+        private void OnDisable()
+        {
+            GameEventsBase.OnPlayerDeath -= Execute;
         }
         protected override void ActionToPerform()
         {
             SetGameStage();
-            Invoke("TransitionToHub", 2f);
+            Invoke(nameof(TransitionToHub), 2f);
         }
 
         private void SetGameStage()
         {
             GameStage currentGameStage = GameStageManager.Instance.CurrentGameStage;
 
-            if (currentGameStage >= GameStage.FieldEnter)
+            if (currentGameStage >= GameStage.ForestEnter)
             {
-                GameEventsBase.OnReachNewGameStage?.Invoke(GameStage.FieldDeath);
+                GameEventsBase.OnReachNewGameStage?.Invoke(GameStage.ForestDeath);
+                return;
             }
             if (currentGameStage >= GameStage.SwampEnter)
             {
                 GameEventsBase.OnReachNewGameStage?.Invoke(GameStage.SwampDeath);
+                return;
             }
-            if (currentGameStage >= GameStage.ForestEnter)
+            if (currentGameStage >= GameStage.FieldEnter)
             {
-                GameEventsBase.OnReachNewGameStage?.Invoke(GameStage.ForestDeath);
-            }
-            if (currentGameStage >= GameStage.ForestComplete)
-            {
-                GameEventsBase.OnReachNewGameStage?.Invoke(currentGameStage);
+                GameEventsBase.OnReachNewGameStage?.Invoke(GameStage.FieldDeath);
+                return;
             }
         }
         private void TransitionToHub()

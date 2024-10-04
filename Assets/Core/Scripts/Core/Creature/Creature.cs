@@ -17,7 +17,7 @@ namespace Entity
         protected List<ComponentBase> _components;
         protected HealthComponent _healthComponent;
 
-        protected virtual void Awake()
+        public virtual void Init()
         {
             InitComponents();
             InitStateMachine();

@@ -1,4 +1,5 @@
 using Data;
+using UnityEngine;
 
 namespace Components
 {
@@ -8,6 +9,7 @@ namespace Components
         private int _currentHealth;
 
         public System.Action<HealthComponent> OnDeath;
+        public int CurrentHP => _currentHealth;
         public bool CriticalCondition
         {
             get
@@ -20,7 +22,7 @@ namespace Components
         public void TakeDamage(int damage)
         {
             _currentHealth -= damage;
-            if (_currentHealth < 0)
+            if (_currentHealth <= 0)
             {
                 _currentHealth = 0;
                 OnDeath?.Invoke(this);

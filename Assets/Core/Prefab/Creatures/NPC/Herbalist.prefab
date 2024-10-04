@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6258021936541009431}
+  - component: {fileID: 1782304820364143661}
   m_Layer: 0
   m_Name: InteractionDisplay
   m_TagString: Untagged
@@ -32,6 +33,31 @@ Transform:
   - {fileID: 8299845079247050988}
   m_Father: {fileID: 6529646523285701042}
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+--- !u!114 &1782304820364143661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1501522589904076913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd5f25571aa67ec448ac6963e916cc6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _label: {fileID: 4975647502479696255}
+  _basicTextLine:
+    _englishLine: 
+    _ukrainianLine: 
+  _incudesContolDisplayText: 1
+  _keyboardControlsTextLine:
+    _englishLine: Press F to TALK Press T to UPGRADE
+    _ukrainianLine: "\u041D\u0430\u0442\u0438\u0441\u043D\u0438 F \u0449\u043E \u041F\u043E\u0433\u043E\u0432\u043E\u0440\u0438\u0442\u0438
+      \u041D\u0430\u0442\u0438\u0441\u043D\u0438 \u0422 \u0449\u043E \u041F\u0440\u043E\u043A\u0430\u0447\u0430\u0442\u0438\u0441\u044C"
+  _gamepadControlsTextLine:
+    _englishLine: Press A to TALK Press Y to UPGRADE
+    _ukrainianLine: "\u041D\u0430\u0442\u0438\u0441\u043D\u0438 A \u0449\u043E \u041F\u043E\u0433\u043E\u0432\u043E\u0440\u0438\u0442\u0438
+      \u041D\u0430\u0442\u0438\u0441\u043D\u0438 Y \u0449\u043E \u041F\u0440\u043E\u043A\u0430\u0447\u0430\u0442\u0438\u0441\u044C"
 --- !u!1 &3313717115142776598
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +211,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: 643293214773403323, guid: d461129119d951e43aa59d21d61b7fca, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -231,8 +257,8 @@ MonoBehaviour:
 
     Press Y (T) to UPGRADE'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d461129119d951e43aa59d21d61b7fca, type: 2}
+  m_sharedMaterial: {fileID: 643293214773403323, guid: d461129119d951e43aa59d21d61b7fca, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

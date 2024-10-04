@@ -1,12 +1,16 @@
 using UnityEngine.InputSystem;
 using UnityEngine;
 using Core;
+using Core.System;
+using System.Collections;
+using System;
 
 namespace PlayerSystem
 {
-    public class InputManager : MonoBehaviour
+    public class InputManager : Manager
     {
         public static InputManager Instance { get; private set; }
+        public Action OnInputChanged;
 
         [SerializeField] private bool _usingGamepad = false;
         private InputControls _inputControls;
@@ -60,12 +64,14 @@ namespace PlayerSystem
 
         private void SwitchToKeyboard()
         {
+            OnInputChanged?.Invoke();
             GameEventsBase.IsUsingKeybord?.Invoke();
             _usingGamepad = false;
             Cursor.visible = true;
         }
         private void SwitchToGamepad()
         {
+            OnInputChanged?.Invoke();
             GameEventsBase.IsUsingGamepad?.Invoke();
             _usingGamepad = true;
             Cursor.visible = false;
@@ -100,22 +106,18 @@ namespace PlayerSystem
                 case PlayerInputMode.Dialogue:
                     DisableAll();
                     _inputControls.DialogueInputMap.Enable();
-                    Debug.Log("Dialogue Input Enabled");
                     break;
                 case PlayerInputMode.Main:
                     DisableAll();
                     _inputControls.MainInputMap.Enable();
-                    Debug.Log("Main Input Enabled");
                     break;
                 case PlayerInputMode.UI:
                     DisableAll();
                     _inputControls.UIInputMap.Enable();
-                    Debug.Log("UI Input Enabled");
                     break;
                 default:
                     DisableAll();
                     _inputControls.MainInputMap.Enable();
-                    Debug.Log("Main Input Enabled");
                     break;
             }
         }
@@ -136,8 +138,22 @@ namespace PlayerSystem
             else
             {
                 Instance = this;
-                DontDestroyOnLoad(gameObject);
+                //DontDestroyOnLoad(gameObject);
             }
+        }
+
+        public override IEnumerator InitManager()
+        {
+            InitializeInputControls();
+            DisableControls();
+            yield return null;
+        }
+
+        public override IEnumerator SetupManager()
+        {
+            EnableControls();
+            SwitchInputScheme(PlayerInputMode.UI);
+            yield return null;
         }
     }
 }

@@ -1,4 +1,5 @@
 using Core.Progression;
+using Core.System;
 using PlayerSystem;
 using System;
 using System.Collections;
@@ -9,7 +10,7 @@ using UnityEngine.UI;
 
 namespace Core.DialogueSystem
 {
-    public class DialogueManager : MonoBehaviour
+    public class DialogueManager : Manager
     {
         public static DialogueManager Instance { get; private set; }
 
@@ -33,20 +34,24 @@ namespace Core.DialogueSystem
         private bool _isWriting = false;
         private Coroutine _writingCoroutine;
 
-        private void Awake()
-        {
-            SingletonMethod();
-        }
-
-        private void Start()
+        public override IEnumerator InitManager()
         {
             ClearText();
+            yield return null;
+        }
 
+        public override IEnumerator SetupManager()
+        {
             _skipAction = InputManager.Instance.Input.DialogueInputMap.Apply;
             _skipAction.started += _ => OnSkipAction();
 
             OnDialogueInitialize += StartDialogue;
             OnSmallTalkInitialize += StartSmallTalk;
+            yield return null;
+        }
+        private void Awake()
+        {
+            SingletonMethod();
         }
 
         private void StartDialogue(DialogueContainerData dialogueContainer)
@@ -112,7 +117,6 @@ namespace Core.DialogueSystem
 
         private void EndDialogue()
         {
-            Debug.Log("Dialogue finished.");
             _dialogueBlock.MarkAsTalked();
             OnDialogueFinish?.Invoke(_dialogueBlock.GetImpactAfterThisDialogue);
             OnDialoguePanelCloseRequested?.Invoke();
@@ -132,7 +136,7 @@ namespace Core.DialogueSystem
             else
             {
                 Instance = this;
-                DontDestroyOnLoad(gameObject);
+                //DontDestroyOnLoad(gameObject);
             }
         }
     }
