@@ -4,6 +4,7 @@ using BehaviourSystem.PlayerSystem;
 using Data;
 using PlayerSystem;
 using BehaviourSystem;
+using ActionExecuteSystem;
 
 namespace Entity.PlayerSystem
 {
@@ -32,6 +33,10 @@ namespace Entity.PlayerSystem
         [Header("Game Objects")]
         [Space]
         [SerializeField] private GameObject _navigationArrow;
+        [Space]
+        [Header("Actions")]
+        [Space]
+        [SerializeField] private ActionBase _onBeingHitAction;
 
         private bool _init = false;
 
@@ -112,6 +117,7 @@ namespace Entity.PlayerSystem
         public override void TakeDamage(AttackDataSO attackData, Vector3 attackVector, IDamagable target)
         {
             base.TakeDamage(attackData, attackVector, target);
+            _onBeingHitAction.Execute();
             GameEventsBase.OnPlayerHit?.Invoke();
             
         }

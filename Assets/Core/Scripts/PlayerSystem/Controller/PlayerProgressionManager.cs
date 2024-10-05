@@ -1,5 +1,5 @@
+using ActionExecuteSystem;
 using Core.System;
-using Data;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -18,6 +18,8 @@ namespace Core.Progression
 
         [SerializeField] private PlayerProgressionData _progressionData;
 
+        [SerializeField] private ActionBase _levelUpAction;
+
         public PlayerProgressionData SkillData() => _progressionData;
         public bool CanUseSkillPointOnSkill(PlayerSkill skill) => _progressionData.CanLevelUpSkill(skill);
 
@@ -27,7 +29,7 @@ namespace Core.Progression
             OnPlayerEarnSomeEXP += GivePlayerSomeEXP;
             OnPlayerWantsToUpSkill += LevelUpSkill;
             _progressionData.ResetValues();
-
+            OnPlayerLavelUP += (_) => _levelUpAction.Execute();
             GameEventsBase.OnGameReset += () => _progressionData.ResetAllData();
             yield return null;
         }

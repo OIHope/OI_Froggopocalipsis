@@ -1,3 +1,4 @@
+using ActionExecuteSystem;
 using BehaviourSystem;
 using BehaviourSystem.EnemySystem;
 using Components;
@@ -44,6 +45,9 @@ namespace Entity.EnemySystem
         [Space]
         [SerializeField] private bool _isRangedType;
         [SerializeField] private GameObject _aimArrow;
+        [Header("Actions")]
+        [Space]
+        [SerializeField] private ActionBase _onBeingHitAction;
 
         private bool _isInvincible = false;
 
@@ -143,6 +147,7 @@ namespace Entity.EnemySystem
                 _stateMachine.SwitchState(EnemyState.TakeDamage);
             }
             GameEventsBase.OnEnemyHit?.Invoke();
+            _onBeingHitAction.Execute();
         }
 
         public bool CheckTargetIsClose(Transform targetTransform, float triggerDistance)

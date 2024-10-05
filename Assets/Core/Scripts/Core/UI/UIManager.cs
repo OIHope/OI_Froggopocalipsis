@@ -20,8 +20,6 @@ namespace Core.UI
         [SerializeField] private GameObject _dialoguePanel;
 
         [SerializeField] private GameObject _levelUpPanel;
-        [SerializeField] private TextMeshProUGUI _levelText;
-        [SerializeField] private TextMeshProUGUI _skillPointsText;
         [SerializeField] private List<GameObject> _attackPowerSkillImageList;
         [SerializeField] private List<GameObject> _attackCooldownSkillImageList;
         [SerializeField] private List<GameObject> _critChanceSkillImageList;
@@ -113,9 +111,6 @@ namespace Core.UI
         }
         private void UpdateLevelUpPanel(PlayerProgressionData data)
         {
-            _levelText.text = "LVL: " + data.CurrentLVL;
-            _skillPointsText.text = "Skill points: " + data.LevelUpPoints;
-
             UpdateSkillImages(_attackPowerSkillImageList, data.AttackPowerPoints);
             UpdateSkillImages(_attackCooldownSkillImageList, data.AttackCooldownPoints);
             UpdateSkillImages(_critChanceSkillImageList, data.CritChancePoints);

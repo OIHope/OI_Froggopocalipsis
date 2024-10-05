@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 2149262027028521710}
   - component: {fileID: 7735980968153446079}
   - component: {fileID: 1952111918941214956}
+  - component: {fileID: 4818840428350822671}
   m_Layer: 6
   m_Name: EnemySpriteRenderer
   m_TagString: Untagged
@@ -154,6 +155,57 @@ MonoBehaviour:
   _simpleDamageDealer: {fileID: 7389931911627477871}
   _powerDamageDealer: {fileID: 0}
   _dashDamageDealer: {fileID: 0}
+--- !u!114 &4818840428350822671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1598807854735377991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ef7bbbe55de2fa478be9652eb2324d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _executeOnce: 0
+  _executeOnEnable: 0
+  _executeOnDisable: 0
+  _executeOnAwake: 0
+  _executeOnStart: 0
+  _executeOnDestroy: 0
+  _spawnObject: {fileID: 3667245992166181925, guid: 5bce99a7b2ca3404495836b1f8917cf8, type: 3}
+  _spawnPointTransform: {fileID: 1141463404974502919}
+--- !u!1 &2038872312548058334
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1141463404974502919}
+  m_Layer: 6
+  m_Name: WalkDustSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1141463404974502919
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038872312548058334}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.14, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7548469205507710900}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3394893292575182581
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,6 +224,7 @@ GameObject:
   - component: {fileID: -2837096150466001201}
   - component: {fileID: 8935655843678303028}
   - component: {fileID: 6697565096710747668}
+  - component: {fileID: 6969362634222964303}
   m_Layer: 6
   m_Name: BowZombie
   m_TagString: Untagged
@@ -196,6 +249,8 @@ Transform:
   - {fileID: 8826224531797916794}
   - {fileID: 8338724463229943946}
   - {fileID: 8107637642709325763}
+  - {fileID: 1587616400956494500}
+  - {fileID: 1141463404974502919}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &9201447156179622154
@@ -298,6 +353,7 @@ MonoBehaviour:
   _damageDealer: {fileID: 7389931911627477871}
   _isRangedType: 1
   _aimArrow: {fileID: 7874900902035750351}
+  _onBeingHitAction: {fileID: 6969362634222964303}
 --- !u!136 &9055748777776754615
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -390,6 +446,57 @@ MonoBehaviour:
   _executeOnStart: 0
   _executeOnDestroy: 0
   _expValue: 30
+--- !u!114 &6969362634222964303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3394893292575182581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ef7bbbe55de2fa478be9652eb2324d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _executeOnce: 0
+  _executeOnEnable: 0
+  _executeOnDisable: 0
+  _executeOnAwake: 0
+  _executeOnStart: 0
+  _executeOnDestroy: 0
+  _spawnObject: {fileID: 9211625817316390476, guid: b733df60e79f157498b52638e0e74b1c, type: 3}
+  _spawnPointTransform: {fileID: 1587616400956494500}
+--- !u!1 &6577701525384436469
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1587616400956494500}
+  m_Layer: 6
+  m_Name: BoneDustSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1587616400956494500
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6577701525384436469}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.717, z: 0.44}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7548469205507710900}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7874900902035750351
 GameObject:
   m_ObjectHideFlags: 0
