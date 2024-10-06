@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 2076689185009171848}
   - component: {fileID: 2818692919110463782}
   - component: {fileID: 950440663767558444}
+  - component: {fileID: 1245133060645422354}
   m_Layer: 7
   m_Name: HitTextureHolder
   m_TagString: PlayerDamageDealer
@@ -153,6 +154,26 @@ MonoBehaviour:
   _simpleDamageDealer: {fileID: 7951036273591143704}
   _powerDamageDealer: {fileID: 0}
   _dashDamageDealer: {fileID: 0}
+--- !u!114 &1245133060645422354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062634537577310927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 021ab5605520f5244a5c2cd1a332911c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _executeOnce: 0
+  _executeOnEnable: 1
+  _executeOnDisable: 0
+  _executeOnAwake: 0
+  _executeOnStart: 0
+  _executeOnDestroy: 0
+  _soundBank: {fileID: 11400000, guid: 61d26a7c29c6952478140cd233f91a1b, type: 2}
+  _mixerGroup: 1
 --- !u!1 &1425770742185408126
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,7 +373,9 @@ GameObject:
   - component: {fileID: 3937312566577366093}
   - component: {fileID: 7341977441658524892}
   - component: {fileID: 8748284695040254232}
+  - component: {fileID: 1187234715495533795}
   - component: {fileID: 3107589697535950839}
+  - component: {fileID: 611840549832050612}
   m_Layer: 6
   m_Name: PlayerTextureHolder
   m_TagString: Untagged
@@ -463,6 +486,28 @@ MonoBehaviour:
   _simpleDamageDealer: {fileID: 7951036273591143704}
   _powerDamageDealer: {fileID: 0}
   _dashDamageDealer: {fileID: 0}
+--- !u!114 &1187234715495533795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6532052131619780324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fb34012fd96a4b4086a8002c672f2ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _conditions: []
+  _actions:
+  - {fileID: 3107589697535950839}
+  - {fileID: 611840549832050612}
+  _executeOnce: 0
+  _executeOnEnable: 0
+  _executeOnAwake: 0
+  _executeOnStart: 0
+  _checkEveryFrame: 0
+  _onTriggerEnter: 0
 --- !u!114 &3107589697535950839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,6 +528,27 @@ MonoBehaviour:
   _executeOnDestroy: 0
   _spawnObject: {fileID: 3667245992166181925, guid: 5bce99a7b2ca3404495836b1f8917cf8, type: 3}
   _spawnPointTransform: {fileID: 4511606202358487631}
+  _makeParent: 0
+--- !u!114 &611840549832050612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6532052131619780324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 021ab5605520f5244a5c2cd1a332911c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _executeOnce: 0
+  _executeOnEnable: 0
+  _executeOnDisable: 0
+  _executeOnAwake: 0
+  _executeOnStart: 0
+  _executeOnDestroy: 0
+  _soundBank: {fileID: 11400000, guid: b978e017e7bae4048bddfdb57afbee23, type: 2}
+  _mixerGroup: 1
 --- !u!1 &6586413199888274309
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,7 +594,10 @@ GameObject:
   - component: {fileID: 5116817321176691979}
   - component: {fileID: 6816265816645110616}
   - component: {fileID: 7758515052301103542}
+  - component: {fileID: 2853273729672709004}
+  - component: {fileID: 6901640247898141213}
   - component: {fileID: 1250975640624970014}
+  - component: {fileID: 4323516400341687871}
   m_Layer: 6
   m_Name: PlayerInstance
   m_TagString: Player
@@ -635,7 +704,7 @@ MonoBehaviour:
   _playerDataSO: {fileID: 11400000, guid: 3cbb0ce5073dc3b4cbafaa5b920d6e9f, type: 2}
   _layersDataSO: {fileID: 11400000, guid: 7f51ee0316dfc39449553cc01a7d4f19, type: 2}
   _navigationArrow: {fileID: 1808331816772844420}
-  _onBeingHitAction: {fileID: 1250975640624970014}
+  _onBeingHitActions: {fileID: 6901640247898141213}
 --- !u!114 &7758515052301103542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -654,6 +723,49 @@ MonoBehaviour:
   _executeOnAwake: 0
   _executeOnStart: 0
   _executeOnDestroy: 0
+  _soundAction: {fileID: 2853273729672709004}
+--- !u!114 &2853273729672709004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9125573524476385221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 021ab5605520f5244a5c2cd1a332911c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _executeOnce: 0
+  _executeOnEnable: 0
+  _executeOnDisable: 0
+  _executeOnAwake: 0
+  _executeOnStart: 0
+  _executeOnDestroy: 0
+  _soundBank: {fileID: 11400000, guid: 164f7bdd3868a1d4da19a908dbb11983, type: 2}
+  _mixerGroup: 1
+--- !u!114 &6901640247898141213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9125573524476385221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fb34012fd96a4b4086a8002c672f2ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _conditions: []
+  _actions:
+  - {fileID: 1250975640624970014}
+  - {fileID: 4323516400341687871}
+  _executeOnce: 0
+  _executeOnEnable: 0
+  _executeOnAwake: 0
+  _executeOnStart: 0
+  _checkEveryFrame: 0
+  _onTriggerEnter: 0
 --- !u!114 &1250975640624970014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -674,6 +786,27 @@ MonoBehaviour:
   _executeOnDestroy: 0
   _spawnObject: {fileID: 3139006039741735517, guid: cf0990e35d0bc8a48b6c358d88599a5a, type: 3}
   _spawnPointTransform: {fileID: 1417309188322466231}
+  _makeParent: 0
+--- !u!114 &4323516400341687871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9125573524476385221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 021ab5605520f5244a5c2cd1a332911c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _executeOnce: 0
+  _executeOnEnable: 0
+  _executeOnDisable: 0
+  _executeOnAwake: 0
+  _executeOnStart: 0
+  _executeOnDestroy: 0
+  _soundBank: {fileID: 11400000, guid: 5445dd62808047240b2de4818c78cd0f, type: 2}
+  _mixerGroup: 1
 --- !u!1001 &3735223632570506226
 PrefabInstance:
   m_ObjectHideFlags: 0

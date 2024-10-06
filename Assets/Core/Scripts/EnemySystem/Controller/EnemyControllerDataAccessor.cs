@@ -58,7 +58,7 @@ namespace EnemySystem
         public override StateMachineDataSO StateMachineData => _stateMachineData;
         public override EnemyDataSO EnemyData => _enemyDataSO;
 
-
+        public override void PerformCharge() => _controllerData.OnChargeActions.TryExecuteActions();
         public override AttackDataSO PerformAttack(AttackType attackType)
         {
             return _controllerData.SimpleDamageDealerComponent.PerformAttack(AimDirection);

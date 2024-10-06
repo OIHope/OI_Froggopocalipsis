@@ -36,7 +36,8 @@ namespace Entity.PlayerSystem
         [Space]
         [Header("Actions")]
         [Space]
-        [SerializeField] private ActionBase _onBeingHitAction;
+        [SerializeField] private ActionExecutor _onBeingHitActions;
+
 
         private bool _init = false;
 
@@ -117,7 +118,7 @@ namespace Entity.PlayerSystem
         public override void TakeDamage(AttackDataSO attackData, Vector3 attackVector, IDamagable target)
         {
             base.TakeDamage(attackData, attackVector, target);
-            _onBeingHitAction.Execute();
+            _onBeingHitActions.TryExecuteActions();
             GameEventsBase.OnPlayerHit?.Invoke();
             
         }

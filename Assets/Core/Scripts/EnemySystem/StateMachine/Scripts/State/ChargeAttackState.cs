@@ -12,6 +12,7 @@ namespace BehaviourSystem.EnemySystem
             base.EnterState(stateMachine);
             stateMachine.Context.Agent.isStopped = true;
             _target = stateMachine.Context.Target;
+            stateMachine.Context.PerformCharge();
         }
         public override void ExitState(StateMachine<EnemyState, EnemySubState, EnemyControllerDataAccessor> stateMachine)
         {

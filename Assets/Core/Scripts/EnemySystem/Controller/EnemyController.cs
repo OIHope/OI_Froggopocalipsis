@@ -47,7 +47,8 @@ namespace Entity.EnemySystem
         [SerializeField] private GameObject _aimArrow;
         [Header("Actions")]
         [Space]
-        [SerializeField] private ActionBase _onBeingHitAction;
+        [SerializeField] private ActionExecutor _onBeingHitActions;
+        [SerializeField] private ActionExecutor _onChargeActions;
 
         private bool _isInvincible = false;
 
@@ -75,6 +76,8 @@ namespace Entity.EnemySystem
         public DetectTargetComponent TargetDetector => _targetDetector;
         public AnimationComponent Animation => _animationComponent;
         public HealthComponent HealthComponent => _healthComponent;
+
+        public ActionExecutor OnChargeActions => _onChargeActions;
 
         public bool InstanceInMove => _agent.hasPath && _isAlive;
         public bool RangedType => _isRangedType;
@@ -147,7 +150,7 @@ namespace Entity.EnemySystem
                 _stateMachine.SwitchState(EnemyState.TakeDamage);
             }
             GameEventsBase.OnEnemyHit?.Invoke();
-            _onBeingHitAction.Execute();
+            _onBeingHitActions.TryExecuteActions();
         }
 
         public bool CheckTargetIsClose(Transform targetTransform, float triggerDistance)

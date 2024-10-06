@@ -48,7 +48,7 @@ namespace Core.UI
         {
             DialogueManager.Instance.OnDialoguePanelOpenRequested += () => TogglePanel(_dialoguePanel, true, false);
             DialogueManager.Instance.OnDialoguePanelCloseRequested += () => TogglePanel(_dialoguePanel, false, true);
-            PlayerProgressionManager.Instance.OnOpenLevelUpMenu += () => TogglePanel(_levelUpPanel, true, false);
+            PlayerProgressionManager.Instance.OnOpenLevelUpMenu += () => TogglePanel(_levelUpPanel, true, true);
             PlayerProgressionManager.Instance.OnCloseLevelUpMenu += () => TogglePanel(_levelUpPanel, false, true);
 
             TransitionManager.Instance.OnRoomSwitchStart += () => CloseAllPanels();

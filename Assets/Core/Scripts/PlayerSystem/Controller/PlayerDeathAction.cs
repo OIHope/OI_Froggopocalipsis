@@ -6,6 +6,7 @@ namespace ActionExecuteSystem
 {
     public class PlayerDeathAction : ActionBase
     {
+        [SerializeField] private ActionBase _soundAction;
         private void OnEnable()
         {
             GameEventsBase.OnPlayerDeath += Execute;
@@ -16,6 +17,7 @@ namespace ActionExecuteSystem
         }
         protected override void ActionToPerform()
         {
+            _soundAction.Execute();
             SetGameStage();
             Invoke(nameof(TransitionToHub), 2f);
         }

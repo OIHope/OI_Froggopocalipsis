@@ -17,6 +17,7 @@ namespace Data
 
         protected abstract AnimationComponent Animation { get; }
 
+        public abstract void PerformCharge();
         public abstract EnemyDataSO EnemyData { get; }
         public abstract StateMachineDataSO StateMachineData {  get; }
         public abstract bool AnimationComplete(string animationName);
