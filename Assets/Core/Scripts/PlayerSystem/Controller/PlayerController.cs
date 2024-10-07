@@ -37,7 +37,7 @@ namespace Entity.PlayerSystem
         [Header("Actions")]
         [Space]
         [SerializeField] private ActionExecutor _onBeingHitActions;
-
+        [SerializeField] private ActionExecutor _onDodgeActions;
 
         private bool _init = false;
 
@@ -63,6 +63,7 @@ namespace Entity.PlayerSystem
         public CooldownComponent DashCooldown => _dashCooldownComponent;
         public ColliderSwitchComponent ColliderSwitch => _colliderSwitchComponent;
         public AnimationComponent Animation => _animationComponent;
+        public ActionExecutor DodgeActions => _onDodgeActions;
 
         public bool InstanceInMove => _dataAccessor.IsMoving;
         public bool TargetIsAlive => _isAlive;

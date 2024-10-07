@@ -20,6 +20,7 @@ namespace BehaviourSystem.PlayerSystem
 
             stateMachine.Context.DontCollideWithEnemy();
             stateMachine.Context.StartDashCooldown();
+            stateMachine.Context.PreformDodgeActions();
         }
         public override void ExitState(StateMachine<PlayerStates, PlayerSubStates, PlayerControllerDataAccessor> stateMachine)
         {

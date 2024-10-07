@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 8336518279069498028}
   - component: {fileID: 3662170794165275638}
   - component: {fileID: 684931221654588687}
+  - component: {fileID: 9220089314081336515}
   m_Layer: 0
   m_Name: Button_Small
   m_TagString: Untagged
@@ -268,6 +269,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 9220089314081336515}
+        m_TargetAssemblyTypeName: ActionExecuteSystem.ActionBase, Assembly-CSharp
+        m_MethodName: Execute
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &684931221654588687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,3 +304,25 @@ MonoBehaviour:
   _gamepadControlsTextLine:
     _englishLine: 
     _ukrainianLine: 
+--- !u!114 &9220089314081336515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6824590026909115348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 021ab5605520f5244a5c2cd1a332911c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _executeOnce: 0
+  _executeOnEnable: 0
+  _executeOnDisable: 0
+  _executeOnAwake: 0
+  _executeOnStart: 0
+  _executeOnDestroy: 0
+  _soundBank: {fileID: 11400000, guid: 3ee71f7f3e045ca4daaff7f369d5a855, type: 2}
+  _mixerGroup: 4
+  _isMusic: 0
+  _looped: 0

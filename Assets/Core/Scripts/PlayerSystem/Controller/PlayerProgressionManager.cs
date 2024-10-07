@@ -18,7 +18,7 @@ namespace Core.Progression
 
         [SerializeField] private PlayerProgressionData _progressionData;
 
-        [SerializeField] private ActionBase _levelUpAction;
+        [SerializeField] private ActionExecutor _levelUpAction;
 
         public PlayerProgressionData SkillData() => _progressionData;
         public bool CanUseSkillPointOnSkill(PlayerSkill skill) => _progressionData.CanLevelUpSkill(skill);
@@ -29,7 +29,7 @@ namespace Core.Progression
             OnPlayerEarnSomeEXP += GivePlayerSomeEXP;
             OnPlayerWantsToUpSkill += LevelUpSkill;
             _progressionData.ResetValues();
-            OnPlayerLavelUP += (_) => _levelUpAction.Execute();
+            OnPlayerLavelUP += (_) => _levelUpAction.TryExecuteActions();
             GameEventsBase.OnGameReset += () => _progressionData.ResetAllData();
             yield return null;
         }

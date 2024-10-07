@@ -34,7 +34,7 @@ namespace Core.Sound
             yield return null;
         }
 
-        public void PlaySFX(AudioClip clip, Transform playAtTransform, MixerGroup mixerGroup)
+        public void PlaySFX(AudioClip clip, Transform playAtTransform, MixerGroup mixerGroup, bool looped, float volume)
         {
             AudioSource selectedAudioSource = mixerGroup switch
             {
@@ -48,7 +48,8 @@ namespace Core.Sound
             };
             AudioSource audioInstance = Instantiate(selectedAudioSource, playAtTransform.position, Quaternion.identity);
             audioInstance.clip = clip;
-            audioInstance.volume = 1f;
+            audioInstance.loop = looped;
+            audioInstance.volume = volume;
 
             audioInstance.Play();
             float duration = clip.length;

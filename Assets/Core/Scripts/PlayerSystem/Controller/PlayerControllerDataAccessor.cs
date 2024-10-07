@@ -166,6 +166,7 @@ namespace PlayerSystem
         public void DontCollideWithEnemy() => _controllerData.ColliderSwitch.DontCollideWithLayers();
         public void CollideWithEnemy() => _controllerData.ColliderSwitch.CollideWithLayers();
         public void Move(Vector3 moveVector) => _controllerData.MovementComponent.Move(moveVector);
+        public void PreformDodgeActions() => _controllerData.DodgeActions.TryExecuteActions();
         
 
         public PlayerControllerDataAccessor(PlayerController basePlayerController)
