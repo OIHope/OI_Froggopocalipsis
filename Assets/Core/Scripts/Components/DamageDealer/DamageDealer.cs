@@ -9,6 +9,7 @@ namespace Components
         [SerializeField] protected Transform _damageDealerPivot;
         [SerializeField] protected Collider _damageDealerCollider;
         [SerializeField] protected GameObject _render;
+        [SerializeField] protected IAttackableTarget _attackerTransform;
         [Space]
         [SerializeField] protected AttackDataListSO _attackDataList;
         [SerializeField] protected AnimationCurveDataSO _attackAnimationData;
@@ -22,6 +23,10 @@ namespace Components
         public AttackDataSO LastAttackData => _requestedAttackData;
         public AttackDataSO AttackData() => _attackDataList.GetRandomAttackData();
 
+        public void InitIAttackeableTarget(IAttackableTarget _target)
+        {
+            _attackerTransform = _target;
+        }
         protected virtual void Awake()
         {
             ToggleDamageDealer(false);
@@ -56,7 +61,7 @@ namespace Components
         protected virtual void OnTriggerEnter(Collider other)
         {
             IDamagable damagable = other.GetComponent<IDamagable>();
-            damagable?.TakeDamage(_requestedAttackData, transform.position, damagable);
+            damagable?.TakeDamage(_requestedAttackData, transform.position, damagable, _attackerTransform);
         }
 
     }

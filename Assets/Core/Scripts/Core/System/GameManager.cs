@@ -72,8 +72,6 @@ namespace Core.System
             yield return _transitionManager.SetupManager();
             _initScreen.SetActive(false);
 
-            yield return new WaitForSeconds(0.5f);
-
             yield return _inputManager.SetupManager();
             yield return _UIManager.SetupManager();
         }
